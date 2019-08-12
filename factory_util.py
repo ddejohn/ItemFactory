@@ -472,12 +472,11 @@ def _item_name(item):
 def _rare_name(item):
     adj = _shuffled(_ADJECTIVES)
     abst = _shuffled(_ABSTRACT)
-    cond = _shuffled(_CONDITION[item.rarity])
     nns = _shuffled(_NOUNS)
     return choice(_shuffled([
         [choice(adj), item.material, item.base_name],
-        [choice(adj), item.material, choice(nns)],
-        [choice(cond), item.material, item.base_name, choice(abst)]
+        [choice(adj), item.material, choice(nns), choice(abst)],
+        [choice(adj), item.material, item.base_name, choice(abst)],
     ]))
 
 
@@ -485,13 +484,17 @@ def _legendary_name(item):
     adj = _shuffled(_ADJECTIVES)
     abst = _shuffled(_ABSTRACT)
     nns = _shuffled(_NOUNS)
+    prfx = _shuffled(_PREFIXES)
     return choice(_shuffled([
         [choice(adj), item.base_name, choice(abst)],
         [choice(adj), item.material, item.base_name, choice(abst)],
         [choice(adj), choice(nns), choice(abst)],
         [choice(adj), item.material, choice(nns)],
         [choice(adj), choice(nns), "of " + item.material],
-        [choice(adj), item.material, choice(nns), choice(abst)]
+        [choice(adj), item.material, choice(nns), choice(abst)],
+        [item.material, choice(prfx), choice(abst)],
+        [item.material, choice(nns), choice(abst)],
+        _rare_name(item)
     ]))
 
 
@@ -502,10 +505,14 @@ def _mythical_name(item):
     vrbs = _shuffled(_VERBS)
     prfx = _shuffled(_PREFIXES)
     return choice(_shuffled([
+        [choice(_GLISTENS_ADJECTIVE), choice(nns), "of " + choice(_INLAYS)],
+        [choice(_GLISTENS_ADJECTIVE), choice(nns), choice(abst)],
+        [choice(adj), choice(nns), "of " + choice(_INLAYS)],
         [choice(adj), choice(nns), choice(abst)],
         [choice(nns), choice(abst)],
         [choice(adj), choice(nns)+" of the", choice(prfx)],
-        [choice(prfx), choice(vrbs)]
+        [choice(prfx), choice(vrbs)],
+        _legendary_name(item)
     ]))
 
 
@@ -1247,6 +1254,7 @@ _NOUNS = [
     "bane",
     "marrow",
     "thorn",
+    "crown",
     "heart",
     "blood",
     "wail",
