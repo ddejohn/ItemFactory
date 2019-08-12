@@ -509,6 +509,7 @@ def _mythical_name(item):
         [choice(_GLISTENS_ADJECTIVE), choice(nns), choice(abst)],
         [choice(adj), choice(nns), "of " + choice(_INLAYS)],
         [choice(adj), choice(nns), choice(abst)],
+        [choice(_INLAYS), choice(nns), choice(abst)],
         [choice(nns), choice(abst)],
         [choice(adj), choice(nns)+" of the", choice(prfx)],
         [choice(prfx), choice(vrbs)],
