@@ -2,64 +2,64 @@
 
 > *A random weapon and armor generator which provides richly detailed descriptions, unique names, and basic item stats*
 
-**ItemFactory** generates items loosely based on the names and constituent pieces of common medieval weapons and armor. There are more than 10^24^ possible combinations of items alone, not counting the possible names and descriptions!
+**ItemFactory** generates items loosely based on the names and constituent pieces of common medieval weapons and armor. There are more than 10^24 possible combinations of items alone, not counting the possible names and descriptions!
 
 ## Examples
 
-```
-name: worn steel battle axe
-description: A blemished battle axe with a pitted and rusted haft, adequately constructed from steel and ash. The pommel is distressed and scratched, and the hook is covered in scratches and claw marks.
-stats:
-    damage: 13.16
-    range: 3.08
-    speed: 4.63
-    luck: 3.8
+
+> **name:** *worn steel battle axe*
+> **description:** *A blemished battle axe with a pitted and rusted haft, adequately constructed from steel and ash. The pommel is distressed and scratched, and the hook is covered in scratches and claw marks.*
+> **stats:**
+>     damage: 13.16
+>     range: 3.08
+>     speed: 4.63
+>     luck: 3.8
 
 
-name: chewed hide boots
-description: A mediocre set of boots with a rusted and gnarled cuisse, haphazardly formed from hide. The greaves are scored and pitted, and the cuisse is covered by notches and gashes.
-stats:
-    protection: 7.28
-    movement: -0.4
-    noise: 1.2
-    luck: 0.89
+> **name:** *chewed hide boots*
+> **description:** *A mediocre set of boots with a rusted and gnarled cuisse, haphazardly formed from hide. The greaves are scored and pitted, and the cuisse is covered by notches and gashes.*
+> **stats:**
+>     protection: 7.28
+>     movement: -0.4
+>     noise: 1.2
+>     luck: 0.89
 
 
-name: rare onyx helmet
-description: A superior helmet with an elegant and smooth visor, meticulously made from plate onyx. The visor, comb, and gorget are all covered in complex etchings, and the entire helmet glistens with a rainbow shimmer.
-stats:
-    protection: 22.26
-    movement: -0.25
-    noise: 0.6
-    luck: 12.32
+> **name:** *rare onyx helmet*
+> **description:** *A superior helmet with an elegant and smooth visor, meticulously made from plate onyx. The visor, comb, and gorget are all covered in complex etchings, and the entire helmet glistens with a rainbow shimmer.*
+> **stats:**
+>     protection: 22.26
+>     movement: -0.25
+>     noise: 0.6
+>     luck: 12.32
 
 
-name: furious obsidian war scythe
-description: A faultless war scythe with a smooth and polished grip, fastidiously assembled from obsidian and cherry. The fuller, pommel, grip, and cross-guard are all inlaid with silver.
-stats:
-    damage: 34.32
-    range: 6.17
-    speed: 5.93
-    luck: 5.1
+> **name:** *furious obsidian war scythe*
+> **description:** *A faultless war scythe with a smooth and polished grip, fastidiously assembled from obsidian and cherry. The fuller, pommel, grip, and cross-guard are all inlaid with silver.*
+> **stats:**
+>     damage: 34.32
+>     range: 6.17
+>     speed: 5.93
+>     luck: 5.1
 
 
-name: fear shredder
-description: An immaculate claymore with an engraved and ornate pommel, masterfully formed from meteorite and ebony. The pommel and hilt are inlaid with sardonyx and copper, and the fuller and cross-guard are decorated with bloodstone and sapphire insets.
-stats:
-    damage: 92.42
-    range: 5.76
-    speed: 6.67
-    luck: 8.69
+> **name:** *fear shredder*
+> **description:** *An immaculate claymore with an engraved and ornate pommel, masterfully formed from meteorite and ebony. The pommel and hilt are inlaid with sardonyx and copper, and the fuller and cross-guard are decorated with bloodstone and sapphire insets.*
+> **stats:**
+>     damage: 92.42
+>     range: 5.76
+>     speed: 6.67
+>     luck: 8.69
     
 
-name: soul's marrow
-description: An immaculate longbow with a gilded and elaborate face, flawlessly fashioned from adamantite and black walnut. The belly and limbs are inlaid with pearl and coral, and the face, nock, and grip are decorated with obsidian and copper insets.
-stats:
-    damage: 106.28
-    range: 17.48
-    speed: 10.67
-    luck: 5.39
-```
+> **name:** *soul's marrow*
+> **description:** *An immaculate longbow with a gilded and elaborate face, flawlessly fashioned from adamantite and black walnut. The belly and limbs are inlaid with pearl and coral, and the face, nock, and grip are decorated with obsidian and copper insets.*
+> **stats:**
+>    damage: 106.28
+>    range: 17.48
+>    speed: 10.67
+>    luck: 5.39
+
 
 ## Item Rarity and Item Material
 
@@ -157,11 +157,9 @@ Two-handed:
 There are five basic types of armor, each of which has a heavy and a light variant. All armor items are generated with equal probability.
 
 Heavy:
-
 ~ `Helm`, `helmet`, `cuirass`, `corslet`, `gauntlets`, `boots`, `sabatons`, `pavise shield`, `kite shield`
 
 Light:
-
 ~ `Hood`, `coif`, `brigandine`, `gambeson`, `gloves`, `boots`, `buckler`, `targe shield`
 
 
