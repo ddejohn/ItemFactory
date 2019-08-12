@@ -8,7 +8,9 @@
 
 
 > **name:** *worn steel battle axe*
+> 
 > **description:** *A blemished battle axe with a pitted and rusted haft, adequately constructed from steel and ash. The pommel is distressed and scratched, and the hook is covered in scratches and claw marks.*
+>
 > **stats:**
 >     damage: 13.16
 >     range: 3.08
@@ -17,7 +19,9 @@
 
 
 > **name:** *chewed hide boots*
+>
 > **description:** *A mediocre set of boots with a rusted and gnarled cuisse, haphazardly formed from hide. The greaves are scored and pitted, and the cuisse is covered by notches and gashes.*
+>
 > **stats:**
 >     protection: 7.28
 >     movement: -0.4
@@ -26,8 +30,10 @@
 
 
 > **name:** *rare onyx helmet*
+>
 > **description:** *A superior helmet with an elegant and smooth visor, meticulously made from plate onyx. The visor, comb, and gorget are all covered in complex etchings, and the entire helmet glistens with a rainbow shimmer.*
-> **stats:**
+>
+>  **stats:**
 >     protection: 22.26
 >     movement: -0.25
 >     noise: 0.6
@@ -35,7 +41,9 @@
 
 
 > **name:** *furious obsidian war scythe*
+> 
 > **description:** *A faultless war scythe with a smooth and polished grip, fastidiously assembled from obsidian and cherry. The fuller, pommel, grip, and cross-guard are all inlaid with silver.*
+> 
 > **stats:**
 >     damage: 34.32
 >     range: 6.17
@@ -44,7 +52,9 @@
 
 
 > **name:** *fear shredder*
+> 
 > **description:** *An immaculate claymore with an engraved and ornate pommel, masterfully formed from meteorite and ebony. The pommel and hilt are inlaid with sardonyx and copper, and the fuller and cross-guard are decorated with bloodstone and sapphire insets.*
+> 
 > **stats:**
 >     damage: 92.42
 >     range: 5.76
@@ -53,7 +63,9 @@
     
 
 > **name:** *soul's marrow*
+> 
 > **description:** *An immaculate longbow with a gilded and elaborate face, flawlessly fashioned from adamantite and black walnut. The belly and limbs are inlaid with pearl and coral, and the face, nock, and grip are decorated with obsidian and copper insets.*
+> 
 > **stats:**
 >    damage: 106.28
 >    range: 17.48
