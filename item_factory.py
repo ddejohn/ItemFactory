@@ -44,6 +44,7 @@ class ItemBuilder:
             "item_class": new_item.item_class,
             "base_type": new_item.base_type,
             "sub_type": new_item.sub_type,
+            # "rarity": new_item.rarity,
             "name": new_item.name,
             "description": new_item.description,
             "stats": new_item.stats
@@ -66,5 +67,6 @@ def verbose_print(data, calls=0):
 if __name__ == "__main__":
     for _ in range(100):
         item = ItemBuilder.forge()
+        # if item.rarity in ["mythical", "legendary"]:
         print(verbose_print(vars(item)))
     

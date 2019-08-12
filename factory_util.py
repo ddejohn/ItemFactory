@@ -187,7 +187,9 @@ def _item_parts(item):
         "bow": [
             "nock",
             "face",
-            choice(["hilt", "grip"])
+            choice(["hilt", "grip"]),
+            "limbs",
+            "belly"
         ],
         "blunt": [
             "throat",
