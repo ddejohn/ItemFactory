@@ -51,7 +51,7 @@ def _item_rarity(item):
     }
     item.rarity = _choose(
         ppl=list(rarities.keys()),
-        wts=[20, 15, 10, 5, 2, 1]
+        wts=[50, 25, 15, 4, 2, 1]
     )
     item.material_weights = rarities[item.rarity]
     return _base_name(item)
@@ -381,7 +381,7 @@ def _inlays(item):
             f"and the {_is_are(_listify_words(parts_two))} decorated with",
             choice([
                 f"{_listify_words(inlays_two)} insets.",
-                f"insets of {_listify_words(inlays_two)}"
+                f"insets of {_listify_words(inlays_two)}."
             ])
         ])
     else:
@@ -453,7 +453,10 @@ def _item_name(item):
     new_name = []
 
     if item.item_class == "armor":
-        new_name.extend(_common_name(item))
+        if item.rarity in ["rare", "legendary", "mythical"]:
+            new_name.extend(_rare_name(item))
+        else:
+            new_name.extend(_common_name(item))
 
     else:
         new_name.extend({
@@ -467,32 +470,43 @@ def _item_name(item):
 
 
 def _rare_name(item):
-    return choice([
-        [choice(_ADJECTIVES), item.material, item.base_name],
-        [choice(_CONDITION[item.rarity]), item.material,
-         item.base_name, choice(_ABSTRACT)]
-    ])
+    adj = _shuffled(_ADJECTIVES)
+    abst = _shuffled(_ABSTRACT)
+    cond = _shuffled(_CONDITION[item.rarity])
+    nns = _shuffled(_NOUNS)
+    return choice(_shuffled([
+        [choice(adj), item.material, item.base_name],
+        [choice(adj), item.material, choice(nns)],
+        [choice(cond), item.material, item.base_name, choice(abst)]
+    ]))
 
 
 def _legendary_name(item):
-    return choice([
-        [choice(_ADJECTIVES), item.base_name, choice(_ABSTRACT)],
-        [choice(_ADJECTIVES), item.material,
-         item.base_name, choice(_ABSTRACT)],
-        [choice(_ADJECTIVES), choice(_NOUNS), choice(_ABSTRACT)],
-        [choice(_ADJECTIVES), item.material, choice(_NOUNS)],
-        [choice(_ADJECTIVES), choice(_NOUNS), "of " + item.material],
-        [choice(_ADJECTIVES), item.material, choice(_NOUNS), choice(_ABSTRACT)]
-    ])
+    adj = _shuffled(_ADJECTIVES)
+    abst = _shuffled(_ABSTRACT)
+    nns = _shuffled(_NOUNS)
+    return choice(_shuffled([
+        [choice(adj), item.base_name, choice(abst)],
+        [choice(adj), item.material, item.base_name, choice(abst)],
+        [choice(adj), choice(nns), choice(abst)],
+        [choice(adj), item.material, choice(nns)],
+        [choice(adj), choice(nns), "of " + item.material],
+        [choice(adj), item.material, choice(nns), choice(abst)]
+    ]))
 
 
 def _mythical_name(item):
-    return choice([
-        [choice(_PREFIXES), choice(_VERBS)],
-        [choice(_PREFIXES)+"'s", choice(_NOUNS)],
-        [choice(_PREFIXES)+"'s", choice(_ADJECTIVES), choice(_NOUNS)],
-        [choice(_ADJECTIVES), choice(_NOUNS), choice(_ABSTRACT)]
-    ])
+    adj = _shuffled(_ADJECTIVES)
+    abst = _shuffled(_ABSTRACT)
+    nns = _shuffled(_NOUNS)
+    vrbs = _shuffled(_VERBS)
+    prfx = _shuffled(_PREFIXES)
+    return choice(_shuffled([
+        [choice(adj), choice(nns), choice(abst)],
+        [choice(nns), choice(abst)],
+        [choice(adj), choice(nns)+" of the", choice(prfx)],
+        [choice(prfx), choice(vrbs)]
+    ]))
 
 
 def _common_name(item):
@@ -584,11 +598,11 @@ _HEAVY_ARMOR_MATERIAL = [
 
 _WEAPON_SECONDARY = {
     "crude": ["splintered wood", "cracked wood", "warped wood"],
-    "common": ["ash", "maple"],
+    "common": ["ash", "maple", "beech", "hickory"],
     "uncommon": ["beech", "mahogany", "hickory", "maple"],
-    "rare": ["hickory", "birch", "cherry"],
-    "legendary": ["walnut", "ebony", "bloodwood", "black oak"],
-    "mythical": ["rosewood", "ebony", "black walnut", "purpleheart"]
+    "rare": ["hickory", "mahogany", "walnut", "cherry"],
+    "legendary": ["walnut", "cherry", "korina", "black oak"],
+    "mythical": ["bloodwood", "ebony", "black walnut", "purpleheart"]
 }
 
 
@@ -978,6 +992,7 @@ _ABSTRACT = [
     "of spite",
     "of death",
     "of life",
+    "of bones",
     "of regret",
     "of dread",
     "of sorrow",
@@ -1178,6 +1193,7 @@ _PREFIXES = [
     "widow",
     "thorn",
     "wraith",
+    "skull",
     "spine",
     "doom",
     "death",
