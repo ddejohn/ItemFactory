@@ -65,8 +65,9 @@ def verbose_print(data, calls=0):
 
 
 if __name__ == "__main__":
-    for _ in range(1000):
+    for _ in range(50):
         item = ItemBuilder.forge()
-        if item.rarity in ["mythical"]:
+        print(item.name)
+
+        # if item.rarity in ["mythical", "lengendary"]:
             # print(verbose_print(vars(item)))
-            print(item.name)
