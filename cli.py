@@ -48,6 +48,32 @@ MAKE = {
 }
 
 
+class Menu:
+    def __init__(self, prompt: str, options: list):
+        self.prompt = prompt
+        self.options = {k: v for k,v in enumerate(options, 1)}
+        self.submenus: dict
+    # end
+
+    def submenu(self, menu: 'Menu'):
+        self.submenus[menu.prompt] = menu
+    # end
+
+    # def build_opt(self, options: list) -> dict:
+    #     return {k: v for k,v in enumerate(options, 1)}
+
+    def start(self):
+        # initiate a single traversal of the menu tree
+        pass
+
+
+
+
+
+
+
+
+
 def get_input(prompt: str, options: dict) -> str:
     print(f"\n{prompt}")
     for k,v in options.items():
