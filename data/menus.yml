@@ -1,76 +1,75 @@
-item:
-    armor:
-        head:
-            heavy:
-                1: helm
-                2: helmet
-            light:
-                1: hood
-                2: coif
-        chest:
-            heavy:
-                1: cuirass
-                2: corslet
-            light:
-                1: brigandine
-                2: gambeson
-        hands:
-            heavy:
-                1: gauntlets
-                2: gloves
-            light:
-                1: gloves
-                2: wraps
-        feet:
-            heavy:
-                1: boots
-                2: sabatons
-            light:
-                1: boots
-        shield:
-            heavy:
-                1: pavise shield
-                2: kite shield
-            light:
-                1: buckler
-                2: targe shield
-    weapon:
-        one_handed:
+armor:
+    head:
+        heavy:
+            - helm
+            - helmet
+        light:
+            - hood
+            - coif
+    chest:
+        heavy:
+            - cuirass
+            - corslet
+        light:
+            - brigandine
+            - gambeson
+    hands:
+        heavy:
+            - gauntlets
+            - gloves
+        light:
+            - gloves
+            - wraps
+    feet:
+        heavy:
+            - boots
+            - sabatons
+        light:
+            - boots
+    shield:
+        heavy:
+            - pavise shield
+            - kite shield
+        light:
+            - buckler
+            - targe shield
+weapon:
+    one-handed:
+        blade:
+            - dagger
+            - corvo
+            - stiletto
+            - shortsword
+            - seax
+            - xiphos
+            - baselard
+            - gladius
+        blunt:
+            - morning star
+            - mace
+            - club
+            - flail
+        axe:
+            - labrys
+            - hatchet
+    two-handed:
+        melee:
             blade:
-                1: dagger
-                2: corvo
-                3: stiletto
-                4: shortsword
-                5: seax
-                6: xiphos
-                7: baselard
-                8: gladius
+                - longsword
+                - claymore
+                - broadsword
+                - bastard sword
             blunt:
-                1: morning star
-                2: mace
-                3: club
-                4: flail
+                - war hammer
+                - meteor hammer
+                - dire flail
             axe:
-                1: labrys
-                2: hatchet
-        two_handed:
-            melee:
-                blade:
-                    1: longsword
-                    2: claymore
-                    3: broadsword
-                    4: bastard sword
-                blunt:
-                    1: war hammer
-                    2: meteor hammer
-                    3: dire flail
-                axe:
-                    1: war scythe
-                    2: battle axe
-                    3: halberd
-                    4: glaive
-            ranged:
-                1: recurve bow
-                2: scythian bow
-                3: crossbow
-                4: longbow
+                - war scythe
+                - battle axe
+                - halberd
+                - glaive
+        ranged:
+            - recurve bow
+            - scythian bow
+            - crossbow
+            - longbow

@@ -1,5 +1,6 @@
 """A CLI for ItemFactory"""
 
+import yaml
 
 ITEM = {
     "1": "armor",
@@ -68,10 +69,24 @@ class Menu:
 
 
 
+with open("./data/menus.yml") as f:
+    menu_data = yaml.safe_load(f.read())
 
 
+def dict_print(data: dict, t=0):
+    out = ""
+    header = "|   "
+    for k,v in data.items():
+        out += f"{t*header}{k}\n"
+        if isinstance(v, dict):
+            out += dict_print(v, t+1)
+        elif isinstance(v, list):
+            for elem in v:
+                out += f"{(t+1)*header}{elem}\n"
+    return out
 
 
+print(dict_print(menu_data))
 
 
 def get_input(prompt: str, options: dict) -> str:
