@@ -1,63 +1,72 @@
 """A CLI for ItemFactory"""
 
 
-ARMOR = {
-    1: "heavy",
-    2: "light"
+ITEM = {
+    "1": "armor",
+    "2": "weapon"
 }
+
+
+ARMOR = {
+    "1": "heavy",
+    "2": "light"
+}
+
 
 WEAPON = {
-    1: "melee",
-    2: "ranged"
+    "1": "melee",
+    "2": "ranged"
 }
+
 
 SUBARMOR = {
-    1: "head",
-    2: "chest",
-    3: "hands",
-    4: "feet",
-    5: "shield"
+    "1": "head",
+    "2": "chest",
+    "3": "hands",
+    "4": "feet",
+    "5": "shield"
 }
+
 
 SUBWEAPON = {
-    1: "blade",
-    2: "blunt",
-    3: "axe",
-    4: "bow"
+    "1": "blade",
+    "2": "blunt",
+    "3": "axe",
+    "4": "bow"
 }
 
 
-ITEM = {
-    1: ARMOR,
-    2: WEAPON
+MAKE = {
+    "armor": [
+        ("Choose an armor class", ARMOR),
+        ("Choose an armor type", SUBARMOR)
+    ],
+    "weapon": [
+        ("Choose a weapon class", WEAPON),
+        ("Choose a weapon type", SUBWEAPON)
+    ]
 }
 
 
-MENU = {
-    "Choose an item class": ITEM,
-    "Choose an armor weight": ARMOR,
-    "Choose a weapon style": WEAPON,
-    "Choose an armor type": SUBARMOR,
-    "Choose a weapon type": SUBWEAPON
-}
-
-
-def numput() -> int or None:
-    sel = input(" > ")
-    if sel.isdigit():
-        return int(sel)
-# end
-
-
-def options(s: str, d: dict) -> None:
-    print(s)
-    for k,v in d.items():
+def get_input(prompt: str, options: dict) -> str:
+    print(f"\n{prompt}")
+    for k,v in options.items():
         print(f"  [{k}] - {v}")
+    while True:
+        sel = input(" > ")
+        if sel not in options.keys():
+            print("Invalid selection!")
+        return options.get(sel)
 # end
 
 
 def customize():
-    while True:
-        new_item = []
-        for k,v in MENU.items():
-            options(k, v)
+    new_item = []
+    sel = get_input("Choose an item type", ITEM)
+    make = MAKE.get(sel)
+    new_item.append(sel)
+    for opt in make:
+        # prompt, options = opt
+        new_item.append(get_input(*opt))
+    return new_item
+# end

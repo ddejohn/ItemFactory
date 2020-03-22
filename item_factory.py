@@ -1,5 +1,5 @@
 from factory_util import build_item
-from cli import customize, options
+from cli import customize, get_input
 
 
 TITLE = """
@@ -18,8 +18,8 @@ STARTUP = [
 
 
 MAIN = {
-    1: "build your own",
-    2: "randomize!",
+    "1": "build your own",
+    "2": "randomize!",
     "q": "quit"
 }
 
@@ -88,23 +88,21 @@ def verbose_print(data, calls=0):
 
 
 if __name__ == "__main__":
-    print(f"\nHello, adventurer! Welcome to...\n{TITLE}\n")
+    print(f"\nHello, adventurer! Welcome to...\n{TITLE}")
     items = []
-    sel = ""
     while True:
-        options("What you like to do?", MAIN)
+        traits = ""
+        print("\nWhat would you like to do?")
+        for k,v in MAIN.items():
+            print(f"  [{k}] -  {v}")
         sel = input(" > ")
-        if sel.isdigit():
-            traits = ""
-            sel = int(sel)
-            if sel == 1:
-                traits = customize()
-            new_item = ItemBuilder.forge()
-        elif sel.casefold() == "q":
+        if sel.casefold() == "q":
             print("\nEnjoy your new items!\n")
             break
-        else:
-            print("Invalid selection!\n")
+        elif sel.isdigit() and int(sel) == 1:
+            traits = customize()
+            print(traits)
+        # items.append(ItemBuilder.forge(traits))
 
     # for _ in range(50):
     #     item = ItemBuilder.forge()
