@@ -288,7 +288,7 @@ def _is_are(this):
 
 
 def _set_or_pair(this):
-    if this[-1] == "s" and this[-2] not in ["u", "o", "s", "y"]:
+    if this[-1] == "s" and this[-2] not in "uosy":
         return choice(["set", "pair"]) + f" of {this}"
     return this
 
@@ -305,7 +305,7 @@ def _a_an(*this):
         rest = ""
     if rest and rest[-1] == "s":
         return f"{first}{rest}"
-    elif first[0] in ["a", "e", "i", "o", "u"]:
+    elif first[0] in "aeiou":
         return f"an {first}{rest}"
     return f"a {first}{rest}"
 

@@ -1,4 +1,27 @@
 from factory_util import build_item
+from cli import customize, options
+
+
+TITLE = """
+\t _ _|  |                     ____|             |                       
+\t   |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   | 
+\t   |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   | 
+\t ___| \__| \___| _|  _|  _| _|   \__,_| \___| \__| \___/  _|    \__, | 
+\t                                                                ____/ 
+\t
+...A random weapon and armor generator which provides richly detailed descriptions, unique names, and basic item stats!"""
+
+
+STARTUP = [
+    ""
+]
+
+
+MAIN = {
+    1: "build your own",
+    2: "randomize!",
+    "q": "quit"
+}
 
 
 class Item:
@@ -65,9 +88,27 @@ def verbose_print(data, calls=0):
 
 
 if __name__ == "__main__":
-    for _ in range(50):
-        item = ItemBuilder.forge()
-        print(item.name)
+    print(f"\nHello, adventurer! Welcome to...\n{TITLE}\n")
+    items = []
+    sel = ""
+    while True:
+        options("What you like to do?", MAIN)
+        sel = input(" > ")
+        if sel.isdigit():
+            traits = ""
+            sel = int(sel)
+            if sel == 1:
+                traits = customize()
+            new_item = ItemBuilder.forge()
+        elif sel.casefold() == "q":
+            print("\nEnjoy your new items!\n")
+            break
+        else:
+            print("Invalid selection!\n")
+
+    # for _ in range(50):
+    #     item = ItemBuilder.forge()
+    #     print(item.name)
 
         # if item.rarity in ["mythical", "lengendary"]:
             # print(verbose_print(vars(item)))
