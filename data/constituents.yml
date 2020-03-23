@@ -3,9 +3,7 @@ armor:
         - cover
         - grip
         - brace
-        - rivet
-        - rim
-        - boss
+        - [rivet, rim, boss]
     heavy head:
         - visor,
         - comb,

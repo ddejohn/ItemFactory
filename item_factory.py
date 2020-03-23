@@ -64,7 +64,6 @@ if __name__ == "__main__":
             break
         else:
             traits = menu.navigate(sel)
-        print(f"{traits}\n")
         item = Item(traits)
         for k,v in item.__dict__.items():
             print(f"{k}: {v}")

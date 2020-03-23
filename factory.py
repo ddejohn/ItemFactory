@@ -384,61 +384,6 @@ def _armor_stats(item: 'Item'):
 #——————————————————————————————————— data ————————————————————————————————————#
 
 
-# _WEAPON_MATERIAL = [
-#     "iron",
-#     "steel",
-#     "bone",
-#     "obsidian",
-#     "electrum",
-#     "adamantite",
-#     "meteorite",
-# ]
-
-
-# _LIGHT_ARMOR_MATERIAL = [
-#     "hide",
-#     "leather",
-#     "obsidian",
-#     "electrum",
-#     "bone",
-#     "adamantite",
-#     "meteorite"
-# ]
-
-
-# _HEAVY_ARMOR_MATERIAL = [
-#     "iron",
-#     "steel",
-#     "obsidian",
-#     "bone",
-#     "onyx",
-#     "adamantite",
-#     "meteorite"
-# ]
-
-
-# _WEAPON_SECONDARY = {
-#     "crude": ["splintered wood", "cracked wood", "warped wood"],
-#     "common": ["ash", "maple", "beech", "hickory"],
-#     "uncommon": ["beech", "mahogany", "hickory", "maple"],
-#     "rare": ["hickory", "mahogany", "walnut", "cherry"],
-#     "legendary": ["walnut", "cherry", "korina", "black oak"],
-#     "mythical": ["bloodwood", "ebony", "black walnut", "purpleheart"]
-# }
-
-
-# _ARMOR_CONSTRUCTION = {
-#     "light": [
-#         "lamellar",
-#         "scale"
-#     ],
-#     "heavy": [
-#         "laminar",
-#         "plate"
-#     ]
-# }
-
-
 _WEAPON_STAT_DATA = {
     "stats": {
         # attack range speed luck
@@ -454,7 +399,7 @@ _WEAPON_STAT_DATA = {
         "blade":        [1.1, 1.1, 0.8, 0.9],
         "axe":          [1.2, 0.9, 0.9, 1.3],
         "blunt":        [0.9, 0.8, 1.3, 1.2],
-        "bow":          [1.3, 3.0, 1.2, 0.7]
+        "ranged":          [1.3, 3.0, 1.2, 0.7]
     }
 }
 
