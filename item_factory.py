@@ -1,5 +1,7 @@
 import cli
-from factory_util import build_item
+from inspect import getmembers
+from factory import AssemblyLine
+
 
 TITLE = """
 \t _ _|  |                     ____|             |                       
@@ -26,80 +28,34 @@ MAIN_ACTIONS = {
 
 
 class ItemBase:
-    def __init__(self):
-        self.item_class = str
-        self.base_type = str
-        self.sub_type = str
-        self.make = str
+    def __init__(self, template: list):
+        self.item_class, self.base_type, self.sub_type, self.make = template
         self.rarity = str
         self.primary = str
         self.secondary = str
-        self.constituents = str
+        self.constituents = []
     # end
 # end
 
 
 class Item(ItemBase):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, template=["", "", "", ""]):
+        super().__init__(template)
         self.name = str
         self.description = str
         self.stats = dict
+        AssemblyLine.start(self)
     # end
-# end
 
-
-class AssemblyLine:
-    weights = {
-        "crude":        [50, 5, 0, 0, 0, 0, 0],
-        "common":       [5, 50, 5, 0, 0, 0, 0],
-        "uncommon":     [0, 5, 50, 5, 0, 0, 0],
-        "rare":         [0, 0, 5, 50, 5, 0, 0],
-        "legendary":    [0, 0, 0, 0, 5, 50, 5],
-        "mythical":     [0, 0, 0, 0, 0, 5, 50]
-    }
-
-    @staticmethod
-    def start(item: 'Item') -> 'Item':
-        # do stuff
-        return AssemblyLine.__rarity(item)
-
-    @staticmethod
-    def __rarity(item: 'Item') -> 'Item':
-        # do stuff
-        return AssemblyLine.__materials(item)
-
-    @staticmethod
-    def __materials(item: 'Item') -> 'Item':
-        # do stuff
-        return AssemblyLine.__constituents(item)
-
-    @staticmethod
-    def __constituents(item: 'Item') -> 'Item':
-        # do stuff
-        return AssemblyLine.__description(item)
-
-    @staticmethod
-    def __description(item: 'Item') -> 'Item':
-        # do stuff
-        return AssemblyLine.__name(item)
-
-    @staticmethod
-    def __name(item: 'Item') -> 'Item':
-        # do stuff
-        return AssemblyLine.__stats(item)
-
-    @staticmethod
-    def __stats(item: 'Item') -> 'Item':
-        # do stuff
-        return item
+    def __str__(self):
+        pass
 # end
 
 
 if __name__ == "__main__":
     print(f"\nHello, adventurer! Welcome to...\n{TITLE}")
     items = []
-    menu = cli.main()
+    menu = cli.main("data/menus.yml")
     while True:
         sel = cli.get_input(prompt="What would you like to do?", options=MAIN)
         sel = MAIN_ACTIONS.get(sel)
@@ -107,9 +63,11 @@ if __name__ == "__main__":
             print("\nEnjoy your new items!\n")
             break
         else:
-            print(f"rand = {sel}")
             traits = menu.navigate(sel)
-            print(traits)
+        print(f"{traits}\n")
+        item = Item(traits)
+        for k,v in item.__dict__.items():
+            print(f"{k}: {v}")
 # end
 
 

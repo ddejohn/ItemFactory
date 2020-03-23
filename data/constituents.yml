@@ -1,26 +1,3 @@
-weapon:
-    blade:
-        - fuller
-        - pommel
-        - [hilt, grip]
-        - [cross-guard, quillon]
-    axe:
-        - pommel
-        - haft
-        - hook
-        - beard
-    bow:
-        - nock
-        - face
-        - limbs
-        - belly
-        - [hilt, grip]
-    blunt:
-        - throat
-        - [cheek, flange]
-        - [face, crown]
-        - [haft, handle, grip]
-
 armor:
     shield:
         - cover
@@ -66,3 +43,25 @@ armor:
         - cuisse
         - greaves
         - sabatons
+weapon:
+    blade:
+        - fuller
+        - pommel
+        - [hilt, grip]
+        - [cross-guard, quillon]
+    axe:
+        - pommel
+        - haft
+        - hook
+        - beard
+    blunt:
+        - throat
+        - [cheek, flange]
+        - [face, crown]
+        - [haft, handle, grip]
+    ranged:
+        - nock
+        - face
+        - limbs
+        - belly
+        - [hilt, grip]

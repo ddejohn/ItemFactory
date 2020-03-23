@@ -1,0 +1,64 @@
+armor:
+    primary:
+        light:
+            - hide
+            - leather
+            - obsidian
+            - electrum
+            - bone
+            - adamantite
+            - meteorite
+        heavy:
+            - iron
+            - steel
+            - obsidian
+            - bone
+            - onyx
+            - adamantite
+            - meteorite
+    secondary:
+        light:
+            - lamellar
+            - scale
+        heavy:
+            - laminar
+            - plate
+weapon:
+    primary:
+        - iron
+        - steel
+        - bone
+        - obsidian
+        - electrum
+        - adamantite
+        - meteorite
+    secondary:
+        crude:
+            - splintered wood
+            - cracked wood
+            - warped wood
+        common:
+            - ash
+            - maple
+            - beech
+            - hickory
+        uncommon:
+            - beech
+            - mahogony
+            - hickory
+            - maple
+        rare:
+            - hickory
+            - mahogony
+            - walnut
+            - cheery
+        legendary:
+            - walnut
+            - cherry
+            - korina
+            - black oak
+        mythical:
+            - bloodwood
+            - ebony
+            - black walnut
+            - purple

@@ -75,13 +75,8 @@ class Menu:
 # end
 
 
-def main():
-    with open("./data/constituents.yml") as f:
+def main(path: str):
+    with open(path) as f:
         menu_data = yaml.safe_load(f.read())
-    # return load_data(menu_data)
-    # print(load_data(menu_data))
-    menu = load_data(menu_data)
-    print(menu.navigate(False))
+    return load_data(menu_data, "main menu")
 # end
-
-main()
