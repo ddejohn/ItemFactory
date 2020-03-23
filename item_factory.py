@@ -1,6 +1,5 @@
+import cli
 from factory_util import build_item
-from cli import customize, get_input
-
 
 TITLE = """
 \t _ _|  |                     ____|             |                       
@@ -8,13 +7,8 @@ TITLE = """
 \t   |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   | 
 \t ___| \__| \___| _|  _|  _| _|   \__,_| \___| \__| \___/  _|    \__, | 
 \t                                                                ____/ 
-\t
+
 ...A random weapon and armor generator which provides richly detailed descriptions, unique names, and basic item stats!"""
-
-
-STARTUP = [
-    ""
-]
 
 
 MAIN = {
@@ -87,26 +81,25 @@ def verbose_print(data, calls=0):
     return out
 
 
+MAIN_ACTIONS = {
+    "build your own": False,
+    "randomize!": True,
+    "quit": "quit"
+}
+
+
 if __name__ == "__main__":
     print(f"\nHello, adventurer! Welcome to...\n{TITLE}")
     items = []
+    menu = cli.main()
     while True:
-        traits = ""
-        print("\nWhat would you like to do?")
-        for k,v in MAIN.items():
-            print(f"  [{k}] -  {v}")
-        sel = input(" > ")
-        if sel.casefold() == "q":
+        sel = cli.get_input(prompt="What would you like to do?", options=MAIN)
+        sel = MAIN_ACTIONS.get(sel)
+        if sel == "quit":
             print("\nEnjoy your new items!\n")
             break
-        elif sel.isdigit() and int(sel) == 1:
-            traits = customize()
+        else:
+            print(f"rand = {sel}")
+            traits = menu.navigate(sel)
             print(traits)
-        # items.append(ItemBuilder.forge(traits))
-
-    # for _ in range(50):
-    #     item = ItemBuilder.forge()
-    #     print(item.name)
-
-        # if item.rarity in ["mythical", "lengendary"]:
-            # print(verbose_print(vars(item)))
+# end

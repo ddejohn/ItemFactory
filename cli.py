@@ -1,6 +1,7 @@
 """A CLI for ItemFactory"""
 
 import yaml
+from random import choice
 
 
 def load_data(data: dict, label="new item") -> 'Menu':
@@ -48,13 +49,16 @@ class Menu:
         self.submenu = {}
     # end
 
-    def navigate(self):
+    def navigate(self, rand):
         out = []
-        sel = get_input(self.prompt, self.options)
+        if not rand:
+            sel = get_input(self.prompt, self.options)
+        else:
+            sel = choice(list(self.options.values()))
         out.append(sel)
         if not self.submenu:
             return out
-        out.extend(self.submenu.get(sel).navigate())
+        out.extend(self.submenu.get(sel).navigate(rand))
         return out
     # end
 
@@ -71,10 +75,8 @@ class Menu:
 # end
 
 
-# TODO: create random Menu nav 
-if __name__=="__main__":
+def main():
     with open("./data/menus.yml") as f:
         menu_data = yaml.safe_load(f.read())
-
-    main_menu = load_data(menu_data)
-    print(main_menu.navigate())
+    return load_data(menu_data)
+# end
