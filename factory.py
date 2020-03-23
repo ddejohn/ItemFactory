@@ -143,8 +143,9 @@ def _listify_words(this):
 def _item_description(item: 'Item'):
     softies = ["hide", "leather", "coif", "hood"]
     condition = _shuffled(_CONDITION[item.rarity])
-    adj = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
+    adjective = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
     pops = _shuffled([0, 1, 2])
+    part = item.constituents[pops.pop()]
     in_by = choice(["in", "with", "by"])
     construction = {
         "weapon": f"{item.primary} and {item.secondary}",
@@ -157,7 +158,7 @@ def _item_description(item: 'Item'):
     item.description = " ".join([
         f"{_a_an(condition.pop()).capitalize()}",
         f"{_set_or_pair(item.make)} with",
-        f"{_a_an(adj.pop(), adj.pop(), item.constituents[pops.pop()])},",
+        f"{_a_an(adjective.pop(), adjective.pop(), part)},",
         f"{_shuffled(_DETAIL_VERB[item.rarity]).pop()}",
         f"{_get_make()} from {construction}.",
         _get_details(item)
@@ -231,12 +232,12 @@ def _patinas_etchings(item: 'Item'):
 
 def _common_details(item: 'Item'):
     details = _shuffled(_DETAIL_NOUN[item.rarity])
-    adj = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
+    adjective = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
     pops = _shuffled([0, 1, 2])
     in_by = choice(["in", "with", "by"])
     return " ".join([
         f"The {_is_are(item.constituents[pops.pop()])}",
-        f"{adj.pop()} and {adj.pop()}, and the",
+        f"{adjective.pop()} and {adjective.pop()}, and the",
         f"{_is_are(item.constituents[pops.pop()])}",
         f"covered {in_by} {details.pop()} and {details.pop()}."
     ])
@@ -284,51 +285,53 @@ def _item_name(item: 'Item'):
 
 
 def _rare_name(item: 'Item'):
-    adj = _shuffled(_ADJECTIVES)
-    abst = _shuffled(_ABSTRACT)
-    nns = _shuffled(_NOUNS)
-    return choice(_shuffled([
-        [choice(adj), item.primary, item.make],
-        [choice(adj), item.primary, choice(nns), choice(abst)],
-        [choice(adj), item.primary, item.make, choice(abst)],
-    ]))
+    adjective = choice(_ADJECTIVES)
+    abstract = choice(_ABSTRACT)
+    noun = choice(_NOUNS)
+    return choice([
+        [adjective, item.primary, item.make],
+        [adjective, item.primary, noun, abstract],
+        [adjective, item.primary, item.make, abstract],
+    ])
 
 
 def _legendary_name(item: 'Item'):
-    adj = _shuffled(_ADJECTIVES)
-    abst = _shuffled(_ABSTRACT)
-    nns = _shuffled(_NOUNS)
-    prfx = _shuffled(_PREFIXES)
-    return choice(_shuffled([
-        [choice(adj), item.make, choice(abst)],
-        [choice(adj), item.primary, item.make, choice(abst)],
-        [choice(adj), choice(nns), choice(abst)],
-        [choice(adj), item.primary, choice(nns)],
-        [choice(adj), choice(nns), "of " + item.primary],
-        [choice(adj), item.primary, choice(nns), choice(abst)],
-        [item.primary, choice(prfx), choice(abst)],
-        [item.primary, choice(nns), choice(abst)],
+    adjective = choice(_ADJECTIVES)
+    abstract = choice(_ABSTRACT)
+    noun = choice(_NOUNS)
+    prefix = choice(_PREFIXES)
+    return choice([
+        [adjective, item.make, abstract],
+        [adjective, item.primary, item.make, abstract],
+        [adjective, noun, abstract],
+        [adjective, item.primary, noun],
+        [adjective, noun, "of " + item.primary],
+        [adjective, item.primary, noun, abstract],
+        [item.primary, prefix, abstract],
+        [item.primary, noun, abstract],
         _rare_name(item)
-    ]))
+    ])
 
 
 def _mythical_name(item: 'Item'):
-    adj = _shuffled(_ADJECTIVES)
-    abst = _shuffled(_ABSTRACT)
-    nns = _shuffled(_NOUNS)
-    vrbs = _shuffled(_VERBS)
-    prfx = _shuffled(_PREFIXES)
-    return choice(_shuffled([
-        [choice(_GLISTENS_ADJECTIVE), choice(nns), "of " + choice(_INLAYS)],
-        [choice(_GLISTENS_ADJECTIVE), choice(nns), choice(abst)],
-        [choice(adj), choice(nns), "of " + choice(_INLAYS)],
-        [choice(adj), choice(nns), choice(abst)],
-        [choice(_INLAYS), choice(nns), choice(abst)],
-        [choice(nns), choice(abst)],
-        [choice(adj), choice(nns)+" of the", choice(prfx)],
-        [choice(prfx), choice(vrbs)],
+    adjective = choice(_ADJECTIVES)
+    abstract = choice(_ABSTRACT)
+    noun = choice(_NOUNS)
+    verb = choice(_VERBS)
+    prefix = choice(_PREFIXES)
+    glisten = choice(_GLISTENS_ADJECTIVE)
+    inlay = choice(_INLAYS)
+    return choice([
+        [glisten, noun, "of " + inlay],
+        [glisten, noun, abstract],
+        [adjective, noun, "of " + inlay],
+        [adjective, noun, abstract],
+        [inlay, noun, abstract],
+        [noun, abstract],
+        [adjective, noun + " of the", prefix],
+        [prefix, verb],
         _legendary_name(item)
-    ]))
+    ])
 
 
 def _common_name(item: 'Item'):
