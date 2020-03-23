@@ -2,75 +2,16 @@
 
 import yaml
 
-ITEM = {
-    "1": "armor",
-    "2": "weapon"
-}
 
-
-ARMOR = {
-    "1": "heavy",
-    "2": "light"
-}
-
-
-WEAPON = {
-    "1": "melee",
-    "2": "ranged"
-}
-
-
-SUBARMOR = {
-    "1": "head",
-    "2": "chest",
-    "3": "hands",
-    "4": "feet",
-    "5": "shield"
-}
-
-
-SUBWEAPON = {
-    "1": "blade",
-    "2": "blunt",
-    "3": "axe",
-    "4": "bow"
-}
-
-
-MAKE = {
-    "armor": [
-        ("Choose an armor class", ARMOR),
-        ("Choose an armor type", SUBARMOR)
-    ],
-    "weapon": [
-        ("Choose a weapon class", WEAPON),
-        ("Choose a weapon type", SUBWEAPON)
-    ]
-}
-
-
-class Menu:
-    def __init__(self, prompt: str, options: list):
-        self.prompt = prompt
-        self.options = {k: v for k,v in enumerate(options, 1)}
-        self.submenus: dict
-    # end
-
-    def submenu(self, menu: 'Menu'):
-        self.submenus[menu.prompt] = menu
-    # end
-
-    # def build_opt(self, options: list) -> dict:
-    #     return {k: v for k,v in enumerate(options, 1)}
-
-    def start(self):
-        # initiate a single traversal of the menu tree
-        pass
-
-
-
-with open("./data/menus.yml") as f:
-    menu_data = yaml.safe_load(f.read())
+def load_data(data: dict, label="new item") -> 'Menu':
+    menu = Menu(prompt=label, options=data.keys())
+    for k,v in data.items():
+        if isinstance(v, dict):
+            menu.submenu[k] = load_data(label=k, data=v)
+        else:
+            menu.submenu[k] = Menu(prompt=k, options=v)
+    return menu
+# end
 
 
 def dict_print(data: dict, t=0):
@@ -84,9 +25,7 @@ def dict_print(data: dict, t=0):
             for elem in v:
                 out += f"{(t+1)*header}{elem}\n"
     return out
-
-
-print(dict_print(menu_data))
+# end
 
 
 def get_input(prompt: str, options: dict) -> str:
@@ -97,17 +36,45 @@ def get_input(prompt: str, options: dict) -> str:
         sel = input(" > ")
         if sel not in options.keys():
             print("Invalid selection!")
-        return options.get(sel)
+        else:
+            return options.get(sel)
 # end
 
 
-def customize():
-    new_item = []
-    sel = get_input("Choose an item type", ITEM)
-    make = MAKE.get(sel)
-    new_item.append(sel)
-    for opt in make:
-        # prompt, options = opt
-        new_item.append(get_input(*opt))
-    return new_item
-# end
+class Menu:
+    def __init__(self, prompt: str, options: list):
+        self.prompt = prompt
+        self.options = {str(k):v for k,v in enumerate(options, 1)}
+        self.submenu = {}
+    # end
+
+    def navigate(self):
+        out = []
+        sel = get_input(self.prompt, self.options)
+        out.append(sel)
+        if not self.submenu:
+            return out
+        out.extend(self.submenu.get(sel).navigate())
+        return out
+    # end
+
+    def __str__(self, t=0):
+        h = "    "
+        out = f"{t*h}{self.prompt}\n"
+        for lbl, sub in self.submenu.items():
+            out += sub.__str__(t+1)
+            if not sub.submenu:
+                for k,v in sub.options.items():
+                    out += f"{(t+2)*h}{v}\n"
+        return out
+
+
+
+with open("./data/menus.yml") as f:
+    menu_data = yaml.safe_load(f.read())
+
+
+main_menu = load_data(menu_data)
+# print(main_menu)
+print(main_menu.navigate())
+# print(main_menu.submenu["weapon"].options)
