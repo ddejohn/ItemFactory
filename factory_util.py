@@ -8,29 +8,7 @@ __all__ = ["build_item"]
 
 
 def build_item(item):
-    item.item_class, item.base_type, item.sub_type, *item_type = choice([
-        "weapon " + choice([
-            "melee " + choice([
-                "one-handed ",
-                "two-handed "
-            ]) + choice([
-                "blade",
-                "axe",
-                "blunt"
-            ]),
-            "ranged two-handed bow"
-        ]),
-        "armor " + choice([
-            "heavy ",
-            "light "
-        ]) + choice([
-            "head",
-            "chest",
-            "hands",
-            "feet",
-            # "shield"
-        ])
-    ]).split()
+    item.item_class, item.base_type, item.sub_type, *item_type = item
 
     if not item_type:
         item.item_type = " ".join([item.base_type, item.sub_type])
