@@ -4,7 +4,7 @@ import yaml
 from random import choice
 
 
-def load_data(data: dict, label="new item") -> 'Menu':
+def load_data(data: dict, label) -> 'Menu':
     menu = Menu(prompt=label, options=data.keys())
     for k,v in data.items():
         if isinstance(v, dict):
@@ -76,7 +76,12 @@ class Menu:
 
 
 def main():
-    with open("./data/menus.yml") as f:
+    with open("./data/constituents.yml") as f:
         menu_data = yaml.safe_load(f.read())
-    return load_data(menu_data)
+    # return load_data(menu_data)
+    # print(load_data(menu_data))
+    menu = load_data(menu_data)
+    print(menu.navigate(False))
 # end
+
+main()

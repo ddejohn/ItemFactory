@@ -1,4 +1,4 @@
-from random import choice, choices, sample, uniform, randint
+from random import choice, choices, sample, uniform
 
 
 __all__ = ["build_item"]
@@ -7,135 +7,33 @@ __all__ = ["build_item"]
 #——————————————————————————————— build sequence ——————————————————————————————#
 
 
-def build_item(item):
-    item.item_class, item.base_type, item.sub_type, *item_type = item
+# def build_item(item):
+#     item.item_class, item.base_type, item.sub_type, *make = item
 
-    if not item_type:
-        item.item_type = " ".join([item.base_type, item.sub_type])
-    else:
-        item.item_type = item_type.pop()
+#     if not make:
+#         item.make = " ".join([item.base_type, item.sub_type])
+#     else:
+#         item.make = make.pop()
 
-    return _item_rarity(item)
+#     return _item_rarity(item)
 
 
 def _item_rarity(item):
-    rarities = {
-        "crude":        [100, 30, 0, 0, 0, 0, 0],
-        "common":       [30, 100, 30, 0, 0, 0, 0],
-        "uncommon":     [0, 30, 100, 30, 0, 0, 0],
-        "rare":         [0, 0, 30, 100, 30, 0, 0],
-        "legendary":    [0, 0, 0, 0, 30, 100, 0],
-        "mythical":     [0, 0, 0, 0, 0, 30, 100]
-    }
+    rarities = [
+        "crude",
+        "common",
+        "uncommon",
+        "rare",
+        "legendary",
+        "mythical"
+    ]
+
     item.rarity = _choose(
-        ppl=list(rarities.keys()),
+        ppl=rarities,
         wts=[50, 25, 15, 4, 2, 1]
     )
-    item.material_weights = rarities[item.rarity]
+    
     return _base_name(item)
-
-
-def _base_name(item):
-    item.base_name = {
-        "weapon": {
-            "one-handed": {
-                "melee": {
-                    "axe": choice([
-                        "labrys",
-                        "hatchet"
-                    ]),
-                    "blunt": choice([
-                        "morning star",
-                        "mace",
-                        "club",
-                        "flail"
-                    ]),
-                    "blade": choice([
-                        "dagger",
-                        "corvo",
-                        "stiletto",
-                        "shortsword",
-                        "seax",
-                        "xiphos",
-                        "baselard",
-                        "gladius"
-                    ])
-                }
-            },
-            "two-handed": {
-                "melee": {
-                    "blunt": choice([
-                        "war hammer",
-                        "meteor hammer",
-                        "dire flail"
-                    ]),
-                    "blade": choice([
-                        "longsword",
-                        "claymore",
-                        "broadsword",
-                        "bastard sword",
-                        "war scythe"
-                    ]),
-                    "axe": choice([
-                        "battle axe",
-                        "halberd",
-                        "glaive"
-                    ])
-                },
-                "ranged": {
-                    "bow": choice([
-                        "recurve bow",
-                        "scythian bow",
-                        "crossbow",
-                        "longbow"
-                    ])
-                }
-            }
-        },
-        "armor": {
-            "head": {
-                "heavy": {
-                    "heavy head": choice(["helm", "helmet"])
-                },
-                "light": {
-                    "light head": choice(["hood", "coif"])
-                }
-            },
-            "chest": {
-                "heavy": {
-                    "heavy chest": choice(["cuirass", "corslet"])
-                },
-                "light": {
-                    "light chest": choice(["brigandine", "gambeson"])
-                }
-            },
-            "hands": {
-                "heavy": {
-                    "heavy hands": "gauntlets"
-                },
-                "light": {
-                    "light hands": "gloves"
-                }
-            },
-            "feet": {
-                "heavy": {
-                    "heavy feet": choice(["boots", "sabatons"])
-                },
-                "light": {
-                    "light feet": "boots"
-                }
-            },
-            "shield": {
-                "heavy": {
-                    "heavy shield": choice(["pavise shield", "kite shield"])
-                },
-                "light": {
-                    "light shield": choice(["buckler", "targe shield"])
-                }
-            }
-        }
-    }[item.item_class][item.sub_type][item.base_type][item.item_type]
-    return _item_material(item)
 
 
 def _item_material(item):
@@ -148,93 +46,12 @@ def _item_material(item):
     return _item_parts(item)
 
 
-def _item_parts(item):
-    item.parts = {
-        "blade": [
-            "fuller",
-            "pommel",
-            choice(["hilt", "grip"]),
-            choice(["cross-guard", "quillon"])
-        ],
-        "axe": [
-            "pommel",
-            "haft",
-            "hook",
-            "beard"
-        ],
-        "bow": [
-            "nock",
-            "face",
-            choice(["hilt", "grip"]),
-            "limbs",
-            "belly"
-        ],
-        "blunt": [
-            "throat",
-            choice(["cheek", "flange"]),
-            choice(["face", "crown"]),
-            choice(["haft", "handle", "grip"])
-        ],
-        "heavy head": [
-            "visor",
-            "comb",
-            choice(["gorget", "aventail", "camail"])
-        ],
-        "light head": [
-            "cowl",
-            "gaiter",
-            "closure"
-        ],
-        "heavy chest": [
-            "breastplate",
-            "pauldrons",
-            "faulds",
-            "gardbrace",
-            "tasset"
-        ],
-        "light chest": [
-            "plackard",
-            "spaulders",
-            "gardbrace",
-            "culet",
-        ],
-        "heavy hands": [
-            "rerebraces",
-            choice(["lower cannons", "vambraces"]),
-            choice(["carpal plates", "wrist plates"]),
-            "cuffs"
-        ],
-        "light hands": [
-            "rerebraces",
-            choice(["lower cannons", "vambraces"]),
-            choice(["carpal plates", "wrist plates"]),
-            "cuffs"
-        ],
-        "heavy feet": [
-            "cuisse",
-            "greaves",
-            "solleret"
-        ],
-        "light feet": [
-            "cuisse",
-            "greaves",
-            "sabatons"
-        ],
-        "heavy shield": [],
-        "light shield": []
-    }[item.item_type]
-    return _item_secondary(item)
-
-
 def _item_secondary(item):
     item.secondary = {
         "weapon": _weapon_secondary,
         "armor": _armor_construction
     }[item.item_class](item)
     return _item_description(item)
-
-
-#—————————————————————————————————— helpers ——————————————————————————————————#
 
 
 def _weapon_secondary(item):
@@ -245,6 +62,190 @@ def _armor_construction(item):
     if item.rarity not in ["crude", "common"]:
         return f"{choice(_ARMOR_CONSTRUCTION[item.base_type])} "
     return f""
+
+
+# def _base_name(item):
+#     item.base_name = {
+#         "weapon": {
+#             "one-handed": {
+#                 "melee": {
+#                     "axe": choice([
+#                         "labrys",
+#                         "hatchet"
+#                     ]),
+#                     "blunt": choice([
+#                         "morning star",
+#                         "mace",
+#                         "club",
+#                         "flail"
+#                     ]),
+#                     "blade": choice([
+#                         "dagger",
+#                         "corvo",
+#                         "stiletto",
+#                         "shortsword",
+#                         "seax",
+#                         "xiphos",
+#                         "baselard",
+#                         "gladius"
+#                     ])
+#                 }
+#             },
+#             "two-handed": {
+#                 "melee": {
+#                     "blunt": choice([
+#                         "war hammer",
+#                         "meteor hammer",
+#                         "dire flail"
+#                     ]),
+#                     "blade": choice([
+#                         "longsword",
+#                         "claymore",
+#                         "broadsword",
+#                         "bastard sword",
+#                         "war scythe"
+#                     ]),
+#                     "axe": choice([
+#                         "battle axe",
+#                         "halberd",
+#                         "glaive"
+#                     ])
+#                 },
+#                 "ranged": {
+#                     "bow": choice([
+#                         "recurve bow",
+#                         "scythian bow",
+#                         "crossbow",
+#                         "longbow"
+#                     ])
+#                 }
+#             }
+#         },
+#         "armor": {
+#             "head": {
+#                 "heavy": {
+#                     "heavy head": choice(["helm", "helmet"])
+#                 },
+#                 "light": {
+#                     "light head": choice(["hood", "coif"])
+#                 }
+#             },
+#             "chest": {
+#                 "heavy": {
+#                     "heavy chest": choice(["cuirass", "corslet"])
+#                 },
+#                 "light": {
+#                     "light chest": choice(["brigandine", "gambeson"])
+#                 }
+#             },
+#             "hands": {
+#                 "heavy": {
+#                     "heavy hands": "gauntlets"
+#                 },
+#                 "light": {
+#                     "light hands": "gloves"
+#                 }
+#             },
+#             "feet": {
+#                 "heavy": {
+#                     "heavy feet": choice(["boots", "sabatons"])
+#                 },
+#                 "light": {
+#                     "light feet": "boots"
+#                 }
+#             },
+#             "shield": {
+#                 "heavy": {
+#                     "heavy shield": choice(["pavise shield", "kite shield"])
+#                 },
+#                 "light": {
+#                     "light shield": choice(["buckler", "targe shield"])
+#                 }
+#             }
+#         }
+#     }[item.item_class][item.sub_type][item.base_type][item.make]
+#     return _item_material(item)
+
+
+# def _item_parts(item):
+#     item.parts = {
+#         "blade": [
+#             "fuller",
+#             "pommel",
+#             choice(["hilt", "grip"]),
+#             choice(["cross-guard", "quillon"])
+#         ],
+#         "axe": [
+#             "pommel",
+#             "haft",
+#             "hook",
+#             "beard"
+#         ],
+#         "bow": [
+#             "nock",
+#             "face",
+#             choice(["hilt", "grip"]),
+#             "limbs",
+#             "belly"
+#         ],
+#         "blunt": [
+#             "throat",
+#             choice(["cheek", "flange"]),
+#             choice(["face", "crown"]),
+#             choice(["haft", "handle", "grip"])
+#         ],
+#         "heavy head": [
+#             "visor",
+#             "comb",
+#             choice(["gorget", "aventail", "camail"])
+#         ],
+#         "light head": [
+#             "cowl",
+#             "gaiter",
+#             "closure"
+#         ],
+#         "heavy chest": [
+#             "breastplate",
+#             "pauldrons",
+#             "faulds",
+#             "gardbrace",
+#             "tasset"
+#         ],
+#         "light chest": [
+#             "plackard",
+#             "spaulders",
+#             "gardbrace",
+#             "culet",
+#         ],
+#         "heavy hands": [
+#             "rerebraces",
+#             choice(["lower cannons", "vambraces"]),
+#             choice(["carpal plates", "wrist plates"]),
+#             "cuffs"
+#         ],
+#         "light hands": [
+#             "rerebraces",
+#             choice(["lower cannons", "vambraces"]),
+#             choice(["carpal plates", "wrist plates"]),
+#             "cuffs"
+#         ],
+#         "heavy feet": [
+#             "cuisse",
+#             "greaves",
+#             "solleret"
+#         ],
+#         "light feet": [
+#             "cuisse",
+#             "greaves",
+#             "sabatons"
+#         ],
+#         "heavy shield": ["cover", "grip", "brace", "rivet", "rim", "boss"],
+#         "light shield": ["cover", "grip", "brace", "rivet", "rim", "boss"]
+#     }[item.make]
+#     return _item_secondary(item)
+
+
+#—————————————————————————————————— helpers ——————————————————————————————————#
 
 
 def _choose(ppl, wts):
@@ -520,7 +521,7 @@ def _item_stats(item):
 
 def _weapon_stats(item):
     stats = _WEAPON_STAT_DATA["stats"][item.rarity]
-    mults = _WEAPON_STAT_DATA["mults"][item.item_type]
+    mults = _WEAPON_STAT_DATA["mults"][item.make]
     wt = {"one-handed": 0.7}.get(item.sub_type, 1)
     combs = [round(wt*_variance(x*y), ndigits=2) for x, y in zip(stats, mults)]
 

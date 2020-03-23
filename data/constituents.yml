@@ -1,0 +1,68 @@
+weapon:
+    blade:
+        - fuller
+        - pommel
+        - [hilt, grip]
+        - [cross-guard, quillon]
+    axe:
+        - pommel
+        - haft
+        - hook
+        - beard
+    bow:
+        - nock
+        - face
+        - limbs
+        - belly
+        - [hilt, grip]
+    blunt:
+        - throat
+        - [cheek, flange]
+        - [face, crown]
+        - [haft, handle, grip]
+
+armor:
+    shield:
+        - cover
+        - grip
+        - brace
+        - rivet
+        - rim
+        - boss
+    heavy head:
+        - visor,
+        - comb,
+        - [gorget, aventail, camail]
+    light head:
+        - cowl
+        - gaiter
+        - closure
+    heavy chest:
+        - breastplate
+        - pauldrons
+        - faulds
+        - gardbrace
+        - tasset
+    light chest:
+        - plackard
+        - spaulders
+        - gardbrace
+        - culet
+    heavy hands:
+        - rerebraces
+        - cuffs
+        - [lower cannons, vambraces]
+        - [carpal plates, wrist plates]
+    light hands:
+        - rerebraces
+        - cuffs
+        - [lower cannons, vambraces]
+        - [carpal plates, wrist plates]
+    heavy feet:
+        - cuisse
+        - greaves
+        - solleret
+    light feet:
+        - cuisse
+        - greaves
+        - sabatons

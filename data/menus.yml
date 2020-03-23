@@ -1,36 +1,33 @@
 armor:
-    head:
-        heavy:
+    heavy:
+        head:
             - helm
             - helmet
-        light:
-            - hood
-            - coif
-    chest:
-        heavy:
+        chest:
             - cuirass
             - corslet
-        light:
-            - brigandine
-            - gambeson
-    hands:
-        heavy:
+        hands:
             - gauntlets
             - gloves
-        light:
-            - gloves
-            - wraps
-    feet:
-        heavy:
+        feet:
             - boots
             - sabatons
-        light:
-            - boots
-    shield:
-        heavy:
+        shield:
             - pavise shield
             - kite shield
-        light:
+    light:
+        head:
+            - hood
+            - coif
+        chest:
+            - brigandine
+            - gambeson
+        hands:
+            - gloves
+            - wraps
+        feet:
+            - boots
+        shield:
             - buckler
             - targe shield
 weapon:
@@ -53,21 +50,20 @@ weapon:
             - labrys
             - hatchet
     two-handed:
-        melee:
-            blade:
-                - longsword
-                - claymore
-                - broadsword
-                - bastard sword
-            blunt:
-                - war hammer
-                - meteor hammer
-                - dire flail
-            axe:
-                - war scythe
-                - battle axe
-                - halberd
-                - glaive
+        blade:
+            - longsword
+            - claymore
+            - broadsword
+            - bastard sword
+        blunt:
+            - war hammer
+            - meteor hammer
+            - dire flail
+        axe:
+            - war scythe
+            - battle axe
+            - halberd
+            - glaive
         ranged:
             - recurve bow
             - scythian bow
