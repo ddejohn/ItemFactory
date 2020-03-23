@@ -67,14 +67,14 @@ class Menu:
                 for k,v in sub.options.items():
                     out += f"{(t+2)*h}{v}\n"
         return out
+    # end
+# end
 
 
+# TODO: create random Menu nav 
+if __name__=="__main__":
+    with open("./data/menus.yml") as f:
+        menu_data = yaml.safe_load(f.read())
 
-with open("./data/menus.yml") as f:
-    menu_data = yaml.safe_load(f.read())
-
-
-main_menu = load_data(menu_data)
-# print(main_menu)
-print(main_menu.navigate())
-# print(main_menu.submenu["weapon"].options)
+    main_menu = load_data(menu_data)
+    print(main_menu.navigate())
