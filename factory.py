@@ -94,23 +94,23 @@ def _shuffled(ppl):
     return sample(ppl, len(ppl))
 
 
-def _variance(x):
+def _variance(x) -> float:
     return uniform(x-0.3*x, x+0.3*x)
 
 
-def _is_are(this):
+def _is_are(this: str) -> str:
     if " " in this or (this[-1] == "s" and this[-2] != "y"):
         return f"{this} are"
     return f"{this} is"
 
 
-def _set_or_pair(this):
+def _set_or_pair(this: str) -> str:
     if this[-1] == "s" and this[-2] not in "uosy":
         return choice(["set", "pair"]) + f" of {this}"
     return this
 
 
-def _a_an(*this):
+def _a_an(*this: list) -> str:
     first, *rest = this
     if rest:
         rest = " ".join(rest)
@@ -127,7 +127,7 @@ def _a_an(*this):
     return f"a {first}{rest}"
 
 
-def _listify_words(this):
+def _listify_words(this: list) -> str:
     *rest, last = this
     rest = ", ".join(rest)
     if rest:
