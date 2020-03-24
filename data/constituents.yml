@@ -34,11 +34,11 @@ armor:
         - [lower cannons, vambraces]
         - [carpal plates, wrist plates]
     heavy feet:
-        - cuisse
+        - cuisses
         - greaves
         - solleret
     light feet:
-        - cuisse
+        - cuisses
         - greaves
         - sabatons
 weapon:
