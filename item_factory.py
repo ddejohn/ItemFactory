@@ -3,7 +3,7 @@ from inspect import getmembers
 from factory import AssemblyLine
 
 
-TITLE = """
+TITLE = """Hello, adventurer! Welcome to...\n
 \t _ _|  |                     ____|             |                       
 \t   |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   | 
 \t   |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   | 
@@ -53,7 +53,7 @@ class Item(ItemBase):
 
 
 if __name__ == "__main__":
-    print(f"\nHello, adventurer! Welcome to...\n{TITLE}")
+    print(TITLE)
     items = []
     menu = cli.main("data/menus.yml")
     while True:

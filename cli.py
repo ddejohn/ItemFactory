@@ -4,6 +4,16 @@ import yaml
 from random import choice
 
 
+MENU_PROMPTS = {
+    "armor": "Choose an armor class",
+    "heavy": "Choose an armor type",
+    "light": "Choose an armor type",
+    "weapon": "Choose a weapon class",
+    "one-handed": "Choose a weapon type",
+    "two-handed": "Choose a weapon type"
+}
+
+
 def load_data(data: dict, label) -> 'Menu':
     menu = Menu(prompt=label, options=data.keys())
     for k,v in data.items():
@@ -52,7 +62,8 @@ class Menu:
     def navigate(self, rand):
         out = []
         if not rand:
-            sel = get_input(self.prompt, self.options)
+            prompt = MENU_PROMPTS.get(self.prompt, "Choose an option")
+            sel = get_input(prompt, self.options)
         else:
             sel = choice(list(self.options.values()))
         out.append(sel)
