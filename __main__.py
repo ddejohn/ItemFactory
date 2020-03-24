@@ -1,9 +1,7 @@
-import cli
-from inspect import getmembers
-from factory import AssemblyLine
+from .util import cli, factory
 
 
-TITLE = """Hello, adventurer! Welcome to...\n
+TITLE = """\nGreetings adventurer, and welcome to...\n
 \t _ _|  |                     ____|             |                       
 \t   |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   | 
 \t   |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   | 
@@ -44,7 +42,7 @@ class Item(ItemBase):
         self.name = str
         self.description = str
         self.stats = dict
-        AssemblyLine.start(self)
+        factory.AssemblyLine.start(self)
     # end
 
     def __str__(self):
@@ -52,19 +50,17 @@ class Item(ItemBase):
 # end
 
 
-if __name__ == "__main__":
-    print(TITLE)
-    items = []
-    menu = cli.main("data/menus.yml")
-    while True:
-        sel = cli.get_input(prompt="What would you like to do?", options=MAIN)
-        sel = MAIN_ACTIONS.get(sel)
-        if sel == "quit":
-            print("\nEnjoy your new items!\n")
-            break
-        else:
-            traits = menu.navigate(sel)
-        item = Item(traits)
-        for k,v in item.__dict__.items():
-            print(f"{k}: {v}")
-# end
+print(TITLE)
+items = []
+menu = cli.main("ItemFactory/data/menus.yml")
+while True:
+    sel = cli.get_input(prompt="What would you like to do?", options=MAIN)
+    sel = MAIN_ACTIONS.get(sel)
+    if sel == "quit":
+        print("\nEnjoy your new items!\n")
+        break
+    else:
+        traits = menu.navigate(sel)
+    item = Item(traits)
+    for k,v in item.__dict__.items():
+        print(f"{k}: {v}")

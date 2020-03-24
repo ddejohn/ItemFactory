@@ -1,11 +1,13 @@
+"""Factory floor"""
+
 import yaml
 from random import choice, choices, sample, uniform
 
 
-with open("data/materials.yml") as f:
+with open("ItemFactory/data/materials.yml") as f:
     MATERIALS = yaml.safe_load(f.read())
 
-with open("data/constituents.yml") as f:
+with open("ItemFactory/data/constituents.yml") as f:
     CONSTITUENTS = yaml.safe_load(f.read())
 
 
