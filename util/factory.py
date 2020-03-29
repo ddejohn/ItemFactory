@@ -163,7 +163,7 @@ def _choose(ppl, wts):
 # end
 
 
-def _shuffled(ppl):
+def _shuffled(ppl) -> list:
     return sample(ppl, len(ppl))
 # end
 
@@ -174,7 +174,7 @@ def _variance(x) -> float:
 
 
 def _is_are(this: str) -> str:
-    if " " in this or (this[-1] == "s" and this[-2] != "y"):
+    if " " in this or (this[-1] == "s" and this[-2] not in "sy"):
         return f"{this} are"
     return f"{this} is"
 # end
@@ -221,8 +221,8 @@ def _listify_words(this: list) -> str:
 
 def _item_description(item: 'Item'):
     softies = ["hide", "leather", "coif", "hood"]
-    condition = _shuffled(_CONDITION[item.rarity])
-    adjective = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
+    condition = _shuffled(_CONDITION[item.rarity]).copy()
+    adjs = _shuffled(_DETAIL_ADJECTIVE[item.rarity]).copy()
 
     in_by = choice(["in", "with", "by"])
     construction = {
@@ -245,13 +245,13 @@ def _item_description(item: 'Item'):
             "mythical": _choose([_patinas_etchings, _inlays], [2, 1])
         }.get(item.rarity)(item)
     else:
-        details = _common_details(item, part2, part3)
+        details = _common_details(item, part2, part3, adjs.pop(), adjs.pop())
 
     item.description = " ".join([
         f"{_a_an(condition.pop()).capitalize()}",
         f"{_set_or_pair(item.make)} with",
-        f"{_a_an(adjective.pop(), adjective.pop(), part1)},",
-        f"{_shuffled(_DETAIL_VERB[item.rarity]).pop()}",
+        f"{_a_an(adjs.pop(), adjs.pop(), part1)},",
+        f"{_shuffled(_DETAIL_VERB[item.rarity]).copy().pop()}",
         f"{_get_make()} from {construction}.",
         details
     ])
@@ -259,9 +259,9 @@ def _item_description(item: 'Item'):
 
 
 def _soft_description(item: 'Item', construction, in_by):
-    verbs = _shuffled(_DETAIL_VERB[item.rarity])
-    nouns = _shuffled(_DETAIL_NOUN[item.rarity])
-    soft_adjectives = _shuffled(_SOFT_ADJECTIVE[item.rarity])
+    verbs = _shuffled(_DETAIL_VERB[item.rarity]).copy()
+    nouns = _shuffled(_DETAIL_NOUN[item.rarity]).copy()
+    soft_adjectives = _shuffled(_SOFT_ADJECTIVE[item.rarity]).copy()
     if item.rarity in ["rare", "legendary", "mythical"]:
         qualities = ""
         second_sentence = _get_details(item)
@@ -332,14 +332,13 @@ def _patinas_etchings(item: 'Item'):
 # end
 
 
-def _common_details(item: 'Item', part2, part3):
-    details = _shuffled(_DETAIL_NOUN[item.rarity])
-    adjective = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
+def _common_details(item: 'Item', part2, part3, adjs1, adjs2):
+    details = _shuffled(_DETAIL_NOUN[item.rarity]).copy()
     in_with = choice(["in", "with"])
 
     return " ".join([
         f"The {_is_are(part2)}",
-        f"{adjective.pop()} and {adjective.pop()}, and the {_is_are(part3)}",
+        f"{adjs1} and {adjs2}, and the {_is_are(part3)}",
         f"covered {in_with} {details.pop()} and {details.pop()}."
     ])
 # end
@@ -790,7 +789,6 @@ _DETAIL_VERB = {
 _CONDITION = {
     "crude": [
         "ruined",
-        "rusty",
         "marred",
         "deformed",
         "lousy",

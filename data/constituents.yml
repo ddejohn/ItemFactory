@@ -1,6 +1,6 @@
 armor:
     shield:
-        - cover
+        - face
         - grip
         - brace
         - [rivet, rim, boss]
