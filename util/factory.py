@@ -51,7 +51,7 @@ class Item(ItemBase):
         desc_lines = []
         for word in desc_words:
             desc_line += f" {word}"
-            if len(desc_line) > 55:
+            if len(desc_line) > 50:
                 desc_lines.append(desc_line)
                 desc_line = ""
             # end
@@ -87,6 +87,7 @@ class AssemblyLine:
     @staticmethod
     def start(item: 'Item'):
         AssemblyLine.__rarity(item)
+    # end
 
     @staticmethod
     def __rarity(item: 'Item'):
@@ -95,6 +96,7 @@ class AssemblyLine:
             wts=[50, 25, 15, 4, 2, 1]
         )
         AssemblyLine.__materials(item)
+    # end
 
     @staticmethod
     def __materials(item: 'Item'):
@@ -113,6 +115,7 @@ class AssemblyLine:
         item.secondary = choice(secondary_materials)
 
         AssemblyLine.__constituents(item)
+    # end
 
     @staticmethod
     def __constituents(item: 'Item'):
@@ -131,20 +134,24 @@ class AssemblyLine:
             item.constituents.append(part)
 
         AssemblyLine.__description(item)
+    # end
 
     @staticmethod
     def __description(item: 'Item'):
         _item_description(item)
         AssemblyLine.__name(item)
+    # end
 
     @staticmethod
     def __name(item: 'Item'):
         _item_name(item)
         AssemblyLine.__stats(item)
+    # end
 
     @staticmethod
     def __stats(item: 'Item'):
         _item_stats(item)
+    # end
 # end
 
 
@@ -153,26 +160,31 @@ class AssemblyLine:
 
 def _choose(ppl, wts):
     return choice(choices(population=ppl, weights=wts, k=len(ppl)))
+# end
 
 
 def _shuffled(ppl):
     return sample(ppl, len(ppl))
+# end
 
 
 def _variance(x) -> float:
     return uniform(x-0.3*x, x+0.3*x)
+# end
 
 
 def _is_are(this: str) -> str:
     if " " in this or (this[-1] == "s" and this[-2] != "y"):
         return f"{this} are"
     return f"{this} is"
+# end
 
 
 def _set_or_pair(this: str) -> str:
     if this[-1] == "s" and this[-2] not in "uosy":
         return choice(["set", "pair"]) + f" of {this}"
     return this
+# end
 
 
 def _a_an(*this: list) -> str:
@@ -190,6 +202,7 @@ def _a_an(*this: list) -> str:
     elif first[0] in "aeiou":
         return f"an {first}{rest}"
     return f"a {first}{rest}"
+# end
 
 
 def _listify_words(this: list) -> str:
@@ -200,6 +213,7 @@ def _listify_words(this: list) -> str:
             return f"{rest} and {last}"
         return f"{rest}, and {last}"
     return last
+# end
 
 
 #—————————————————————————————— item description —————————————————————————————#
@@ -241,6 +255,7 @@ def _item_description(item: 'Item'):
         f"{_get_make()} from {construction}.",
         details
     ])
+# end
 
 
 def _soft_description(item: 'Item', construction, in_by):
@@ -262,6 +277,7 @@ def _soft_description(item: 'Item', construction, in_by):
         f"{_get_make()} from {qualities}{construction}.",
         second_sentence
     ])
+# end
 
 
 def _inlays(item: 'Item'):
@@ -286,6 +302,7 @@ def _inlays(item: 'Item'):
             f"{_listify_words(sample(_INLAYS, k))}."
         ])
     return all_inlays
+# end
 
 
 def _patinas_etchings(item: 'Item'):
@@ -306,6 +323,7 @@ def _patinas_etchings(item: 'Item'):
         f"{second_sentence} {glisten_choice}",
         f"with {_a_an(choice(_GLISTENS_ADJECTIVE))} {choice(_GLISTENS_NOUN)}."
     ])
+# end
 
 
 def _common_details(item: 'Item', part2, part3):
@@ -318,6 +336,7 @@ def _common_details(item: 'Item', part2, part3):
         f"{_is_are(part3)}",
         f"covered {in_by} {details.pop()} and {details.pop()}."
     ])
+# end
 
 
 def _get_make():
@@ -329,6 +348,7 @@ def _get_make():
         "constructed",
         "assembled"
     ])
+# end
 
 
 #————————————————————————————————— item name —————————————————————————————————#
@@ -351,6 +371,7 @@ def _item_name(item: 'Item'):
         }.get(item.rarity, _common_name)(item))
 
     item.name = " ".join(new_name)
+# end
 
 
 def _rare_name(item: 'Item'):
@@ -362,6 +383,7 @@ def _rare_name(item: 'Item'):
         [adjective, item.primary, noun, abstract],
         [adjective, item.primary, item.make, abstract],
     ])
+# end
 
 
 def _legendary_name(item: 'Item'):
@@ -380,6 +402,7 @@ def _legendary_name(item: 'Item'):
         [item.primary, noun, abstract],
         _rare_name(item)
     ])
+# end
 
 
 def _mythical_name(item: 'Item'):
@@ -401,6 +424,7 @@ def _mythical_name(item: 'Item'):
         [prefix, verb],
         _legendary_name(item)
     ])
+# end
 
 
 def _common_name(item: 'Item'):
@@ -413,6 +437,7 @@ def _common_name(item: 'Item'):
         [item.rarity, item.primary, item.make],
         [choice(_SOFT_ADJECTIVE[item.rarity]), item.primary, item.make]
     ])
+# end
 
 
 #———————————————————————————————— item stats —————————————————————————————————#
@@ -423,6 +448,7 @@ def _item_stats(item: 'Item'):
         "weapon": _weapon_stats,
         "armor": _armor_stats
     }[item.item_class](item)
+# end
 
 
 def _weapon_stats(item: 'Item'):
@@ -437,6 +463,7 @@ def _weapon_stats(item: 'Item'):
         "speed": combs[2],
         "luck": combs[3]
     }
+# end
 
 
 def _armor_stats(item: 'Item'):
@@ -451,6 +478,7 @@ def _armor_stats(item: 'Item'):
         "noise": combs[2],
         "luck": combs[3]
     }
+# end
 
 
 #——————————————————————————————————— data ————————————————————————————————————#
