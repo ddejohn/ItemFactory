@@ -35,38 +35,39 @@ class Item(ItemBase):
     # end
 
     def __str__(self):
+        w = 18
         stats = "\n"
         clss = f"{self.base_type} {self.item_class} [{self.sub_type}]"
         if self.item_class == "armor":
-            mat = "material:".ljust(16) + f"{self.primary}\n"
-            mat += "construction:".ljust(16) + f"{self.secondary}"
+            mat = "material:".ljust(w) + f"{self.primary}\n"
+            mat += "construction:".ljust(w) + f"{self.secondary}"
         else:
-            mat = "materials:".ljust(16) + f"{self.primary}, {self.secondary}"
+            mat = "materials:".ljust(w) + f"{self.primary}, {self.secondary}"
         for k,v in self.stats.items():
-            stats += f"    {k}:".ljust(16) + f"{v}\n"
+            stats += f"  {k}:".ljust(w) + f"{v}\n"
 
         desc_words = self.description.split()
         desc_line = ""
         desc_lines = []
         for word in desc_words:
             desc_line += f" {word}"
-            if len(desc_line) > 35:
+            if len(desc_line) > 55:
                 desc_lines.append(desc_line)
                 desc_line = ""
             # end
         rem = len(desc_words) - len(" ".join(desc_lines).split())
         if rem != 0:
-            desc_lines[-1] += "\n" + " ".ljust(16) + " ".join(desc_words[-rem:])
+            desc_lines[-1] += "\n" + " ".ljust(w) + " ".join(desc_words[-rem:])
         # end
-        desc = ("\n" + " "*15).join(desc_lines)
+        desc = ("\n" + " "*(w-1)).join(desc_lines)
         out = [
-            "name:".ljust(16) + f"{self.name}",
-            "class:".ljust(16) + clss,
-            "type:".ljust(16) + f"{self.make}",
-            "rarity:".ljust(16) + f"{self.rarity}",
+            "name:".ljust(w) + f"{self.name}",
+            "class:".ljust(w) + clss,
+            "type:".ljust(w) + f"{self.make}",
+            "rarity:".ljust(w) + f"{self.rarity}",
             mat,
-            "description:".ljust(15) + desc,
-            "stats:".ljust(16) + stats
+            "description:".ljust(w-1) + desc,
+            "stats:".ljust(w) + stats
         ]
         return "\n".join(out)
     # end
