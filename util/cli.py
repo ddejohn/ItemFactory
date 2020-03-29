@@ -9,7 +9,7 @@ with open("ItemFactory/data/menus.yml") as f:
 # end
 
 
-TITLE = """\nGreetings adventurer, and welcome to...\n
+TITLE = """Greetings adventurer, and welcome to...\n
 \t _ _|  |                     ____|             |                       
 \t   |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   | 
 \t   |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   | 
