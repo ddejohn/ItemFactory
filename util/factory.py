@@ -6,9 +6,71 @@ from random import choice, choices, sample, uniform
 
 with open("ItemFactory/data/materials.yml") as f:
     MATERIALS = yaml.safe_load(f.read())
+# end
+
 
 with open("ItemFactory/data/constituents.yml") as f:
     CONSTITUENTS = yaml.safe_load(f.read())
+# end
+
+
+class ItemBase:
+    def __init__(self, template: list):
+        self.item_class, self.base_type, self.sub_type, self.make = template
+        self.rarity = str
+        self.primary = str
+        self.secondary = str
+        self.constituents = []
+    # end
+# end
+
+
+class Item(ItemBase):
+    def __init__(self, template=["", "", "", ""]):
+        super().__init__(template)
+        self.name = str
+        self.description = str
+        self.stats = dict
+        AssemblyLine.start(self)
+    # end
+
+    def __str__(self):
+        stats = "\n"
+        clss = f"{self.base_type} {self.item_class} [{self.sub_type}]"
+        if self.item_class == "armor":
+            mat = "material:".ljust(16) + f"{self.primary}\n"
+            mat += "construction:".ljust(16) + f"{self.secondary}"
+        else:
+            mat = "materials:".ljust(16) + f"{self.primary}, {self.secondary}"
+        for k,v in self.stats.items():
+            stats += f"    {k}:".ljust(16) + f"{v}\n"
+
+        desc_words = self.description.split()
+        desc_line = ""
+        desc_lines = []
+        for word in desc_words:
+            desc_line += f" {word}"
+            if len(desc_line) > 35:
+                desc_lines.append(desc_line)
+                desc_line = ""
+            # end
+        rem = len(desc_words) - len(" ".join(desc_lines).split())
+        if rem != 0:
+            desc_lines[-1] += "\n" + " ".ljust(16) + " ".join(desc_words[-rem:])
+        # end
+        desc = ("\n" + " "*15).join(desc_lines)
+        out = [
+            "name:".ljust(16) + f"{self.name}",
+            "class:".ljust(16) + clss,
+            "type:".ljust(16) + f"{self.make}",
+            "rarity:".ljust(16) + f"{self.rarity}",
+            mat,
+            "description:".ljust(15) + desc,
+            "stats:".ljust(16) + stats
+        ]
+        return "\n".join(out)
+    # end
+# end
 
 
 class AssemblyLine:
@@ -146,24 +208,37 @@ def _item_description(item: 'Item'):
     softies = ["hide", "leather", "coif", "hood"]
     condition = _shuffled(_CONDITION[item.rarity])
     adjective = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
-    pops = _shuffled([0, 1, 2])
-    part = item.constituents[pops.pop()]
+
     in_by = choice(["in", "with", "by"])
     construction = {
         "weapon": f"{item.primary} and {item.secondary}",
         "armor": f"{item.secondary} {item.primary}"
     }[item.item_class]
 
+    parts = item.constituents.copy()
+    part1 = parts.pop(choice([*range(len(parts))]))
+    part2 = parts.pop(choice([*range(len(parts))]))
+    part3 = parts.pop(choice([*range(len(parts))]))
+
     if item.primary in softies or item.make in softies:
         item.description = _soft_description(item, construction, in_by)
+
+    if item.rarity in ["rare", "legendary", "mythical"]:
+        details = {
+            "rare": _choose([_patinas_etchings, _inlays], [5, 1]),
+            "legendary": _choose([_patinas_etchings, _inlays], [3, 1]),
+            "mythical": _choose([_patinas_etchings, _inlays], [2, 1])
+        }.get(item.rarity)(item)
+    else:
+        details = _common_details(item, part2, part3)
 
     item.description = " ".join([
         f"{_a_an(condition.pop()).capitalize()}",
         f"{_set_or_pair(item.make)} with",
-        f"{_a_an(adjective.pop(), adjective.pop(), part)},",
+        f"{_a_an(adjective.pop(), adjective.pop(), part1)},",
         f"{_shuffled(_DETAIL_VERB[item.rarity]).pop()}",
         f"{_get_make()} from {construction}.",
-        _get_details(item)
+        details
     ])
 
 
@@ -232,25 +307,16 @@ def _patinas_etchings(item: 'Item'):
     ])
 
 
-def _common_details(item: 'Item'):
+def _common_details(item: 'Item', part2, part3):
     details = _shuffled(_DETAIL_NOUN[item.rarity])
     adjective = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
-    pops = _shuffled([0, 1, 2])
     in_by = choice(["in", "with", "by"])
     return " ".join([
-        f"The {_is_are(item.constituents[pops.pop()])}",
+        f"The {_is_are(part2)}",
         f"{adjective.pop()} and {adjective.pop()}, and the",
-        f"{_is_are(item.constituents[pops.pop()])}",
+        f"{_is_are(part3)}",
         f"covered {in_by} {details.pop()} and {details.pop()}."
     ])
-
-
-def _get_details(item: 'Item'):
-    return {
-        "rare": _choose([_patinas_etchings, _inlays], [5, 1]),
-        "legendary": _choose([_patinas_etchings, _inlays], [3, 1]),
-        "mythical": _choose([_patinas_etchings, _inlays], [2, 1])
-    }.get(item.rarity, _common_details)(item)
 
 
 def _get_make():

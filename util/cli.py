@@ -4,7 +4,35 @@ import yaml
 from random import choice
 
 
-MENU_PROMPTS = {
+with open("ItemFactory/data/menus.yml") as f:
+    MAIN_MENU = yaml.safe_load(f.read())
+# end
+
+
+TITLE = """\nGreetings adventurer, and welcome to...\n
+\t _ _|  |                     ____|             |                       
+\t   |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   | 
+\t   |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   | 
+\t ___| \__| \___| _|  _|  _| _|   \__,_| \___| \__| \___/  _|    \__, | 
+\t                                                                ____/ \n
+...A random weapon and armor generator which provides richly detailed descriptions, unique names, and basic item stats!"""
+
+
+MAIN_OPTIONS = {
+    "1": "build your own",
+    "2": "randomize!",
+    "q": "quit"
+}
+
+
+MAIN_ACTIONS = {
+    "build your own": False,
+    "randomize!": True,
+    "quit": "quit"
+}
+
+
+MAIN_PROMPTS = {
     "armor": "Choose an armor class",
     "heavy": "Choose an armor type",
     "light": "Choose an armor type",
@@ -14,28 +42,17 @@ MENU_PROMPTS = {
 }
 
 
-def load_data(data: dict, label) -> 'Menu':
+def load(label: str, data: dict) -> 'Menu':
     menu = Menu(prompt=label, options=data.keys())
     for k,v in data.items():
         if isinstance(v, dict):
-            menu.submenu[k] = load_data(label=k, data=v)
+            menu.submenu[k] = load(label=k, data=v)
         else:
             menu.submenu[k] = Menu(prompt=k, options=v)
+        # end
+    # end
+
     return menu
-# end
-
-
-def dict_print(data: dict, t=0):
-    out = ""
-    header = "|   "
-    for k,v in data.items():
-        out += f"{t*header}{k}\n"
-        if isinstance(v, dict):
-            out += dict_print(v, t+1)
-        elif isinstance(v, list):
-            for elem in v:
-                out += f"{(t+1)*header}{elem}\n"
-    return out
 # end
 
 
@@ -44,11 +61,16 @@ def get_input(prompt: str, options: dict) -> str:
     for k,v in options.items():
         print(f"  [{k}] - {v}")
     while True:
-        sel = input(" > ")
+        sel = input(" > ").lower()
         if sel not in options.keys():
-            print("Invalid selection!")
+            print("\nInvalid selection!\n")
         else:
-            return options.get(sel)
+            sel = options.get(sel)
+            break
+        # end
+    # end
+
+    return sel
 # end
 
 
@@ -62,7 +84,7 @@ class Menu:
     def navigate(self, rand):
         out = []
         if not rand:
-            prompt = MENU_PROMPTS.get(self.prompt, "Choose an option")
+            prompt = MAIN_PROMPTS.get(self.prompt, "Choose an option")
             sel = get_input(prompt, self.options)
         else:
             sel = choice(list(self.options.values()))
@@ -81,13 +103,16 @@ class Menu:
             if not sub.submenu:
                 for k,v in sub.options.items():
                     out += f"{(t+2)*h}{v}\n"
+                # end
+            # end
+        # end
+
         return out
     # end
 # end
 
 
-def main(path: str):
-    with open(path) as f:
-        menu_data = yaml.safe_load(f.read())
-    return load_data(menu_data, "main menu")
+def main():
+    print(TITLE)
+    return load(label="main menu", data=MAIN_MENU)
 # end

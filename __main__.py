@@ -1,66 +1,53 @@
 from .util import cli, factory
 
 
-TITLE = """\nGreetings adventurer, and welcome to...\n
-\t _ _|  |                     ____|             |                       
-\t   |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   | 
-\t   |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   | 
-\t ___| \__| \___| _|  _|  _| _|   \__,_| \___| \__| \___/  _|    \__, | 
-\t                                                                ____/ 
-
-...A random weapon and armor generator which provides richly detailed descriptions, unique names, and basic item stats!"""
+ITEMS = []
+MENU = cli.main()
 
 
-MAIN = {
-    "1": "build your own",
-    "2": "randomize!",
-    "q": "quit"
-}
-
-
-MAIN_ACTIONS = {
-    "build your own": False,
-    "randomize!": True,
-    "quit": "quit"
-}
-
-
-class ItemBase:
-    def __init__(self, template: list):
-        self.item_class, self.base_type, self.sub_type, self.make = template
-        self.rarity = str
-        self.primary = str
-        self.secondary = str
-        self.constituents = []
+def save():
+    print("\nSaving items to 'items.txt'")
+    with open("ItemFactory/items.txt", "a+") as f:
+        for item in ITEMS:
+            item = str(item)
+            f.write(f"\n{item}")
+        # end
     # end
 # end
 
 
-class Item(ItemBase):
-    def __init__(self, template=["", "", "", ""]):
-        super().__init__(template)
-        self.name = str
-        self.description = str
-        self.stats = dict
-        factory.AssemblyLine.start(self)
-    # end
+def new_item(sel):
+    traits = MENU.navigate(sel)
+    item = factory.Item(traits)
 
-    def __str__(self):
-        pass
+    print(f"\n{item}\n)
+    while True:
+        sel = input("Keep item? [y/n]: ").lower()
+        if sel and sel in "yn":
+            if sel == "y":
+                ITEMS.append(item)
+            break
+        else:
+            print("\nInvalid selection!\n")
+        # end
+    # end
 # end
 
 
-print(TITLE)
-items = []
-menu = cli.main("ItemFactory/data/menus.yml")
+# main menu loop
 while True:
-    sel = cli.get_input(prompt="What would you like to do?", options=MAIN)
-    sel = MAIN_ACTIONS.get(sel)
+    sel = cli.get_input(
+        prompt="What would you like to do?",
+        options=cli.MAIN_OPTIONS
+    )
+    sel = cli.MAIN_ACTIONS.get(sel)
+
     if sel == "quit":
-        print("\nEnjoy your new items!\n")
+        if ITEMS:
+            save()
+            print("\nEnjoy your new items!\n")
         break
     else:
-        traits = menu.navigate(sel)
-    item = Item(traits)
-    for k,v in item.__dict__.items():
-        print(f"{k}: {v}")
+        new_item(sel)
+    # end
+# end
