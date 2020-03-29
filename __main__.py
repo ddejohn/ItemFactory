@@ -20,7 +20,7 @@ def new_item(sel):
     traits = MENU.navigate(sel)
     item = factory.Item(traits)
 
-    print(f"\n{item}\n")
+    print(f"\n{item}")
     while True:
         sel = input("Keep item? [y/n]: ").lower()
         if sel and sel in "yn":
