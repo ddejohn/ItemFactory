@@ -93,7 +93,7 @@ class AssemblyLine:
     def __rarity(item: 'Item'):
         item.rarity = _choose(
             ppl=list(AssemblyLine.weights.keys()),
-            wts=[50, 25, 15, 4, 2, 1]
+            wts=[50, 25, 15, 6, 3, 1]
         )
         AssemblyLine.__materials(item)
     # end
