@@ -5,8 +5,8 @@ armor:
         - brace
         - [rivet, rim, boss]
     heavy head:
-        - visor,
-        - comb,
+        - visor
+        - comb
         - [gorget, aventail, camail]
     light head:
         - cowl

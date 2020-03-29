@@ -21,16 +21,16 @@ def new_item(sel):
     item = factory.Item(traits)
 
     print(f"\n{item}")
-    while True:
-        sel = input("Keep item? [y/n]: ").lower()
-        if sel and sel in "yn":
-            if sel == "y":
-                ITEMS.append(item)
-            break
-        else:
-            print("\nInvalid selection!\n")
-        # end
-    # end
+    # while True:
+    #     sel = input("Keep item? [y/n]: ").lower()
+    #     if sel and sel in "yn":
+    #         if sel == "y":
+    #             ITEMS.append(item)
+    #         break
+    #     else:
+    #         print("\nInvalid selection!\n")
+    #     # end
+    # # end
 # end
 
 

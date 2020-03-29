@@ -306,22 +306,28 @@ def _inlays(item: 'Item'):
 
 
 def _patinas_etchings(item: 'Item'):
+    glisten_verb = choice(_GLISTENS_VERB)
+    glisten_noun = choice(_GLISTENS_NOUN)
+    glisten_adj = choice(_GLISTENS_ADJECTIVE)
+    carving_noun = choice(_CARVINGS_NOUN)
+    carving_adj = choice(_CARVINGS_ADJECTIVE)
+    whole_entire = choice(['whole', 'entire'])
+    covered = choice(["all covered in", "strewn with"])
+
     if item.make in ["morning star", "dire flail", "flail", "meteor hammer"]:
         general_name = "weapon"
     else:
         general_name = item.make.split()[-1]
-    if item.make[-1] == "s" and item.make[-2] not in ["s", "y"]:
-        second_sentence = item.make
-        glisten_choice = choice(_GLISTENS_VERB).rstrip("es")
+
+    if item.make[-1] == "s" and item.make[-2] not in "sy":
+        glisten_sentence = f"{item.make} {glisten_verb.rstrip('es')}"
     else:
-        second_sentence = f"{choice(['whole', 'entire'])} {general_name}"
-        glisten_choice = choice(_GLISTENS_VERB)
+        glisten_sentence = f"{whole_entire} {general_name} {glisten_verb}"
+
     return " ".join([
         f"The {_listify_words(item.constituents)}",
-        f"are all covered in {choice(_CARVINGS_ADJECTIVE)}",
-        f"{choice(_CARVINGS_NOUN)}, and the",
-        f"{second_sentence} {glisten_choice}",
-        f"with {_a_an(choice(_GLISTENS_ADJECTIVE))} {choice(_GLISTENS_NOUN)}."
+        f"are {covered} {carving_adj} {carving_noun},",
+        f"and the {glisten_sentence} with {_a_an(glisten_adj)} {glisten_noun}."
     ])
 # end
 
@@ -329,12 +335,12 @@ def _patinas_etchings(item: 'Item'):
 def _common_details(item: 'Item', part2, part3):
     details = _shuffled(_DETAIL_NOUN[item.rarity])
     adjective = _shuffled(_DETAIL_ADJECTIVE[item.rarity])
-    in_by = choice(["in", "with", "by"])
+    in_with = choice(["in", "with"])
+
     return " ".join([
         f"The {_is_are(part2)}",
-        f"{adjective.pop()} and {adjective.pop()}, and the",
-        f"{_is_are(part3)}",
-        f"covered {in_by} {details.pop()} and {details.pop()}."
+        f"{adjective.pop()} and {adjective.pop()}, and the {_is_are(part3)}",
+        f"covered {in_with} {details.pop()} and {details.pop()}."
     ])
 # end
 
@@ -342,6 +348,7 @@ def _common_details(item: 'Item', part2, part3):
 def _get_make():
     return choice([
         "shaped",
+        "crafted",
         "formed",
         "fashioned",
         "made",
