@@ -428,7 +428,6 @@ def _mythical_name(item: 'Item'):
         [noun, abstract],
         [adjective, noun + " of the", prefix],
         [prefix, verb],
-        _legendary_name(item)
     ])
 # end
 
@@ -476,7 +475,8 @@ def _armor_stats(item: 'Item'):
     stats = _ARMOR_STAT_DATA["stats"][item.rarity]
     mults = _ARMOR_STAT_DATA["mults"][item.sub_type]
     wt = {"heavy": 2}.get(item.base_type, 1)
-    combs = [round(wt*_variance(x*y), ndigits=2) for x, y in zip(stats, mults)]
+    combs = [wt*_variance(x*y) for x, y in zip(stats, mults)]
+    combs = [round(x, 2) for x in combs]
 
     return {
         "protection": combs[0],
