@@ -11,9 +11,6 @@ def save():
         for item in ITEMS:
             item = str(item)
             f.write(f"\n{item}")
-        # end
-    # end
-# end
 
 
 def new_item(sel):
@@ -29,9 +26,6 @@ def new_item(sel):
     #         break
     #     else:
     #         print("\nInvalid selection!\n")
-    #     # end
-    # # end
-# end
 
 
 # main menu loop
@@ -49,5 +43,3 @@ while True:
         break
     else:
         new_item(sel)
-    # end
-# end
