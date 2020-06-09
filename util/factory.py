@@ -47,28 +47,18 @@ class Item(ItemBase):
         else:
             mat = "materials:".ljust(w) + f"{self.primary}, {self.secondary}"
         for k,v in self.stats.items():
-            stats += f"  {k}:".ljust(w) + f"{v}\n"
+            stats += f"    {k}:".ljust(w) + f"{v}\n"
 
-        desc_words = self.description.split()
-        desc_line = ""
-        desc_lines = []
-        for word in desc_words:
-            desc_line += f" {word}"
-            if len(desc_line) > 50:
-                desc_lines.append(desc_line)
-                desc_line = ""
-        rem = len(desc_words) - len(" ".join(desc_lines).split())
-        if rem != 0:
-            desc_lines[-1] += "\n" + " ".ljust(w) + " ".join(desc_words[-rem:])
-        desc = ("\n" + " "*(w-1)).join(desc_lines)
+        desc = paragraphize(self.description, w=45, i=" "*4)
+
         out = [
             "name:".ljust(w) + f"{self.name}",
             "class:".ljust(w) + clss,
             "type:".ljust(w) + f"{self.make}",
             "rarity:".ljust(w) + f"{self.rarity}",
             mat,
-            "description:".ljust(w-1) + desc,
-            "stats:".ljust(w) + stats
+            "\nstats:".ljust(w) + stats,
+            "\ndescription:".ljust(w) + f"\n{desc}"
         ]
         return "\n".join(out)
 
