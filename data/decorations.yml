@@ -1,0 +1,271 @@
+glistens:
+    adjective:
+        - rainbow
+        - verdigris
+        - prismatic
+        - opalescent
+        - nacreous
+        - variegated
+        - iridescent
+    noun:
+        - patina
+        - shimmer
+        - shine
+        - sheen
+        - brilliance
+        - luster
+        - finish
+    verb:
+        - glistens
+        - gleams
+        - glimmers
+        - twinkles
+        - flashes
+        - radiates
+        - beams
+        - glows
+        - glitters
+
+
+carvings:
+    adjective:
+        - intricate
+        - elaborate
+        - detailed
+        - elegant
+        - sophisticated
+        - complex
+        - labyrinthine
+        - minute
+    noun:
+        - carvings
+        - etchings
+        - patterns
+        - inscriptions
+        - engravings
+
+
+inlays:
+    - gold
+    - silver
+    - onyx
+    - obsidian
+    - amethyst
+    - emerald
+    - ruby
+    - jade
+    - turquoise
+    - zircon
+    - howlite
+    - bloodstone
+    - topaz
+    - sardonyx
+    - iridium
+    - gypsum
+    - opal
+    - coral
+    - moonstone
+    - sapphire
+    - spessartine
+    - charoite
+    - copper
+    - pearl
+
+
+detail:
+    adjective:
+        crude:
+            - scratched
+            - pitted
+            - rusted
+            - distressed
+            - chewed
+            - gnarled
+            - bent
+            - scored
+            - burred
+        common:
+            - scratched
+            - burred
+            - burnished
+            - scored
+            - pitted
+            - rusted
+            - distressed
+        uncommon:
+            - burnished
+            - distressed
+            - scratched
+            - worn
+            - dull
+            - rough
+        rare:
+            - polished
+            - smooth
+            - elegant
+            - immaculate
+            - spotless
+        legendary:
+            - ornate
+            - engraved
+            - embossed
+            - gilded
+            - elaborate
+        mythical:
+            - ornate
+            - engraved
+            - embossed
+            - gilded
+            - elaborate
+    noun:
+        crude:
+            - dried blood
+            - dirt
+            - dust
+            - claw marks
+            - scratches
+            - gashes
+            - notches
+            - bits of fur
+            - teeth marks
+        common:
+            - dried blood
+            - dirt
+            - claw marks
+            - scratches
+            - filth
+            - smudges
+        uncommon:
+            - smudges
+            - grit
+            - scratches
+            - soot
+            - residue
+        rare:
+        legendary:
+        mythical:
+    verb:
+        crude:
+            - haphazardly
+            - shoddily
+            - crudely
+            - defectively
+            - inexpertly
+            - poorly
+            - hastily
+        common:
+            - haphazardly
+            - hastily
+            - inexpertly
+            - adequately
+            - competently
+        uncommon:
+            - adequately
+            - competently
+            - sufficiently
+            - decently
+            - capably
+        rare:
+            - meticulously
+            - skillfully
+            - precisely
+            - diligently
+            - fastidiously
+        legendary:
+            - expertly
+            - elegantly
+            - masterfully
+            - flawlessly
+        mythical:
+            - expertly
+            - elegantly
+            - masterfully
+            - flawlessly
+    soft:
+        crude:
+            - scratched
+            - distressed
+            - chewed
+            - gnarled
+            - scored
+        common:
+            - scratched
+            - burnished
+            - scored
+            - distressed
+        uncommon:
+            - burnished
+            - fine
+            - satin
+        rare:
+            - fine
+            - satin
+            - engraved
+        legendary:
+            - fine
+            - satin
+            - engraved
+        mythical:
+            - fine
+            - satin
+            - engraved
+
+
+condition:
+    crude:
+        - ruined
+        - marred
+        - deformed
+        - lousy
+        - mediocre
+        - dreadful
+        - inferior
+        - substandard
+        - tarnished
+        - blighted
+        - filthy
+        - decrepit
+    common:
+        - worn
+        - chipped
+        - blemished
+        - flawed
+        - mediocre
+        - common
+        - middling
+        - tarnished
+        - neglected
+        - mended
+    uncommon:
+        - fair
+        - passable
+        - acceptable
+        - adequate
+        - blemished
+        - tarnished
+        - mended
+    rare:
+        - fine
+        - exceptional
+        - refined
+        - superior
+        - unblemished
+        - faultless
+        - pristine
+    legendary:
+        - flawless
+        - immaculate
+        - pristine
+        - exquisite
+        - superior
+        - refined
+        - impeccable
+        - superb
+    mythical:
+        - flawless
+        - immaculate
+        - pristine
+        - exquisite
+        - superior
+        - refined
+        - impeccable

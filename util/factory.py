@@ -6,33 +6,36 @@ from random import choice, choices, sample, uniform
 
 with open("ItemFactory/data/materials.yml") as f:
     MATERIALS = yaml.safe_load(f.read())
-# end
-
 
 with open("ItemFactory/data/constituents.yml") as f:
     CONSTITUENTS = yaml.safe_load(f.read())
-# end
+
+with open("ItemFactory/data/naming.yml") as f:
+    NAMING = yaml.safe_load(f.read())
+
+with open("ItemFactory/data/decorations.yml") as f:
+    DECORATIONS = yaml.safe_load(f.read())
 
 
 class ItemBase:
-    def __init__(self, template: list):
-        self.item_class, self.base_type, self.sub_type, self.make = template
+    def __init__(self):
+        self.item_class = str
+        self.base_type = str
+        self.sub_type = str
+        self.make = str
         self.rarity = str
         self.primary = str
         self.secondary = str
         self.constituents = []
-    # end
-# end
 
 
 class Item(ItemBase):
-    def __init__(self, template=["", "", "", ""]):
-        super().__init__(template)
+    def __init__(self):
+        super().__init__()
         self.name = str
         self.description = str
         self.stats = dict
         AssemblyLine.start(self)
-    # end
 
     def __str__(self):
         w = 18
@@ -54,11 +57,9 @@ class Item(ItemBase):
             if len(desc_line) > 50:
                 desc_lines.append(desc_line)
                 desc_line = ""
-            # end
         rem = len(desc_words) - len(" ".join(desc_lines).split())
         if rem != 0:
             desc_lines[-1] += "\n" + " ".ljust(w) + " ".join(desc_words[-rem:])
-        # end
         desc = ("\n" + " "*(w-1)).join(desc_lines)
         out = [
             "name:".ljust(w) + f"{self.name}",
@@ -70,8 +71,12 @@ class Item(ItemBase):
             "stats:".ljust(w) + stats
         ]
         return "\n".join(out)
-    # end
-# end
+
+
+class Randomizer(Item):
+    def __init__(self, item_class="", base_type="", sub_type="", make=""):
+        super().__init__()
+        
 
 
 class AssemblyLine:
@@ -87,7 +92,6 @@ class AssemblyLine:
     @staticmethod
     def start(item: 'Item'):
         AssemblyLine.__rarity(item)
-    # end
 
     @staticmethod
     def __rarity(item: 'Item'):
@@ -96,7 +100,6 @@ class AssemblyLine:
             wts=[50, 25, 15, 6, 3, 1]
         )
         AssemblyLine.__materials(item)
-    # end
 
     @staticmethod
     def __materials(item: 'Item'):
@@ -115,7 +118,6 @@ class AssemblyLine:
         item.secondary = choice(secondary_materials)
 
         AssemblyLine.__constituents(item)
-    # end
 
     @staticmethod
     def __constituents(item: 'Item'):
@@ -134,25 +136,20 @@ class AssemblyLine:
             item.constituents.append(part)
 
         AssemblyLine.__description(item)
-    # end
 
     @staticmethod
     def __description(item: 'Item'):
         _item_description(item)
         AssemblyLine.__name(item)
-    # end
 
     @staticmethod
     def __name(item: 'Item'):
         _item_name(item)
         AssemblyLine.__stats(item)
-    # end
 
     @staticmethod
     def __stats(item: 'Item'):
         _item_stats(item)
-    # end
-# end
 
 
 #—————————————————————————————————— helpers ——————————————————————————————————#
@@ -160,35 +157,30 @@ class AssemblyLine:
 
 def _choose(ppl, wts):
     return choice(choices(population=ppl, weights=wts, k=len(ppl)))
-# end
 
 
 def _shuffled(ppl) -> list:
     return sample(ppl, len(ppl))
-# end
 
 
-def _variance(x) -> float:
-    return uniform(x-0.3*x, x+0.3*x)
-# end
+def _fudge(x) -> float:
+    return uniform(x-0.2*x, x+0.2*x)
 
 
-def _is_are(this: str) -> str:
-    if " " in this or (this[-1] == "s" and this[-2] not in "sy"):
-        return f"{this} are"
-    return f"{this} is"
-# end
+def _is_are(word: str) -> str:
+    if " " in word or (word[-1] == "s" and word[-2] not in "sy"):
+        return f"{word} are"
+    return f"{word} is"
 
 
-def _set_or_pair(this: str) -> str:
-    if this[-1] == "s" and this[-2] not in "uosy":
-        return choice(["set", "pair"]) + f" of {this}"
-    return this
-# end
+def _set_or_pair(word: str) -> str:
+    if word[-1] == "s" and word[-2] not in "uosy":
+        return choice(["set", "pair"]) + f" of {word}"
+    return word
 
 
-def _a_an(*this: list) -> str:
-    first, *rest = this
+def _a_an(*word: list) -> str:
+    first, *rest = word
     if rest:
         rest = " ".join(rest)
         if " " in rest:
@@ -202,18 +194,16 @@ def _a_an(*this: list) -> str:
     elif first[0] in "aeiou":
         return f"an {first}{rest}"
     return f"a {first}{rest}"
-# end
 
 
-def _listify_words(this: list) -> str:
-    *rest, last = this
+def _listify_words(words: list) -> str:
+    *rest, last = words
     rest = ", ".join(rest)
     if rest:
         if " " not in rest:
             return f"{rest} and {last}"
         return f"{rest}, and {last}"
     return last
-# end
 
 
 #—————————————————————————————— item description —————————————————————————————#
@@ -255,7 +245,6 @@ def _item_description(item: 'Item'):
         f"{_get_make()} from {construction}.",
         details
     ])
-# end
 
 
 def _soft_description(item: 'Item', construction, in_by):
@@ -277,7 +266,6 @@ def _soft_description(item: 'Item', construction, in_by):
         f"{_get_make()} from {qualities}{construction}.",
         second_sentence
     ])
-# end
 
 
 def _inlays(item: 'Item'):
@@ -302,7 +290,6 @@ def _inlays(item: 'Item'):
             f"{_listify_words(sample(_INLAYS, k))}."
         ])
     return all_inlays
-# end
 
 
 def _patinas_etchings(item: 'Item'):
@@ -329,7 +316,6 @@ def _patinas_etchings(item: 'Item'):
         f"are {covered} {carving_adj} {carving_noun},",
         f"and the {glisten_sentence} with {_a_an(glisten_adj)} {glisten_noun}."
     ])
-# end
 
 
 def _common_details(item: 'Item', part2, part3, adjs1, adjs2):
@@ -341,7 +327,6 @@ def _common_details(item: 'Item', part2, part3, adjs1, adjs2):
         f"{adjs1} and {adjs2}, and the {_is_are(part3)}",
         f"covered {in_with} {details.pop()} and {details.pop()}."
     ])
-# end
 
 
 def _get_make():
@@ -354,7 +339,6 @@ def _get_make():
         "constructed",
         "assembled"
     ])
-# end
 
 
 #————————————————————————————————— item name —————————————————————————————————#
@@ -377,7 +361,6 @@ def _item_name(item: 'Item'):
         }.get(item.rarity, _common_name)(item))
 
     item.name = " ".join(new_name)
-# end
 
 
 def _rare_name(item: 'Item'):
@@ -389,7 +372,6 @@ def _rare_name(item: 'Item'):
         [adjective, item.primary, noun, abstract],
         [adjective, item.primary, item.make, abstract],
     ])
-# end
 
 
 def _legendary_name(item: 'Item'):
@@ -408,7 +390,6 @@ def _legendary_name(item: 'Item'):
         [item.primary, noun, abstract],
         _rare_name(item)
     ])
-# end
 
 
 def _mythical_name(item: 'Item'):
@@ -429,7 +410,6 @@ def _mythical_name(item: 'Item'):
         [adjective, noun + " of the", prefix],
         [prefix, verb],
     ])
-# end
 
 
 def _common_name(item: 'Item'):
@@ -442,7 +422,6 @@ def _common_name(item: 'Item'):
         [item.rarity, item.primary, item.make],
         [choice(_SOFT_ADJECTIVE[item.rarity]), item.primary, item.make]
     ])
-# end
 
 
 #———————————————————————————————— item stats —————————————————————————————————#
@@ -453,38 +432,35 @@ def _item_stats(item: 'Item'):
         "weapon": _weapon_stats,
         "armor": _armor_stats
     }[item.item_class](item)
-# end
 
 
 def _weapon_stats(item: 'Item'):
     stats = _WEAPON_STAT_DATA["stats"][item.rarity]
     mults = _WEAPON_STAT_DATA["mults"][item.sub_type]
     wt = {"one-handed": 0.7}.get(item.sub_type, 1)
-    combs = [round(wt*_variance(x*y), ndigits=2) for x, y in zip(stats, mults)]
+    d,r,s,k = [round(wt*_fudge(x*y), ndigits=2) for x, y in zip(stats, mults)]
 
     return {
-        "damage": combs[0],
-        "range": combs[1],
-        "speed": combs[2],
-        "luck": combs[3]
+        "damage": d,
+        "range": r,
+        "speed": s,
+        "luck": k
     }
-# end
 
 
 def _armor_stats(item: 'Item'):
     stats = _ARMOR_STAT_DATA["stats"][item.rarity]
     mults = _ARMOR_STAT_DATA["mults"][item.sub_type]
     wt = {"heavy": 2}.get(item.base_type, 1)
-    combs = [wt*_variance(x*y) for x, y in zip(stats, mults)]
-    combs = [round(x, 2) for x in combs]
+    combs = [wt*_fudge(x*y) for x, y in zip(stats, mults)]
+    p,m,n,k = [round(x, 2) for x in combs]
 
     return {
-        "protection": combs[0],
-        "movement": combs[1],
-        "noise": combs[2],
-        "luck": combs[3]
+        "protection": p,
+        "movement": m,
+        "noise": n,
+        "luck": k
     }
-# end
 
 
 #——————————————————————————————————— data ————————————————————————————————————#
