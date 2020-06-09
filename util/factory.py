@@ -196,6 +196,19 @@ def _listify_words(words: list) -> str:
     return last
 
 
+def paragraphize(s: str, w=50, i=""):
+    new_string = i
+    col = 0
+    for char in s:
+        new_string += char
+        col += 1
+        if col > w and char == " ":
+            col = 0
+            new_string += "\n" + i
+
+    return new_string
+
+
 #—————————————————————————————— item description —————————————————————————————#
 
 
