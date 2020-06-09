@@ -19,22 +19,22 @@ with open("ItemFactory/data/decorations.yml") as f:
 
 class ItemBase:
     def __init__(self):
-        self.item_class = str
-        self.base_type = str
-        self.sub_type = str
-        self.make = str
-        self.rarity = str
-        self.primary = str
-        self.secondary = str
+        self.item_class = ""
+        self.base_type = ""
+        self.sub_type = ""
+        self.make = ""
+        self.rarity = ""
+        self.primary = ""
+        self.secondary = ""
         self.constituents = []
 
 
 class Item(ItemBase):
     def __init__(self):
         super().__init__()
-        self.name = str
-        self.description = str
-        self.stats = dict
+        self.name = ""
+        self.description = ""
+        self.stats = {}
         AssemblyLine.start(self)
 
     def __str__(self):
