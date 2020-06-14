@@ -50,7 +50,7 @@ class Item(ItemBase):
             "rarity:".ljust(w) + f"{self.rarity}",
             mat,
             "\nstats:".ljust(w) + stats,
-            "\ndescription:".ljust(w) + f"\n{desc}"
+            "description:".ljust(w) + f"\n{desc}"
         ]
         return "\n".join(out)
 

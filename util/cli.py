@@ -9,13 +9,16 @@ with open("ItemFactory/data/menus.yml") as f:
 # end
 
 
-TITLE = """Greetings adventurer, and welcome to...\n
-\t _ _|  |                     ____|             |                       
-\t   |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   | 
-\t   |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   | 
-\t ___| \__| \___| _|  _|  _| _|   \__,_| \___| \__| \___/  _|    \__, | 
-\t                                                                ____/ \n
-...A random weapon and armor generator which provides richly detailed descriptions, unique names, and basic item stats!"""
+TITLE = """Greetings adventurer, and welcome to...
+
+        _ _|  |                     ____|             |                      
+          |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   |
+          |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   |
+        ___| \__| \___| _|  _|  _| _|   \__,_| \___| \__| \___/  _|    \__, |
+                                                                       ____/
+
+...A random weapon and armor generator which provides richly detailed
+        descriptions, unique names, and basic item stats!"""
 
 
 MAIN_OPTIONS = {
