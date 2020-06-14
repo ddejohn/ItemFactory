@@ -4,7 +4,7 @@ import yaml
 from random import choice
 
 
-with open("ItemFactory/data/menus.yml") as f:
+with open("../data/menus.yml") as f:
     MAIN_MENU = yaml.safe_load(f.read())
 
 
@@ -89,18 +89,21 @@ class Menu:
         self.submenu = {}
 
 
-    # def __str__(self, t=0):
-    #     h = "    "
-    #     out = f"{t*h}{self.prompt}\n"
-    #     for lbl, sub in self.submenu.items():
-    #         out += sub.__str__(t+1)
-    #         if not sub.submenu:
-    #             for k,v in sub.options.items():
-    #                 out += f"{(t+2)*h}{v}\n"
+    def __str__(self, t=0):
+        h = "|   "
+        out = f"{t*h}{self.prompt}\n"
+        for lbl, sub in self.submenu.items():
+            out += sub.__str__(t+1)
+            if not sub.submenu:
+                for k,v in sub.options.items():
+                    out += f"{(t+2)*h}{v}\n"
 
-    #     return out
+        return out
 
 
-def main():
-    print(TITLE)
-    return load(label="main menu", data=MAIN_MENU)
+# def main():
+    # print(TITLE)
+    # return load(label="main menu", data=MAIN_MENU)
+
+
+print(load(label="main menu", data=MAIN_MENU))

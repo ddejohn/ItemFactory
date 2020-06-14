@@ -15,6 +15,7 @@ def previous_step():
     print("Previous step!")
 
 root = tk.Tk()
+root.title("ItemFactory")
 # root.geometry("600x400")
 root.resizable(0,0)
 root.columnconfigure(0, weight=1)
@@ -29,4 +30,5 @@ tk.Radiobutton(root, text="Armor", variable=mode, value=1).grid(row=2, pady=5)
 
 tk.Button(root, text="Next", padx=10, command=next_step).grid(row=1000, sticky=tk.E, padx=5, pady=5)
 tk.Button(root, text="Back", padx=10, command=previous_step).grid(row=1000, sticky=tk.W, padx=5, pady=5)
+tk.Button(root, text="Randomize", padx=10, command=next_step).grid(row=1000, padx=5, pady=5)
 root.mainloop()
