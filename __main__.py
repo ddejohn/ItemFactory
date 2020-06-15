@@ -11,16 +11,15 @@ def save():
         for item in ITEMS:
             item = str(item)
             f.write(f"\n{item}")
-        # end
-    # end
-# end
 
 
 def new_item(sel):
     traits = MENU.navigate(sel)
-    item = factory.Item(traits)
+    item = factory.Item()
+    factory.AssemblyLine(item)
 
     print(f"\n{item}")
+
     # while True:
     #     sel = input("Keep item? [y/n]: ").lower()
     #     if sel and sel in "yn":
@@ -29,9 +28,6 @@ def new_item(sel):
     #         break
     #     else:
     #         print("\nInvalid selection!\n")
-    #     # end
-    # # end
-# end
 
 
 # main menu loop
@@ -49,5 +45,3 @@ while True:
         break
     else:
         new_item(sel)
-    # end
-# end

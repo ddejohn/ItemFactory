@@ -17,12 +17,17 @@ with open("ItemFactory/data/decorations.yml") as f:
     DECORATIONS = yaml.safe_load(f.read())
 
 
-class ItemBase:
+class ItemData:
+    def __init__(self, c="", b="", s="", m=""):
+        self.item_class = c
+        self.base_type = b
+        self.sub_type = s
+        self.make = m
+
+
+class ItemBase(ItemData):
     def __init__(self):
-        self.item_class = ""
-        self.base_type = ""
-        self.sub_type = ""
-        self.make = ""
+        super().__init__()
         self.rarity = ""
         self.primary = ""
         self.secondary = ""
@@ -35,7 +40,6 @@ class Item(ItemBase):
         self.name = ""
         self.description = ""
         self.stats = {}
-        AssemblyLine.start(self)
 
     def __str__(self):
         w = 18
@@ -61,12 +65,6 @@ class Item(ItemBase):
             "\ndescription:".ljust(w) + f"\n{desc}"
         ]
         return "\n".join(out)
-
-
-class Randomizer(Item):
-    def __init__(self, item_class="", base_type="", sub_type="", make=""):
-        super().__init__()
-        
 
 
 class AssemblyLine:
