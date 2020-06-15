@@ -6,7 +6,6 @@ from random import choice
 
 with open("ItemFactory/data/menus.yml") as f:
     MAIN_MENU = yaml.safe_load(f.read())
-# end
 
 
 TITLE = """Greetings adventurer, and welcome to...
@@ -25,6 +24,16 @@ MAIN_OPTIONS = {
     "1": "build your own",
     "2": "randomize!",
     "q": "quit"
+}
+
+
+RARITY_CHOICES = {
+    "1": "crude",
+    "2": "common",
+    "3": "uncommon",
+    "4": "rare",
+    "5": "legendary",
+    "6": "mythical"
 }
 
 
@@ -52,11 +61,8 @@ def load(label: str, data: dict) -> 'Menu':
             menu.submenu[k] = load(label=k, data=v)
         else:
             menu.submenu[k] = Menu(prompt=k, options=v)
-        # end
-    # end
 
     return menu
-# end
 
 
 def get_input(prompt: str, options: dict) -> str:
@@ -70,11 +76,8 @@ def get_input(prompt: str, options: dict) -> str:
         else:
             sel = options.get(sel)
             break
-        # end
-    # end
 
     return sel
-# end
 
 
 class Menu:
@@ -82,7 +85,6 @@ class Menu:
         self.prompt = prompt
         self.options = {str(k):v for k,v in enumerate(options, 1)}
         self.submenu = {}
-    # end
 
     def navigate(self, rand):
         out = []
@@ -96,7 +98,6 @@ class Menu:
             return out
         out.extend(self.submenu.get(sel).navigate(rand))
         return out
-    # end
 
     def __str__(self, t=0):
         h = "    "
@@ -106,16 +107,10 @@ class Menu:
             if not sub.submenu:
                 for k,v in sub.options.items():
                     out += f"{(t+2)*h}{v}\n"
-                # end
-            # end
-        # end
 
         return out
-    # end
-# end
 
 
 def main():
     print(TITLE)
     return load(label="main menu", data=MAIN_MENU)
-# end

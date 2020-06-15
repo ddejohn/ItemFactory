@@ -15,7 +15,18 @@ def save():
 
 def new_item(sel):
     traits = MENU.navigate(sel)
-    item = factory.Item(traits)
+
+    rarity_choices = {
+        "1": "crude",
+        "2": "common",
+        "3": "uncommon",
+        "4": "rare",
+        "5": "legendary",
+        "6": "mythical"
+    }
+
+    rarity = cli.get_input("Choose the item rarity", rarity_choices)
+    item = factory.Item(traits, rarity)
 
     print(f"\n{item}")
     # while True:

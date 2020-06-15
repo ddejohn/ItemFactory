@@ -22,8 +22,10 @@ class ItemBase:
 
 
 class Item(ItemBase):
-    def __init__(self, template=["", "", "", ""]):
+    def __init__(self, template=[], rarity=""):
         super().__init__(template)
+        if rarity:
+            self.rarity = rarity
         self.name = str
         self.description = str
         self.stats = dict
@@ -38,7 +40,7 @@ class Item(ItemBase):
             mat += "construction:".ljust(w) + f"{self.secondary}"
         else:
             mat = "materials:".ljust(w) + f"{self.primary}, {self.secondary}"
-        for k,v in self.stats.items():
+        for k, v in self.stats.items():
             stats += f"    {k}:".ljust(w) + f"{v}\n"
 
         desc = paragraphize(self.description, w=45, i=" "*4)
@@ -71,10 +73,11 @@ class AssemblyLine:
 
     @staticmethod
     def __rarity(item: 'Item'):
-        item.rarity = _choose(
-            ppl=list(AssemblyLine.weights.keys()),
-            wts=[50, 25, 15, 6, 3, 1]
-        )
+        if not item.rarity:
+            item.rarity = _choose(
+                ppl=list(AssemblyLine.weights.keys()),
+                wts=[50, 25, 15, 6, 3, 1]
+            )
         AssemblyLine.__materials(item)
 
     @staticmethod
@@ -105,7 +108,7 @@ class AssemblyLine:
             parts = parts.get(f"{item.base_type} {item.sub_type}")
         else:
             parts = parts.get(item.sub_type)
-        
+
         for part in parts:
             if isinstance(part, list):
                 part = choice(part)
