@@ -79,19 +79,19 @@ class AssemblyLine:
 
     @staticmethod
     def start(item: 'Item'):
-        AssemblyLine.__rarity(item)
+        AssemblyLine._rarity(item)
 
     @staticmethod
-    def __rarity(item: 'Item'):
+    def _rarity(item: 'Item'):
         if not item.rarity:
             item.rarity = _choose(
                 ppl=[*AssemblyLine.weights],
                 wts=[50, 25, 15, 6, 3, 1]
             )
-        AssemblyLine.__materials(item)
+        AssemblyLine._materials(item)
 
     @staticmethod
-    def __materials(item: 'Item'):
+    def _materials(item: 'Item'):
         weights = AssemblyLine.weights[item.rarity]
 
         primary_materials = MATERIALS.get(item.item_class).get("primary")
@@ -100,16 +100,16 @@ class AssemblyLine:
         if item.item_class == "armor":
             primary_materials = primary_materials.get(item.base_type)
             secondary_materials = secondary_materials.get(item.base_type)
-        elif item.item_class == "weapon":
+        else:
             secondary_materials = secondary_materials.get(item.rarity)
 
         item.primary = _choose(primary_materials, weights)
         item.secondary = choice(secondary_materials)
 
-        AssemblyLine.__constituents(item)
+        AssemblyLine._constituents(item)
 
     @staticmethod
-    def __constituents(item: 'Item'):
+    def _constituents(item: 'Item'):
         parts = CONSTITUENTS.get(item.item_class)
 
         if item.sub_type == "shield":
@@ -124,20 +124,20 @@ class AssemblyLine:
                 part = choice(part)
             item.constituents.append(part)
 
-        AssemblyLine.__description(item)
+        AssemblyLine._description(item)
 
     @staticmethod
-    def __description(item: 'Item'):
+    def _description(item: 'Item'):
         _item_description(item)
-        AssemblyLine.__name(item)
+        AssemblyLine._name(item)
 
     @staticmethod
-    def __name(item: 'Item'):
+    def _name(item: 'Item'):
         _item_name(item)
-        AssemblyLine.__stats(item)
+        AssemblyLine._stats(item)
 
     @staticmethod
-    def __stats(item: 'Item'):
+    def _stats(item: 'Item'):
         _item_stats(item)
 
 
