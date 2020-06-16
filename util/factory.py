@@ -390,7 +390,6 @@ def _legendary_name(item: 'Item'):
         [adjective, item.primary, noun, abstract],
         [item.primary, prefix, abstract],
         [item.primary, noun, abstract],
-        _rare_name(item)
     ])
 
 
