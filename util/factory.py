@@ -68,11 +68,11 @@ class AssemblyLine:
     }
 
     @staticmethod
-    def start(item: 'Item'):
+    def start(item: Item):
         AssemblyLine.__rarity(item)
 
     @staticmethod
-    def __rarity(item: 'Item'):
+    def __rarity(item: Item):
         if not item.rarity:
             item.rarity = _choose(
                 ppl=list(AssemblyLine.weights.keys()),
@@ -81,7 +81,7 @@ class AssemblyLine:
         AssemblyLine.__materials(item)
 
     @staticmethod
-    def __materials(item: 'Item'):
+    def __materials(item: Item):
         weights = AssemblyLine.weights[item.rarity]
 
         primary_materials = MATERIALS.get(item.item_class).get("primary")
@@ -99,7 +99,7 @@ class AssemblyLine:
         AssemblyLine.__constituents(item)
 
     @staticmethod
-    def __constituents(item: 'Item'):
+    def __constituents(item: Item):
         parts = CONSTITUENTS.get(item.item_class)
 
         if item.sub_type == "shield":
@@ -117,17 +117,17 @@ class AssemblyLine:
         AssemblyLine.__description(item)
 
     @staticmethod
-    def __description(item: 'Item'):
+    def __description(item: Item):
         _item_description(item)
         AssemblyLine.__name(item)
 
     @staticmethod
-    def __name(item: 'Item'):
+    def __name(item: Item):
         _item_name(item)
         AssemblyLine.__stats(item)
 
     @staticmethod
-    def __stats(item: 'Item'):
+    def __stats(item: Item):
         _item_stats(item)
 
 
@@ -201,7 +201,7 @@ def paragraphize(s: str, w=50, i=""):
 #—————————————————————————————— item description —————————————————————————————#
 
 
-def _item_description(item: 'Item'):
+def _item_description(item: Item):
     softies = ["hide", "leather", "coif", "hood"]
     condition = _shuffled(_CONDITION[item.rarity]).copy()
     adjs = _shuffled(_DETAIL_ADJECTIVE[item.rarity]).copy()
@@ -239,7 +239,7 @@ def _item_description(item: 'Item'):
     ])
 
 
-def _soft_description(item: 'Item', construction, in_by):
+def _soft_description(item: Item, construction, in_by):
     verbs = _shuffled(_DETAIL_VERB[item.rarity]).copy()
     nouns = _shuffled(_DETAIL_NOUN[item.rarity]).copy()
     soft_adjectives = _shuffled(_SOFT_ADJECTIVE[item.rarity]).copy()
@@ -260,7 +260,15 @@ def _soft_description(item: 'Item', construction, in_by):
     ])
 
 
-def _inlays(item: 'Item'):
+def _get_details(item: Item):
+    return {
+        "rare": _choose([_patinas_etchings, _inlays], [5, 1]),
+        "legendary": _choose([_patinas_etchings, _inlays], [3, 1]),
+        "mythical": _choose([_patinas_etchings, _inlays], [2, 1])
+    }.get(item.rarity, _common_details)(item)
+
+
+def _inlays(item: Item):
     k = {"rare": 1, "legendary": 2, "mythical": 4}[item.rarity]
     if k == 4:
         parts = _shuffled(item.constituents)
@@ -284,7 +292,7 @@ def _inlays(item: 'Item'):
     return all_inlays
 
 
-def _patinas_etchings(item: 'Item'):
+def _patinas_etchings(item: Item):
     glisten_verb = choice(_GLISTENS_VERB)
     glisten_noun = choice(_GLISTENS_NOUN)
     glisten_adj = choice(_GLISTENS_ADJECTIVE)
@@ -310,7 +318,7 @@ def _patinas_etchings(item: 'Item'):
     ])
 
 
-def _common_details(item: 'Item', part2, part3, adjs1, adjs2):
+def _common_details(item: Item, part2, part3, adjs1, adjs2):
     details = _shuffled(_DETAIL_NOUN[item.rarity]).copy()
     in_with = choice(["in", "with"])
 
@@ -336,7 +344,7 @@ def _get_make():
 #————————————————————————————————— item name —————————————————————————————————#
 
 
-def _item_name(item: 'Item'):
+def _item_name(item: Item):
     new_name = []
 
     if item.item_class == "armor":
@@ -355,7 +363,7 @@ def _item_name(item: 'Item'):
     item.name = " ".join(new_name)
 
 
-def _rare_name(item: 'Item'):
+def _rare_name(item: Item):
     adjective = choice(_ADJECTIVES)
     abstract = choice(_ABSTRACT)
     noun = choice(_NOUNS)
@@ -366,7 +374,7 @@ def _rare_name(item: 'Item'):
     ])
 
 
-def _legendary_name(item: 'Item'):
+def _legendary_name(item: Item):
     adjective = choice(_ADJECTIVES)
     abstract = choice(_ABSTRACT)
     noun = choice(_NOUNS)
@@ -384,7 +392,7 @@ def _legendary_name(item: 'Item'):
     ])
 
 
-def _mythical_name(item: 'Item'):
+def _mythical_name(item: Item):
     adjective = choice(_ADJECTIVES)
     abstract = choice(_ABSTRACT)
     noun = choice(_NOUNS)
@@ -404,7 +412,7 @@ def _mythical_name(item: 'Item'):
     ])
 
 
-def _common_name(item: 'Item'):
+def _common_name(item: Item):
     if item.primary not in ["hide", "leather"]:
         return choice([
             [item.rarity, item.primary, item.make],
@@ -419,14 +427,14 @@ def _common_name(item: 'Item'):
 #———————————————————————————————— item stats —————————————————————————————————#
 
 
-def _item_stats(item: 'Item'):
+def _item_stats(item: Item):
     item.stats = {
         "weapon": _weapon_stats,
         "armor": _armor_stats
     }[item.item_class](item)
 
 
-def _weapon_stats(item: 'Item'):
+def _weapon_stats(item: Item):
     stats = _WEAPON_STAT_DATA["stats"][item.rarity]
     mults = _WEAPON_STAT_DATA["mults"][item.sub_type]
     wt = {"one-handed": 0.7}.get(item.sub_type, 1)
@@ -440,7 +448,7 @@ def _weapon_stats(item: 'Item'):
     }
 
 
-def _armor_stats(item: 'Item'):
+def _armor_stats(item: Item):
     stats = _ARMOR_STAT_DATA["stats"][item.rarity]
     mults = _ARMOR_STAT_DATA["mults"][item.sub_type]
     wt = {"heavy": 2}.get(item.base_type, 1)
