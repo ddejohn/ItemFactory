@@ -270,6 +270,14 @@ def _soft_description(item: 'Item', construction, in_by):
     ])
 
 
+def _get_details(item: Item):
+    return {
+        "rare": _choose([_patinas_etchings, _inlays], [5, 1]),
+        "legendary": _choose([_patinas_etchings, _inlays], [3, 1]),
+        "mythical": _choose([_patinas_etchings, _inlays], [2, 1])
+    }.get(item.rarity, _common_details)(item)
+
+
 def _inlays(item: 'Item'):
     k = {"rare": 1, "legendary": 2, "mythical": 4}[item.rarity]
     if k == 4:
