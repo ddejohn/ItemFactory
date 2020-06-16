@@ -18,11 +18,11 @@ with open("ItemFactory/data/decorations.yml") as f:
 
 
 class ItemData:
-    def __init__(self, c="", b="", s="", m=""):
-        self.item_class = c
-        self.base_type = b
-        self.sub_type = s
-        self.make = m
+    def __init__(self):
+        self.item_class = ""
+        self.base_type = ""
+        self.sub_type = ""
+        self.make = ""
 
 
 class ItemBase(ItemData):
@@ -50,7 +50,7 @@ class Item(ItemBase):
             mat += "construction:".ljust(w) + f"{self.secondary}"
         else:
             mat = "materials:".ljust(w) + f"{self.primary}, {self.secondary}"
-        for k,v in self.stats.items():
+        for k, v in self.stats.items():
             stats += f"    {k}:".ljust(w) + f"{v}\n"
 
         desc = paragraphize(self.description, w=45, i=" "*4)
@@ -62,7 +62,7 @@ class Item(ItemBase):
             "rarity:".ljust(w) + f"{self.rarity}",
             mat,
             "\nstats:".ljust(w) + stats,
-            "\ndescription:".ljust(w) + f"\n{desc}"
+            "description:".ljust(w) + f"\n{desc}"
         ]
         return "\n".join(out)
 
@@ -83,10 +83,11 @@ class AssemblyLine:
 
     @staticmethod
     def __rarity(item: 'Item'):
-        item.rarity = _choose(
-            ppl=list(AssemblyLine.weights.keys()),
-            wts=[50, 25, 15, 6, 3, 1]
-        )
+        if not item.rarity:
+            item.rarity = _choose(
+                ppl=[*AssemblyLine.weights],
+                wts=[50, 25, 15, 6, 3, 1]
+            )
         AssemblyLine.__materials(item)
 
     @staticmethod
@@ -117,7 +118,7 @@ class AssemblyLine:
             parts = parts.get(f"{item.base_type} {item.sub_type}")
         else:
             parts = parts.get(item.sub_type)
-        
+
         for part in parts:
             if isinstance(part, list):
                 part = choice(part)
@@ -439,7 +440,8 @@ def _weapon_stats(item: 'Item'):
     stats = _WEAPON_STAT_DATA["stats"][item.rarity]
     mults = _WEAPON_STAT_DATA["mults"][item.sub_type]
     wt = {"one-handed": 0.7}.get(item.sub_type, 1)
-    d,r,s,k = [round(wt*_fudge(x*y), ndigits=2) for x, y in zip(stats, mults)]
+    d, r, s, k = [round(wt*_fudge(x*y), ndigits=2)
+                  for x, y in zip(stats, mults)]
 
     return {
         "damage": d,
@@ -454,7 +456,7 @@ def _armor_stats(item: 'Item'):
     mults = _ARMOR_STAT_DATA["mults"][item.sub_type]
     wt = {"heavy": 2}.get(item.base_type, 1)
     combs = [wt*_fudge(x*y) for x, y in zip(stats, mults)]
-    p,m,n,k = [round(x, 2) for x in combs]
+    p, m, n, k = [round(x, 2) for x in combs]
 
     return {
         "protection": p,
@@ -462,9 +464,6 @@ def _armor_stats(item: 'Item'):
         "noise": n,
         "luck": k
     }
-
-
-#——————————————————————————————————— data ————————————————————————————————————#
 
 
 _WEAPON_STAT_DATA = {

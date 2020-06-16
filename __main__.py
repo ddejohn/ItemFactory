@@ -1,36 +1,22 @@
 from .util import cli, factory
 
-
 ITEMS = []
-MENU = cli.main()
+print(cli.TITLE)
 
 
-def save():
-    print("\nSaving items to 'items.txt'")
-    with open("ItemFactory/items.txt", "a+") as f:
-        for item in ITEMS:
-            item = str(item)
-            f.write(f"\n{item}")
-
-
-def new_item(sel):
-    traits = MENU.navigate(sel)
+def new_item(rand) -> factory.Item:
     item = factory.Item()
-    factory.AssemblyLine(item)
+    traits = cli.main(rand)
+    item.item_class, item.base_type, item.sub_type, item.make = traits
 
-    print(f"\n{item}")
+    if not rand:
+        item.rarity = cli.get_input("Choose item rarity", cli.RARITY)
 
-    # while True:
-    #     sel = input("Keep item? [y/n]: ").lower()
-    #     if sel and sel in "yn":
-    #         if sel == "y":
-    #             ITEMS.append(item)
-    #         break
-    #     else:
-    #         print("\nInvalid selection!\n")
+    factory.AssemblyLine.start(item)
+    return item
 
 
-# main menu loop
+# main program loop
 while True:
     sel = cli.get_input(
         prompt="What would you like to do?",
@@ -39,9 +25,18 @@ while True:
     sel = cli.MAIN_ACTIONS.get(sel)
 
     if sel == "quit":
-        if ITEMS:
-            save()
+        if cli.ITEMS:
+            cli.save(ITEMS)
             print("\nEnjoy your new items!\n")
         break
     else:
-        new_item(sel)
+        item = new_item(sel)
+        print(f"\n{item}")
+        # while True:
+        #     sel = input("Keep item? [y/n]: ").lower()
+        #     if sel and sel in "yn":
+        #         if sel == "y":
+        #             ITEMS.append(item)
+        #         break
+        #     else:
+        #         print("\nInvalid selection!\n")
