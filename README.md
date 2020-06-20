@@ -115,34 +115,87 @@ Heavy armor is produced using either *plate* or *laminar* construction methods.
 
 ## Weapons
 
-Weapons fall into two major categories, *melee* and *ranged*, and two sub-types, *one-handed* and *two-handed*. All weapons are generated with equal probability.
+Weapons fall into two major categories, _one-handed_ and _two-handed,_ and four sub-types, _blade,_ _blunt,_ _axe,_ _ranged_ (note: _ranged_ weapons are only available in the _two-handed_ category). All weapons are generated with equal probability.
 
-### Melee
-
-Melee item types include both one-handed and two-handed swords, axes, and blunt weapons.
-
-**One-handed:**
-> `Labrys`, `hatchet`, `morning star`, `mace`, `club`, `flail`, `dagger`, `corvo`, `stiletto`, `shortsword`, `xiphos`, `seax`, `baselard`, `gladius`
-
-**Two-handed:**
-> `War hammer`, `meteor hammer`, `dire flail`, `longsword`, `broadsword`, `claymore`, `bastard sword`, `war scythe`, `battle axe`, `halberd`, `glaive`
-
-### Ranged
-
-There are currently no one-handed ranged items. I am considering adding throwing knives, throwing stars, and caltrops, however.
-
-**Two-handed:**
-> `Recurve bow`, `scythian bow`, `crossbow`, `longbow`
+```yaml
+weapon:
+    one-handed:
+        blade:
+            - dagger
+            - corvo
+            - stiletto
+            - shortsword
+            - seax
+            - xiphos
+            - baselard
+            - gladius
+        blunt:
+            - morning star
+            - mace
+            - club
+            - flail
+        axe:
+            - labrys
+            - hatchet
+    two-handed:
+        blade:
+            - longsword
+            - claymore
+            - broadsword
+            - bastard sword
+        blunt:
+            - war hammer
+            - meteor hammer
+            - dire flail
+        axe:
+            - war scythe
+            - battle axe
+            - halberd
+            - glaive
+        ranged:
+            - recurve bow
+            - scythian bow
+            - crossbow
+            - longbow
+```
 
 ## Armor
 
 There are five basic types of armor, each of which has a heavy and a light variant. All armor items are generated with equal probability.
 
-**Heavy:**
-> `Helm`, `helmet`, `cuirass`, `corslet`, `gauntlets`, `boots`, `sabatons`, `pavise shield`, `kite shield`
-
-**Light:**
-> `Hood`, `coif`, `brigandine`, `gambeson`, `gloves`, `boots`, `buckler`, `targe shield`
+```yaml
+armor:
+    heavy:
+        head:
+            - helm
+            - helmet
+        chest:
+            - cuirass
+            - corslet
+        hands:
+            - gauntlets
+            - gloves
+        feet:
+            - boots
+            - sabatons
+        shield:
+            - pavise shield
+            - kite shield
+    light:
+        head:
+            - hood
+            - coif
+        chest:
+            - brigandine
+            - gambeson
+        hands:
+            - gloves
+        feet:
+            - boots
+        shield:
+            - buckler
+            - targe shield
+```
 
 ## Item parts
 
@@ -152,16 +205,16 @@ Each item gets a list of three to five parts chosen randomly according to the it
 
 Some examples of item parts:
 
-**Blunt:**
-> `Throat`, `cheek`, `flange`, `face`, `crown`, `haft`, `handle`, `grip`
+**blunt:**
+> `throat`, `cheek`, `flange`, `face`, `crown`, `haft`, `handle`, `grip`
 
-**Bow:**
-> `Nock`, `face`, `hilt`, `grip`, `limbs`, `belly`
+**bow:**
+> `nock`, `face`, `hilt`, `grip`, `limbs`, `belly`
 
-**Heavy chest:**
+**heavy chest:**
 > `breastplate`, `pauldrons`, `faulds`, `gardbrace`, `tasset`
 
-**Light hands:**
+**light hands:**
 > `rerebraces`, `cuffs`, `lower cannons`, `vambraces`, `carpal plates`, `wrist plates`
 
 ## Names
