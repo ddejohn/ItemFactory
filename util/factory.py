@@ -7,29 +7,39 @@ from random import choice, choices, sample, uniform
 with open("ItemFactory/data/materials.yml") as f:
     MATERIALS = yaml.safe_load(f.read())
 
-
 with open("ItemFactory/data/constituents.yml") as f:
     CONSTITUENTS = yaml.safe_load(f.read())
 
+with open("ItemFactory/data/naming.yml") as f:
+    NAMING = yaml.safe_load(f.read())
 
-class ItemBase:
-    def __init__(self, template: list):
-        self.item_class, self.base_type, self.sub_type, self.make = template
-        self.rarity = str
-        self.primary = str
-        self.secondary = str
+with open("ItemFactory/data/decorations.yml") as f:
+    DECORATIONS = yaml.safe_load(f.read())
+
+
+class ItemData:
+    def __init__(self):
+        self.item_class = ""
+        self.base_type = ""
+        self.sub_type = ""
+        self.make = ""
+
+
+class ItemBase(ItemData):
+    def __init__(self):
+        super().__init__()
+        self.rarity = ""
+        self.primary = ""
+        self.secondary = ""
         self.constituents = []
 
 
 class Item(ItemBase):
-    def __init__(self, template=[], rarity=""):
-        super().__init__(template)
-        if rarity:
-            self.rarity = rarity
-        self.name = str
-        self.description = str
-        self.stats = dict
-        AssemblyLine.start(self)
+    def __init__(self):
+        super().__init__()
+        self.name = ""
+        self.description = ""
+        self.stats = {}
 
     def __str__(self):
         w = 18
@@ -69,19 +79,19 @@ class AssemblyLine:
 
     @staticmethod
     def start(item: Item):
-        AssemblyLine.__rarity(item)
+        AssemblyLine._rarity(item)
 
     @staticmethod
-    def __rarity(item: Item):
+    def _rarity(item: Item):
         if not item.rarity:
             item.rarity = _choose(
-                ppl=list(AssemblyLine.weights.keys()),
+                ppl=[*AssemblyLine.weights],
                 wts=[50, 25, 15, 6, 3, 1]
             )
-        AssemblyLine.__materials(item)
+        AssemblyLine._materials(item)
 
     @staticmethod
-    def __materials(item: Item):
+    def _materials(item: Item):
         weights = AssemblyLine.weights[item.rarity]
 
         primary_materials = MATERIALS.get(item.item_class).get("primary")
@@ -90,16 +100,16 @@ class AssemblyLine:
         if item.item_class == "armor":
             primary_materials = primary_materials.get(item.base_type)
             secondary_materials = secondary_materials.get(item.base_type)
-        elif item.item_class == "weapon":
+        else:
             secondary_materials = secondary_materials.get(item.rarity)
 
         item.primary = _choose(primary_materials, weights)
         item.secondary = choice(secondary_materials)
 
-        AssemblyLine.__constituents(item)
+        AssemblyLine._constituents(item)
 
     @staticmethod
-    def __constituents(item: Item):
+    def _constituents(item: Item):
         parts = CONSTITUENTS.get(item.item_class)
 
         if item.sub_type == "shield":
@@ -114,24 +124,32 @@ class AssemblyLine:
                 part = choice(part)
             item.constituents.append(part)
 
-        AssemblyLine.__description(item)
+        AssemblyLine._description(item)
 
     @staticmethod
-    def __description(item: Item):
+    def _description(item: Item):
         _item_description(item)
-        AssemblyLine.__name(item)
+        AssemblyLine._name(item)
 
     @staticmethod
-    def __name(item: Item):
+    def _name(item: Item):
         _item_name(item)
-        AssemblyLine.__stats(item)
+        AssemblyLine._stats(item)
 
     @staticmethod
-    def __stats(item: Item):
+    def _stats(item: Item):
         _item_stats(item)
 
+    @staticmethod
+    def rename(item: Item):
+        _item_name(item)
 
-#—————————————————————————————————— helpers ——————————————————————————————————#
+    @staticmethod
+    def redescribe(item: Item):
+        _item_description(item)
+
+
+# ————————————————————————————————— helpers ————————————————————————————————— #
 
 
 def _choose(ppl, wts):
@@ -142,24 +160,24 @@ def _shuffled(ppl) -> list:
     return sample(ppl, len(ppl))
 
 
-def _variance(x) -> float:
-    return uniform(x-0.3*x, x+0.3*x)
+def _fudge(x) -> float:
+    return uniform(x-0.2*x, x+0.2*x)
 
 
-def _is_are(this: str) -> str:
-    if " " in this or (this[-1] == "s" and this[-2] not in "sy"):
-        return f"{this} are"
-    return f"{this} is"
+def _is_are(word: str) -> str:
+    if " " in word or (word[-1] == "s" and word[-2] not in "sy"):
+        return f"{word} are"
+    return f"{word} is"
 
 
-def _set_or_pair(this: str) -> str:
-    if this[-1] == "s" and this[-2] not in "uosy":
-        return choice(["set", "pair"]) + f" of {this}"
-    return this
+def _set_or_pair(word: str) -> str:
+    if word[-1] == "s" and word[-2] not in "uosy":
+        return choice(["set", "pair"]) + f" of {word}"
+    return word
 
 
-def _a_an(*this: list) -> str:
-    first, *rest = this
+def _a_an(*word: list) -> str:
+    first, *rest = word
     if rest:
         rest = " ".join(rest)
         if " " in rest:
@@ -175,8 +193,8 @@ def _a_an(*this: list) -> str:
     return f"a {first}{rest}"
 
 
-def _listify_words(this: list) -> str:
-    *rest, last = this
+def _listify_words(words: list) -> str:
+    *rest, last = words
     rest = ", ".join(rest)
     if rest:
         if " " not in rest:
@@ -198,7 +216,7 @@ def paragraphize(s: str, w=50, i=""):
     return new_string
 
 
-#—————————————————————————————— item description —————————————————————————————#
+# ————————————————————————————— item description ———————————————————————————— #
 
 
 def _item_description(item: Item):
@@ -341,7 +359,7 @@ def _get_make():
     ])
 
 
-#————————————————————————————————— item name —————————————————————————————————#
+# ———————————————————————————————— item name ———————————————————————————————— #
 
 
 def _item_name(item: Item):
@@ -388,7 +406,6 @@ def _legendary_name(item: Item):
         [adjective, item.primary, noun, abstract],
         [item.primary, prefix, abstract],
         [item.primary, noun, abstract],
-        _rare_name(item)
     ])
 
 
@@ -424,7 +441,7 @@ def _common_name(item: Item):
     ])
 
 
-#———————————————————————————————— item stats —————————————————————————————————#
+# ——————————————————————————————— item stats ———————————————————————————————— #
 
 
 def _item_stats(item: Item):
@@ -438,13 +455,14 @@ def _weapon_stats(item: Item):
     stats = _WEAPON_STAT_DATA["stats"][item.rarity]
     mults = _WEAPON_STAT_DATA["mults"][item.sub_type]
     wt = {"one-handed": 0.7}.get(item.sub_type, 1)
-    combs = [round(wt*_variance(x*y), ndigits=2) for x, y in zip(stats, mults)]
+    d, r, s, k = [round(wt*_fudge(x*y), ndigits=2)
+                  for x, y in zip(stats, mults)]
 
     return {
-        "damage": combs[0],
-        "range": combs[1],
-        "speed": combs[2],
-        "luck": combs[3]
+        "damage": d,
+        "range": r,
+        "speed": s,
+        "luck": k
     }
 
 
@@ -452,18 +470,15 @@ def _armor_stats(item: Item):
     stats = _ARMOR_STAT_DATA["stats"][item.rarity]
     mults = _ARMOR_STAT_DATA["mults"][item.sub_type]
     wt = {"heavy": 2}.get(item.base_type, 1)
-    combs = [wt*_variance(x*y) for x, y in zip(stats, mults)]
-    combs = [round(x, 2) for x in combs]
+    combs = [wt*_fudge(x*y) for x, y in zip(stats, mults)]
+    p, m, n, k = [round(x, 2) for x in combs]
 
     return {
-        "protection": combs[0],
-        "movement": combs[1],
-        "noise": combs[2],
-        "luck": combs[3]
+        "protection": p,
+        "movement": m,
+        "noise": n,
+        "luck": k
     }
-
-
-#——————————————————————————————————— data ————————————————————————————————————#
 
 
 _WEAPON_STAT_DATA = {
@@ -507,7 +522,7 @@ _ARMOR_STAT_DATA = {
 }
 
 
-#———————————————————————————————— decorations ————————————————————————————————#
+# ——————————————————————————————— decorations ——————————————————————————————— #
 
 
 _INLAYS = [
@@ -829,7 +844,7 @@ _CONDITION = {
 }
 
 
-#——————————————————————————————————— names ———————————————————————————————————#
+# —————————————————————————————————— names —————————————————————————————————— #
 
 
 _ABSTRACT = [

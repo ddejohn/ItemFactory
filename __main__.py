@@ -1,45 +1,27 @@
 from .util import cli, factory
 
 
-ITEMS = []
-MENU = cli.main()
+SECONDARY_ACTIONS = {
+    "generate new name": factory.AssemblyLine.rename,
+    "generate new description": factory.AssemblyLine.redescribe,
+    "save item": cli.save
+}
 
 
-def save():
-    print("\nSaving items to 'items.txt'")
-    with open("ItemFactory/items.txt", "a+") as f:
-        for item in ITEMS:
-            item = str(item)
-            f.write(f"\n{item}")
+def new_item(rand) -> factory.Item:
+    item = factory.Item()
+    traits = cli.main(rand)
+    item.item_class, item.base_type, item.sub_type, item.make = traits
+
+    if not rand:
+        item.rarity = cli.get_input("Choose item rarity", cli.RARITY)
+
+    factory.AssemblyLine.start(item)
+    return item
 
 
-def new_item(sel):
-    traits = MENU.navigate(sel)
-
-    rarity_choices = {
-        "1": "crude",
-        "2": "common",
-        "3": "uncommon",
-        "4": "rare",
-        "5": "legendary",
-        "6": "mythical"
-    }
-
-    rarity = cli.get_input("Choose the item rarity", rarity_choices)
-    item = factory.Item(traits, rarity)
-
-    print(f"\n{item}")
-    # while True:
-    #     sel = input("Keep item? [y/n]: ").lower()
-    #     if sel and sel in "yn":
-    #         if sel == "y":
-    #             ITEMS.append(item)
-    #         break
-    #     else:
-    #         print("\nInvalid selection!\n")
-
-
-# main menu loop
+print(cli.TITLE)
+# main program loop
 while True:
     sel = cli.get_input(
         prompt="What would you like to do?",
@@ -48,9 +30,25 @@ while True:
     sel = cli.MAIN_ACTIONS.get(sel)
 
     if sel == "quit":
-        if ITEMS:
-            save()
-            print("\nEnjoy your new items!\n")
+        print("\nEnjoy your new items!\n")
         break
     else:
-        new_item(sel)
+        item = new_item(sel)
+        print(f"\n{item}")
+
+        while True:
+            secondary = cli.get_input(
+                prompt="What would you like to do?",
+                options=cli.SECOND_OPTIONS
+            )
+            if secondary in SECONDARY_ACTIONS:
+                SECONDARY_ACTIONS.get(secondary)(item)
+                if "name" in secondary:
+                    print(f"\nNew name: {item.name}")
+                elif "description" in secondary:
+                    desc = factory.paragraphize(s=item.description, i=" "*4)
+                    print(f"\nNew item description:\n\n{desc}")
+                else:
+                    break
+            else:
+                break
