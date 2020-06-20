@@ -50,7 +50,7 @@ description:
 
 ## Item rarity probabilities
 
-| Rarity    | Probability |
+| rarity    | probability |
 | :-------- | :---------: |
 | crude     |   0.50   |
 | common    |   0.25   |
@@ -65,7 +65,7 @@ Each item's material depends on its rarity. Weapons get a secondary material, wh
 
 ### Weapons
 
-| Rarity   |                      Material (probability)                        |
+| rarity   |                      material (probability)                        |
 | -------- | :----------------------------------------------------------------: |
 | crude    |  **iron** (0.91), **steel** (0.09)                                 |
 | common   |  **iron** (0.083), **steel** (0.833), **bone** (0.084)              |
@@ -78,7 +78,7 @@ Each item's material depends on its rarity. Weapons get a secondary material, wh
 
 Secondary weapon materials are chosen based on item rarity, with each material in its respective rarity tier having equal probability.
 
-| Rarity   |       Secondary Material (probability)       |
+| rarity   |       secondary material (probability)       |
 | -------- | :------------------------------------------: |
 | crude    |  splintered wood, cracked wood, warped wood  |
 | common   |  ash, maple, beech, hickory                  |
@@ -91,7 +91,7 @@ Secondary weapon materials are chosen based on item rarity, with each material i
 
 Light armor is produced using either *lamellar* or *scale* construction methods.
 
-| Rarity   |                      Material (probability)                        |
+| rarity   |                      material (probability)                        |
 | -------- | :----------------------------------------------------------------: |
 | crude    |  **hide** (0.91), **leather** (0.09)                               |
 | common   |  **hide** (0.083), **leather** (0.833), **obsidian** (0.084)        |
@@ -104,7 +104,7 @@ Light armor is produced using either *lamellar* or *scale* construction methods.
 
 Heavy armor is produced using either *plate* or *laminar* construction methods.
 
-| Rarity   |                      Material (probability)                        |
+| rarity   |                      material (probability)                        |
 | -------- | :----------------------------------------------------------------: |
 | crude    |  **iron** (0.91), **steel** (0.09)                                 |
 | common   |  **iron** (0.083), **steel** (0.833), **obsidian** (0.084)          |
@@ -205,17 +205,13 @@ Each item gets a list of three to five parts chosen randomly according to the it
 
 Some examples of item parts:
 
-**blunt:**
-> `throat`, `cheek`, `flange`, `face`, `crown`, `haft`, `handle`, `grip`
+**blunt:** `throat`, `cheek`, `flange`, `face`, `crown`, `haft`, `handle`, `grip`
 
-**bow:**
-> `nock`, `face`, `hilt`, `grip`, `limbs`, `belly`
+**bow:** `nock`, `face`, `hilt`, `grip`, `limbs`, `belly`
 
-**heavy chest:**
-> `breastplate`, `pauldrons`, `faulds`, `gardbrace`, `tasset`
+**heavy chest:** `breastplate`, `pauldrons`, `faulds`, `gardbrace`, `tasset`
 
-**light hands:**
-> `rerebraces`, `cuffs`, `lower cannons`, `vambraces`, `carpal plates`, `wrist plates`
+**light hands:** `rerebraces`, `cuffs`, `lower cannons`, `vambraces`, `carpal plates`, `wrist plates`
 
 ## Names
 
@@ -236,15 +232,21 @@ Each stat type has a base-value, and each item type has a multiplier for that st
 ### Weapons
 
 `damage`: the base damage level of the weapon
+
 `range`: the effective range of the weapon
+
 `speed`: how quickly the weapon can be handled
+
 `luck`: determines the chance of a critical hit
 
 ### Armor
 
 `protection`: the base level of protection this armor provides
+
 `movement`: the player movement speed penalty attributed to this piece
+
 `noise`: how much of a racket this armor produces during movement while wearing
+
 `luck`: chance of critical hit from an enemy
 
 ## Possible Feature Additions
