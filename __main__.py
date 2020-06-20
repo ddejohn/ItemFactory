@@ -1,7 +1,10 @@
 from .util import cli, factory
 
-ITEMS = []
-print(cli.TITLE)
+
+SECONDARY_ACTIONS = {
+    "generate new name": factory.AssemblyLine.rename,
+    "generate new description": factory.AssemblyLine.redescribe
+}
 
 
 def new_item(rand) -> factory.Item:
@@ -16,6 +19,7 @@ def new_item(rand) -> factory.Item:
     return item
 
 
+print(cli.TITLE)
 # main program loop
 while True:
     sel = cli.get_input(
@@ -25,18 +29,32 @@ while True:
     sel = cli.MAIN_ACTIONS.get(sel)
 
     if sel == "quit":
-        if cli.ITEMS:
-            cli.save(ITEMS)
-            print("\nEnjoy your new items!\n")
+        print("\nEnjoy your new items!\n")
         break
     else:
         item = new_item(sel)
         print(f"\n{item}")
-        # while True:
-        #     sel = input("Keep item? [y/n]: ").lower()
-        #     if sel and sel in "yn":
-        #         if sel == "y":
-        #             ITEMS.append(item)
-        #         break
-        #     else:
-        #         print("\nInvalid selection!\n")
+
+        while True:
+            secondary = cli.get_input(
+                prompt="What would you like to do?",
+                options=cli.SECOND_OPTIONS
+            )
+            if secondary in SECONDARY_ACTIONS:
+                SECONDARY_ACTIONS.get(secondary)(item)
+                if "name" in secondary:
+                    print(f"\nNew name: {item.name}")
+                else:
+                    desc = factory.paragraphize(s=item.description, i=" "*4)
+                    print(f"\nNew item description:\n\n{desc}")
+            else:
+                break
+
+        while True:
+            sel = input("\nSave item to file? [y/n]: ").lower()
+            if sel and sel in "yn":
+                if sel == "y":
+                    cli.save(item)
+                break
+            else:
+                print("\nInvalid selection!\n")

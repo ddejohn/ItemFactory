@@ -8,9 +8,9 @@ with open("ItemFactory/data/menus.yml") as f:
     MAIN_MENU = yaml.safe_load(f.read())
 
 
-TITLE = """Greetings adventurer, and welcome to...
+TITLE = r"""Greetings adventurer, and welcome to...
 
-        _ _|  |                     ____|             | 
+        _ _|  |                     ____|             |
           |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   |
           |   |     __/  |   |   |  __|  (   |  (     |    (   |  |     |   |
         ___| \__| \___| _|  _|  _| _|   \__,_| \___| \__| \___/  _|    \__, |
@@ -34,6 +34,13 @@ MAIN_OPTIONS = {
     "1": "build your own",
     "2": "randomize!",
     "q": "quit"
+}
+
+
+SECOND_OPTIONS = {
+    "1": "generate new name",
+    "2": "generate new description",
+    "3": "keep item as-is"
 }
 
 
@@ -71,12 +78,10 @@ class Menu:
         return out
 
 
-def save(items: list):
+def save(item):
     print("\nSaving items to 'items.txt'")
     with open("ItemFactory/items.txt", "a+") as f:
-        for item in items:
-            item = str(item)
-            f.write(f"\n{item}")
+        f.write(f"{item}\n\n\n")
 
 
 def load(label: str, data: dict) -> Menu:
