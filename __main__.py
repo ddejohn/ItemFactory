@@ -3,7 +3,8 @@ from .util import cli, factory
 
 SECONDARY_ACTIONS = {
     "generate new name": factory.AssemblyLine.rename,
-    "generate new description": factory.AssemblyLine.redescribe
+    "generate new description": factory.AssemblyLine.redescribe,
+    "save item": cli.save
 }
 
 
@@ -44,17 +45,10 @@ while True:
                 SECONDARY_ACTIONS.get(secondary)(item)
                 if "name" in secondary:
                     print(f"\nNew name: {item.name}")
-                else:
+                elif "description" in secondary:
                     desc = factory.paragraphize(s=item.description, i=" "*4)
                     print(f"\nNew item description:\n\n{desc}")
+                else:
+                    break
             else:
                 break
-
-        while True:
-            sel = input("\nSave item to file? [y/n]: ").lower()
-            if sel and sel in "yn":
-                if sel == "y":
-                    cli.save(item)
-                break
-            else:
-                print("\nInvalid selection!\n")

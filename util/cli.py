@@ -40,7 +40,8 @@ MAIN_OPTIONS = {
 SECOND_OPTIONS = {
     "1": "generate new name",
     "2": "generate new description",
-    "3": "keep item as-is"
+    "3": "save item",
+    "4": "discard item"
 }
 
 
