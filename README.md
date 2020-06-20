@@ -121,28 +121,28 @@ Weapons fall into two major categories, *melee* and *ranged*, and two sub-types,
 
 Melee item types include both one-handed and two-handed swords, axes, and blunt weapons.
 
-One-handed:
-~ `Labrys`, `hatchet`, `morning star`, `mace`, `club`, `flail`, `dagger`, `corvo`, `stiletto`, `shortsword`, `xiphos`, `seax`, `baselard`, `gladius`
+**One-handed:**
+> `Labrys`, `hatchet`, `morning star`, `mace`, `club`, `flail`, `dagger`, `corvo`, `stiletto`, `shortsword`, `xiphos`, `seax`, `baselard`, `gladius`
 
-Two-handed:
-~ `War hammer`, `meteor hammer`, `dire flail`, `longsword`, `broadsword`, `claymore`, `bastard sword`, `war scythe`, `battle axe`, `halberd`, `glaive`
+**Two-handed:**
+> `War hammer`, `meteor hammer`, `dire flail`, `longsword`, `broadsword`, `claymore`, `bastard sword`, `war scythe`, `battle axe`, `halberd`, `glaive`
 
 ### Ranged
 
 There are currently no one-handed ranged items. I am considering adding throwing knives, throwing stars, and caltrops, however.
 
-Two-handed:
-~ `Recurve bow`, `scythian bow`, `crossbow`, `longbow`
+**Two-handed:**
+> `Recurve bow`, `scythian bow`, `crossbow`, `longbow`
 
 ## Armor
 
 There are five basic types of armor, each of which has a heavy and a light variant. All armor items are generated with equal probability.
 
-Heavy:
-~ `Helm`, `helmet`, `cuirass`, `corslet`, `gauntlets`, `boots`, `sabatons`, `pavise shield`, `kite shield`
+**Heavy:**
+> `Helm`, `helmet`, `cuirass`, `corslet`, `gauntlets`, `boots`, `sabatons`, `pavise shield`, `kite shield`
 
-Light:
-~ `Hood`, `coif`, `brigandine`, `gambeson`, `gloves`, `boots`, `buckler`, `targe shield`
+**Light:**
+> `Hood`, `coif`, `brigandine`, `gambeson`, `gloves`, `boots`, `buckler`, `targe shield`
 
 ## Item parts
 
@@ -152,17 +152,17 @@ Each item gets a list of three to five parts chosen randomly according to the it
 
 Some examples of item parts:
 
-Blunt:
-~ `Throat`, `cheek`, `flange`, `face`, `crown`, `haft`, `handle`, `grip`
+**Blunt:**
+> `Throat`, `cheek`, `flange`, `face`, `crown`, `haft`, `handle`, `grip`
 
-Bow:
-~ `Nock`, `face`, `hilt`, `grip`, `limbs`, `belly`
+**Bow:**
+> `Nock`, `face`, `hilt`, `grip`, `limbs`, `belly`
 
-Heavy chest:
-~ `breastplate`, `pauldrons`, `faulds`, `gardbrace`, `tasset`
+**Heavy chest:**
+> `breastplate`, `pauldrons`, `faulds`, `gardbrace`, `tasset`
 
-Light hands:
-~ `rerebraces`, `cuffs`, `lower cannons`, `vambraces`, `carpal plates`, `wrist plates`
+**Light hands:**
+> `rerebraces`, `cuffs`, `lower cannons`, `vambraces`, `carpal plates`, `wrist plates`
 
 ## Names
 
