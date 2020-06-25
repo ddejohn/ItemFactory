@@ -410,12 +410,21 @@ def _legendary_name(item: Item):
 
 
 def _mythical_name(item: Item):
+    adjective = choice(_ADJECTIVES)
     abstract = choice(_ABSTRACT)
     noun = choice(_NOUNS)
     verb = choice(_VERBS)
     prefix = choice(_PREFIXES)
+    glisten = choice(_GLISTENS_ADJECTIVE)
+    inlay = choice(_INLAYS)
     return choice([
+        [glisten, noun, "of " + inlay],
+        [glisten, noun, abstract],
+        [adjective, noun, "of " + inlay],
+        [adjective, noun, abstract],
+        [inlay, noun, abstract],
         [noun, abstract],
+        [adjective, noun + " of the", prefix],
         [prefix, verb],
     ])
 
