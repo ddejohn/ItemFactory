@@ -50,7 +50,7 @@ class Item(ItemBase):
 
         stats = "\n"
         for k, v in self.stats.items():
-            stats += f"    {k:<18}{v}\n"
+            stats += f"    {k:<14}{v}\n"
 
         desc = paragraphize(self.description, w=45, i=" "*4)
 
