@@ -19,9 +19,9 @@ with open("ItemFactory/data/decorations.yml") as f:
 
 class ItemData:
     def __init__(self):
-        self.item_class = ""
-        self.base_type = ""
-        self.sub_type = ""
+        self.category = ""
+        self.base = ""
+        self.sub = ""
         self.make = ""
 
 
@@ -42,27 +42,26 @@ class Item(ItemBase):
         self.stats = {}
 
     def __str__(self):
-        w = 18
-        stats = "\n"
-        clss = f"{self.base_type} {self.item_class} [{self.sub_type}]"
-        if self.item_class == "armor":
-            mat = "material:".ljust(w) + f"{self.primary}\n"
-            mat += "construction:".ljust(w) + f"{self.secondary}"
+        if self.category == "armor":
+            mat = f"{'material:':<18}{self.primary}\n"
+            mat += f"{'construction:':<18}{self.secondary}"
         else:
-            mat = "materials:".ljust(w) + f"{self.primary}, {self.secondary}"
+            mat = f"{'materials:':<18}{self.primary} and {self.secondary}"
+
+        stats = "\n"
         for k, v in self.stats.items():
-            stats += f"    {k}:".ljust(w) + f"{v}\n"
+            stats += f"    {k:<18}{v}\n"
 
         desc = paragraphize(self.description, w=45, i=" "*4)
 
         out = [
-            "name:".ljust(w) + f"{self.name}",
-            "class:".ljust(w) + clss,
-            "type:".ljust(w) + f"{self.make}",
-            "rarity:".ljust(w) + f"{self.rarity}",
+            f"{'name:':<18}{self.name}",
+            f"{'class:':<18}{self.base} {self.category} [{self.sub}]",
+            f"{'type:':<18}{self.make}",
+            f"{'rarity:':<18}{self.rarity}",
             mat,
-            "\nstats:".ljust(w) + stats,
-            "description:".ljust(w) + f"\n{desc}"
+            f"\n{'stats:':<18}{stats}",
+            f"{'description:':<18}\n{desc}"
         ]
         return "\n".join(out)
 
@@ -94,12 +93,12 @@ class AssemblyLine:
     def _materials(item: Item):
         weights = AssemblyLine.weights[item.rarity]
 
-        primary_materials = MATERIALS.get(item.item_class).get("primary")
-        secondary_materials = MATERIALS.get(item.item_class).get("secondary")
+        primary_materials = MATERIALS.get(item.category).get("primary")
+        secondary_materials = MATERIALS.get(item.category).get("secondary")
 
-        if item.item_class == "armor":
-            primary_materials = primary_materials.get(item.base_type)
-            secondary_materials = secondary_materials.get(item.base_type)
+        if item.category == "armor":
+            primary_materials = primary_materials.get(item.base)
+            secondary_materials = secondary_materials.get(item.base)
         else:
             secondary_materials = secondary_materials.get(item.rarity)
 
@@ -110,14 +109,14 @@ class AssemblyLine:
 
     @staticmethod
     def _constituents(item: Item):
-        parts = CONSTITUENTS.get(item.item_class)
+        parts = CONSTITUENTS.get(item.category)
 
-        if item.sub_type == "shield":
+        if item.sub == "shield":
             parts = parts.get("shield")
-        elif item.item_class == "armor":
-            parts = parts.get(f"{item.base_type} {item.sub_type}")
+        elif item.category == "armor":
+            parts = parts.get(f"{item.base} {item.sub}")
         else:
-            parts = parts.get(item.sub_type)
+            parts = parts.get(item.sub)
 
         for part in parts:
             if isinstance(part, list):
@@ -228,7 +227,7 @@ def _item_description(item: Item):
     construction = {
         "weapon": f"{item.primary} and {item.secondary}",
         "armor": f"{item.secondary} {item.primary}"
-    }[item.item_class]
+    }[item.category]
 
     parts = item.constituents.copy()
     part1 = parts.pop(choice([*range(len(parts))]))
@@ -365,7 +364,7 @@ def _get_make():
 def _item_name(item: Item):
     new_name = []
 
-    if item.item_class == "armor":
+    if item.category == "armor":
         if item.rarity in ["rare", "legendary", "mythical"]:
             new_name.extend(_rare_name(item))
         else:
@@ -448,13 +447,13 @@ def _item_stats(item: Item):
     item.stats = {
         "weapon": _weapon_stats,
         "armor": _armor_stats
-    }[item.item_class](item)
+    }[item.category](item)
 
 
 def _weapon_stats(item: Item):
     stats = _WEAPON_STAT_DATA["stats"][item.rarity]
-    mults = _WEAPON_STAT_DATA["mults"][item.sub_type]
-    wt = {"one-handed": 0.7}.get(item.sub_type, 1)
+    mults = _WEAPON_STAT_DATA["mults"][item.sub]
+    wt = {"one-handed": 0.7}.get(item.sub, 1)
     d, r, s, k = [round(wt*_fudge(x*y), ndigits=2)
                   for x, y in zip(stats, mults)]
 
@@ -468,8 +467,8 @@ def _weapon_stats(item: Item):
 
 def _armor_stats(item: Item):
     stats = _ARMOR_STAT_DATA["stats"][item.rarity]
-    mults = _ARMOR_STAT_DATA["mults"][item.sub_type]
-    wt = {"heavy": 2}.get(item.base_type, 1)
+    mults = _ARMOR_STAT_DATA["mults"][item.sub]
+    wt = {"heavy": 2}.get(item.base, 1)
     combs = [wt*_fudge(x*y) for x, y in zip(stats, mults)]
     p, m, n, k = [round(x, 2) for x in combs]
 
