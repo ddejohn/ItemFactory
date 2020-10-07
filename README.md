@@ -50,70 +50,46 @@ description:
 
 ## Item rarity probabilities
 
-| rarity    | probability |
-| :-------- | :---------: |
-| crude     |   0.50   |
-| common    |   0.25   |
-| uncommon  |   0.15   |
-| rare      |   0.06   |
-| legendary |   0.03   |
-| mythical  |   0.01   |
+Items are generated with the following probabilities, unless the user choses to generate their own item. In the future, I may add a feature to allow the user to input their own probabilities.
+
+| rarity | probability |
+|-|:-:|
+| crude | 0.50 |
+| common | 0.25 |
+| uncommon | 0.15 |
+| rare | 0.06 |
+| legendary | 0.03 |
+| mythical | 0.01 |
 
 ## Materials
 
-Each item's material depends on its rarity. Weapons get a secondary material, while armor gets a construction method descriptor.
+Each item's material depends on its rarity. Weapons get a secondary material, while armor gets a construction method descriptor. Both secondary materials and construction methods are chosen with equal probability for weapons and armor, respectively.
 
 ### Weapons
 
-| rarity   |                      material (probability)                        |
-| -------- | :----------------------------------------------------------------: |
-| crude    |  **iron** (0.91), **steel** (0.09)                                 |
-| common   |  **iron** (0.083), **steel** (0.833), **bone** (0.084)              |
-| uncommon |  **steel** (0.083), **bone** (0.833), **obsidian** (0.084)          |
-| rare     |  **bone** (0.083), **obsidian** (0.833), **electrum** (0.084)       |
-| legendary|  **obsidian** (0.083), **electrum** (0.833), **adamantite** (0.084) |
-| mythical |  **adamantite** (0.91), **meteorite** (0.09)                       |
+| rarity | material (probability) | secondary material |
+|-|:-:|:-:|
+| crude | **iron** (0.91), **steel** (0.09) | splintered wood, cracked wood, warped wood |
+| common | **iron** (0.083), **steel** (0.833), **bone** (0.084) | ash, maple, beech, hickory |
+| uncommon | **steel** (0.083), **bone** (0.833), **obsidian** (0.084) | maple, beech, hickory, mahogany |
+| rare | **bone** (0.083), **obsidian** (0.833), **electrum** (0.084) | hickory, mahogany, walnut, cherry |
+| legendary | **obsidian** (0.083), **electrum** (0.833), **adamantite** (0.084) | walnut, cherry, birch, korina |
+| mythical | **adamantite** (0.91), **meteorite** (0.09) | bloodwood, ebony, black walnut, purpleheart |
 
-### Secondary
+### Armor
 
-Secondary weapon materials are chosen based on item rarity, with each material in its respective rarity tier having equal probability.
+Light armor is produced using either *lamellar* or *scale* construction methods. Heavy armor is produced using either *plate* or *laminar* construction methods.
 
-| rarity   |       secondary material (probability)       |
-| -------- | :------------------------------------------: |
-| crude    |  splintered wood, cracked wood, warped wood  |
-| common   |  ash, maple, beech, hickory                  |
-| uncommon |  maple, beech, hickory, mahogany             |
-| rare     |  hickory, mahogany, walnut, cherry           |
-| legendary|  walnut, cherry, birch, korina               |
-| mythical |  bloodwood, ebony, black walnut, purpleheart |
+| rarity | light armor material (probability) | heavy armor material (probability) |
+|-|:-:|:-:|
+| crude | **hide** (0.91), **leather** (0.09) | **iron** (0.91), **steel** (0.09) |
+| common | **hide** (0.083), **leather** (0.833), **obsidian** (0.084) | **iron** (0.083), **steel** (0.833), **obsidian** (0.084) |
+| uncommon | **leather** (0.083), **obsidian** (0.833), **electrum** (0.084) | **steel** (0.083), **obsidian** (0.833), **bone** (0.084) |
+| rare | **obsidian** (0.083), **electrum** (0.833), **bone** (0.084) | **obsidian** (0.083), **bone** (0.833), **onyx** (0.084) |
+| legendary | **electrum** (0.083), **bone** (0.833), **adamantite** (0.084) | **bone** (0.083), **onyx** (0.833), **adamantite** (0.084) |
+| mythical | **adamantite** (0.91), **meteorite** (0.09) | **adamantite** (0.91), **meteorite** (0.09) |
 
-### Light Armor
-
-Light armor is produced using either *lamellar* or *scale* construction methods.
-
-| rarity   |                      material (probability)                        |
-| -------- | :----------------------------------------------------------------: |
-| crude    |  **hide** (0.91), **leather** (0.09)                               |
-| common   |  **hide** (0.083), **leather** (0.833), **obsidian** (0.084)        |
-| uncommon |  **leather** (0.083), **obsidian** (0.833), **electrum** (0.084)    |
-| rare     |  **obsidian** (0.083), **electrum** (0.833), **bone** (0.084)       |
-| legendary|  **electrum** (0.083), **bone** (0.833), **adamantite** (0.084)     |
-| mythical |  **adamantite** (0.91), **meteorite** (0.09)                       |
-
-### Heavy Armor
-
-Heavy armor is produced using either *plate* or *laminar* construction methods.
-
-| rarity   |                      material (probability)                        |
-| -------- | :----------------------------------------------------------------: |
-| crude    |  **iron** (0.91), **steel** (0.09)                                 |
-| common   |  **iron** (0.083), **steel** (0.833), **obsidian** (0.084)          |
-| uncommon |  **steel** (0.083), **obsidian** (0.833), **bone** (0.084)          |
-| rare     |  **obsidian** (0.083), **bone** (0.833), **onyx** (0.084)           |
-| legendary|  **bone** (0.083), **onyx** (0.833), **adamantite** (0.084)         |
-| mythical |  **adamantite** (0.91), **meteorite** (0.09)                       |
-
-## Weapons
+## Weapon types
 
 Weapons fall into two major categories, _one-handed_ and _two-handed,_ and four sub-types, _blade,_ _blunt,_ _axe,_ _ranged_ (note: _ranged_ weapons are only available in the _two-handed_ category). All weapons are generated with equal probability.
 
@@ -159,7 +135,7 @@ weapon:
             - longbow
 ```
 
-## Armor
+## Armor pieces
 
 There are five basic types of armor, each of which has a heavy and a light variant. All armor items are generated with equal probability.
 
