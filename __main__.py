@@ -11,7 +11,7 @@ SECONDARY_ACTIONS = {
 def new_item(rand) -> factory.Item:
     item = factory.Item()
     traits = cli.main(rand)
-    item.item_class, item.base_type, item.sub_type, item.make = traits
+    item.category, item.base, item.sub, item.make = traits
 
     if not rand:
         item.rarity = cli.get_input("Choose item rarity", cli.RARITY)
