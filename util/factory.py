@@ -54,15 +54,13 @@ class Item(ItemBase):
 
         desc = paragraphize(self.description, w=45, i=" "*4)
 
-        out = [
-            f"{'name:':<18}{self.name}",
-            f"{'class:':<18}{self.base} {self.category} [{self.sub}]",
-            f"{'type:':<18}{self.make}",
-            f"{'rarity:':<18}{self.rarity}",
-            mat,
-            f"\n{'stats:':<18}{stats}",
-            f"{'description:':<18}\n{desc}"
-        ]
+        out = [f"{'name:':<18}{self.name}",
+               f"{'class:':<18}{self.base} {self.category} [{self.sub}]",
+               f"{'type:':<18}{self.make}",
+               f"{'rarity:':<18}{self.rarity}",
+               mat,
+               f"\n{'stats:':<18}{stats}",
+               f"{'description:':<18}\n{desc}"]
         return "\n".join(out)
 
 
@@ -160,7 +158,7 @@ def _shuffled(ppl) -> list:
 
 
 def _fudge(x) -> float:
-    return uniform(x-0.2*x, x+0.2*x)
+    return uniform(x - 0.2*x, x + 0.2*x)
 
 
 def _is_are(word: str) -> str:
@@ -352,6 +350,9 @@ def _get_make():
         "crafted",
         "formed",
         "fashioned",
+        "forged",
+        "cast",
+        "hewn",
         "made",
         "constructed",
         "assembled"
@@ -454,8 +455,7 @@ def _weapon_stats(item: Item):
     stats = _WEAPON_STAT_DATA["stats"][item.rarity]
     mults = _WEAPON_STAT_DATA["mults"][item.sub]
     wt = {"one-handed": 0.7}.get(item.sub, 1)
-    d, r, s, k = [round(wt*_fudge(x*y), ndigits=2)
-                  for x, y in zip(stats, mults)]
+    d, r, s, k = [round(wt * _fudge(x * y), 2) for x, y in zip(stats, mults)]
 
     return {
         "damage": d,
@@ -469,7 +469,7 @@ def _armor_stats(item: Item):
     stats = _ARMOR_STAT_DATA["stats"][item.rarity]
     mults = _ARMOR_STAT_DATA["mults"][item.sub]
     wt = {"heavy": 2}.get(item.base, 1)
-    combs = [wt*_fudge(x*y) for x, y in zip(stats, mults)]
+    combs = [wt * _fudge(x * y) for x, y in zip(stats, mults)]
     p, m, n, k = [round(x, 2) for x in combs]
 
     return {
@@ -522,7 +522,7 @@ _ARMOR_STAT_DATA = {
 
 
 # ——————————————————————————————— decorations ——————————————————————————————— #
-
+# TODO: convert to yaml
 
 _INLAYS = [
     "gold",

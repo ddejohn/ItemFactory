@@ -92,7 +92,6 @@ def load(label: str, data: dict) -> Menu:
             menu.submenu[k] = load(label=k, data=v)
         else:
             menu.submenu[k] = Menu(prompt=k, options=v)
-
     return menu
 
 
@@ -107,7 +106,6 @@ def get_input(prompt: str, options: dict) -> str:
         else:
             sel = options.get(sel)
             break
-
     return sel
 
 

@@ -21,12 +21,9 @@ def new_item(rand) -> factory.Item:
 
 
 print(cli.TITLE)
-# main program loop
 while True:
-    sel = cli.get_input(
-        prompt="What would you like to do?",
-        options=cli.MAIN_OPTIONS
-    )
+    sel = cli.get_input(prompt="What would you like to do?",
+                        options=cli.MAIN_OPTIONS)
     sel = cli.MAIN_ACTIONS.get(sel)
 
     if sel == "quit":
@@ -37,10 +34,8 @@ while True:
         print(f"\n{item}")
 
         while True:
-            secondary = cli.get_input(
-                prompt="What would you like to do?",
-                options=cli.SECOND_OPTIONS
-            )
+            secondary = cli.get_input(prompt="What would you like to do?",
+                                      options=cli.SECOND_OPTIONS)
             if secondary in SECONDARY_ACTIONS:
                 SECONDARY_ACTIONS.get(secondary)(item)
                 if "name" in secondary:
