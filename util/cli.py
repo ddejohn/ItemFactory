@@ -4,11 +4,13 @@ import yaml
 from random import choice
 from typing import List
 
+
 with open("ItemFactory/data/menus.yml") as f:
     MAIN_MENU = yaml.safe_load(f.read())
 
 
-TITLE = r"""Greetings adventurer, and welcome to...
+TITLE = r"""
+Greetings adventurer, and welcome to...
 
         _ _|  |                     ____|             |
           |   __|   _ \  __ `__ \   |     _` |   __|  __|   _ \    __|  |   |
@@ -17,7 +19,8 @@ TITLE = r"""Greetings adventurer, and welcome to...
                                                                        ____/
 
 ...A random weapon and armor generator which provides richly detailed
-    descriptions, unique names, and basic item stats!"""
+    descriptions, unique names, and basic item stats!
+"""
 
 
 RARITY = {
@@ -71,10 +74,10 @@ class Menu:
     def __str__(self, t=0):
         h = "|   "
         out = f"{t*h}{self.prompt}\n"
-        for lbl, sub in self.submenu.items():
+        for _, sub in self.submenu.items():
             out += sub.__str__(t+1)
             if not sub.submenu:
-                for k, v in sub.options.items():
+                for v in sub.options.values():
                     out += f"{(t+2)*h}{v}\n"
         return out
 

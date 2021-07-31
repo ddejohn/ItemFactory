@@ -217,21 +217,18 @@ def paragraphize(s: str, w=50, i=""):
 
 
 def _item_description(item: Item):
-    softies = ["hide", "leather", "coif", "hood"]
-    condition = _shuffled(_CONDITION[item.rarity]).copy()
-    adjs = _shuffled(_DETAIL_ADJECTIVE[item.rarity]).copy()
+    condition = choice(_CONDITION[item.rarity])
+    adj1, adj2, adj3, adj4 = sample(_DETAIL_ADJECTIVE[item.rarity], 4)
+    verb = choice(_DETAIL_VERB[item.rarity])
+    in_by = choice(("in", "with", "by"))
 
-    in_by = choice(["in", "with", "by"])
+    part1, part2, part3 = sample(item.constituents, 3)
     construction = {
         "weapon": f"{item.primary} and {item.secondary}",
         "armor": f"{item.secondary} {item.primary}"
     }[item.category]
 
-    parts = item.constituents.copy()
-    part1 = parts.pop(choice([*range(len(parts))]))
-    part2 = parts.pop(choice([*range(len(parts))]))
-    part3 = parts.pop(choice([*range(len(parts))]))
-
+    softies = ["hide", "leather", "coif", "hood"]
     if item.primary in softies or item.make in softies:
         item.description = _soft_description(item, construction, in_by)
 
@@ -242,13 +239,13 @@ def _item_description(item: Item):
             "mythical": _choose([_patinas_etchings, _inlays], [2, 1])
         }.get(item.rarity)(item)
     else:
-        details = _common_details(item, part2, part3, adjs.pop(), adjs.pop())
+        details = _common_details(item, part2, part3, adj1, adj2)
 
     item.description = " ".join([
-        f"{_a_an(condition.pop()).capitalize()}",
+        f"{_a_an(condition).capitalize()}",
         f"{_set_or_pair(item.make)} with",
-        f"{_a_an(adjs.pop(), adjs.pop(), part1)},",
-        f"{_shuffled(_DETAIL_VERB[item.rarity]).copy().pop()}",
+        f"{_a_an(adj3, adj4, part1)},",
+        f"{verb}",
         f"{_get_make()} from {construction}.",
         details
     ])
@@ -285,6 +282,8 @@ def _get_details(item: Item):
 
 def _inlays(item: Item):
     k = {"rare": 1, "legendary": 2, "mythical": 4}[item.rarity]
+    adverb1, adverb2 = sample([f"{choice(_INLAID_ADVERB)} ", ""], 2)
+    inlay_verb = choice(("decorated", "inlaid"))
     if k == 4:
         parts = _shuffled(item.constituents)
         inlays = sample(_INLAYS, k)
@@ -300,8 +299,9 @@ def _inlays(item: Item):
             ])
         ])
     else:
+        parts = item.constituents
         all_inlays = " ".join([
-            f"The {_listify_words(item.constituents)} are all inlaid with",
+            f"The {_listify_words(parts)} are all {inlay_verb} with",
             f"{_listify_words(sample(_INLAYS, k))}."
         ])
     return all_inlays
@@ -333,14 +333,14 @@ def _patinas_etchings(item: Item):
     ])
 
 
-def _common_details(item: Item, part2, part3, adjs1, adjs2):
-    details = _shuffled(_DETAIL_NOUN[item.rarity]).copy()
-    in_with = choice(["in", "with"])
+def _common_details(item: Item, part2, part3, adj1, adj2):
+    detail1, detail2 = sample(_DETAIL_NOUN[item.rarity], 2)
+    in_with = choice(("in", "with"))
 
     return " ".join([
         f"The {_is_are(part2)}",
-        f"{adjs1} and {adjs2}, and the {_is_are(part3)}",
-        f"covered {in_with} {details.pop()} and {details.pop()}."
+        f"{adj1} and {adj2}, and the {_is_are(part3)}",
+        f"covered {in_with} {detail1} and {detail2}."
     ])
 
 
@@ -548,6 +548,18 @@ _INLAYS = [
     "charoite",
     "copper",
     "pearl"
+]
+
+
+_INLAID_ADVERB = [
+    "meticulously",
+    "painstakingly",
+    "precisely",
+    "scrupulously",
+    "ceremoniously",
+    "diligently",
+    "nimbly",
+    "deftly"
 ]
 
 

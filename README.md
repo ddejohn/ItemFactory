@@ -76,6 +76,12 @@ Each item's material depends on its rarity. Weapons get a secondary material, wh
 | legendary | **obsidian** (0.083), **electrum** (0.833), **adamantite** (0.084) | walnut, cherry, birch, korina |
 | mythical | **adamantite** (0.91), **meteorite** (0.09) | bloodwood, ebony, black walnut, purpleheart |
 
+#### Weapon damage distributions
+
+Each weapon's damage is a skewed normal random variable.
+
+<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~ddejohn/160.embed?showlink=false" height="650" width="100%"></iframe>
+
 ### Armor
 
 Light armor is produced using either *lamellar* or *scale* construction methods. Heavy armor is produced using either *plate* or *laminar* construction methods.
