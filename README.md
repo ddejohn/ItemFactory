@@ -80,7 +80,9 @@ Each item's material depends on its rarity. Weapons get a secondary material, wh
 
 Each weapon's damage is a skewed normal random variable.
 
-<iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~ddejohn/160.embed?showlink=false" height="650" width="100%"></iframe>
+<!-- <iframe id="igraph" scrolling="no" style="border:none;" seamless="seamless" src="https://plotly.com/~ddejohn/160.embed?showlink=false" height="650" width="100%"></iframe> -->
+
+![](./weapon_damage_distribution.png)
 
 ### Armor
 
