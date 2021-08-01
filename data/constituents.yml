@@ -41,6 +41,8 @@ armor:
         - cuisses
         - greaves
         - sabatons
+
+
 weapon:
     blade:
         - fuller

@@ -23,6 +23,7 @@ armor:
         heavy:
             - laminar
             - plate
+
 weapon:
     primary:
         - iron

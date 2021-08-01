@@ -2,35 +2,28 @@
 
 
 ARMOR_DETAILS = """
-    class:            {class} [{sub_class}]
-    type:             {type}
-    rarity:           {rarity}
-    material:         {material}
-    construction:     {construction}
+    construction:       {secondary} {primary}
 """
 
 
 ARMOR_STATS = """
-    protection:   {protection: >5.2f}
-    movement:     {movement: >5.2f}
-    noise:        {noise: >5.2f}
-    luck:         {luck: >5.2f}
+    protection:         {protection: >5.2f}
+    movement:           {movement: >5.2f}
+    noise:              {noise: >5.2f}
+    luck:               {luck: >5.2f}
 """
 
 
 WEAPON_DETAILS = """
-    class:            {class} [{sub_class}]
-    type:             {type}
-    rarity:           {rarity}
-    materials:        {material}
+    material:           {primary} and {secondary}
 """
 
 
 WEAPON_STATS = """
-    damage:       {damage: >5.2f}
-    range:        {range: >5.2f}
-    speed:        {speed: >5.2f}
-    luck:         {luck: >5.2f}
+    damage:             {damage: >5.2f}
+    range:              {range: >5.2f}
+    speed:              {speed: >5.2f}
+    luck:               {luck: >5.2f}
 """
 
 
@@ -42,6 +35,9 @@ ITEM_INFO = """
 ---
 
 details:
+    type:               {item_class} {item_type} [{item_subclass}]
+    make:               {item_make}
+    rarity:             {rarity}
 {details}
 
 stats:
@@ -61,8 +57,8 @@ gleams with a prismatic shimmer.
 ---
 
 details:
-    class:              light armor [chest]
-    type:               brigandine
+    type:               light armor [chest]
+    make:               brigandine
     rarity:             rare
     material:           electrum
     construction:       scale

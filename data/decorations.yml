@@ -43,82 +43,56 @@ carvings:
         - patterns
         - inscriptions
         - engravings
+        - tessellations
 
 
 inlays:
-    - gold
-    - silver
-    - onyx
-    - obsidian
-    - amethyst
-    - emerald
-    - ruby
-    - jade
-    - turquoise
-    - zircon
-    - howlite
-    - bloodstone
-    - topaz
-    - sardonyx
-    - iridium
-    - gypsum
-    - opal
-    - coral
-    - moonstone
-    - sapphire
-    - spessartine
-    - charoite
-    - copper
-    - pearl
+    verb:
+        - embossed
+        - inlaid
+        - decorated
+        - tessellated
+        - inset
+        - veneered
+    noun:
+        - gold
+        - silver
+        - onyx
+        - obsidian
+        - amethyst
+        - emerald
+        - ruby
+        - jade
+        - turquoise
+        - zircon
+        - howlite
+        - bloodstone
+        - topaz
+        - sardonyx
+        - iridium
+        - gypsum
+        - opal
+        - coral
+        - moonstone
+        - sapphire
+        - spessartine
+        - charoite
+        - copper
+        - pearl
+    adverb:
+        - meticulously
+        - painstakingly
+        - precisely
+        - scrupulously
+        - ceremoniously
+        - diligently
+        - nimbly
+        - deftly
 
 
 detail:
-    adjective:
-        crude:
-            - scratched
-            - pitted
-            - rusted
-            - distressed
-            - chewed
-            - gnarled
-            - bent
-            - scored
-            - burred
-        common:
-            - scratched
-            - burred
-            - burnished
-            - scored
-            - pitted
-            - rusted
-            - distressed
-        uncommon:
-            - burnished
-            - distressed
-            - scratched
-            - worn
-            - dull
-            - rough
-        rare:
-            - polished
-            - smooth
-            - elegant
-            - immaculate
-            - spotless
-        legendary:
-            - ornate
-            - engraved
-            - embossed
-            - gilded
-            - elaborate
-        mythical:
-            - ornate
-            - engraved
-            - embossed
-            - gilded
-            - elaborate
-    noun:
-        crude:
+    crude:
+        noun:
             - dried blood
             - dirt
             - dust
@@ -128,24 +102,7 @@ detail:
             - notches
             - bits of fur
             - teeth marks
-        common:
-            - dried blood
-            - dirt
-            - claw marks
-            - scratches
-            - filth
-            - smudges
-        uncommon:
-            - smudges
-            - grit
-            - scratches
-            - soot
-            - residue
-        rare:
-        legendary:
-        mythical:
-    verb:
-        crude:
+        verb:
             - haphazardly
             - shoddily
             - crudely
@@ -153,59 +110,123 @@ detail:
             - inexpertly
             - poorly
             - hastily
-        common:
-            - haphazardly
-            - hastily
-            - inexpertly
-            - adequately
-            - competently
-        uncommon:
-            - adequately
-            - competently
-            - sufficiently
-            - decently
-            - capably
-        rare:
-            - meticulously
-            - skillfully
-            - precisely
-            - diligently
-            - fastidiously
-        legendary:
-            - expertly
-            - elegantly
-            - masterfully
-            - flawlessly
-        mythical:
-            - expertly
-            - elegantly
-            - masterfully
-            - flawlessly
-    soft:
-        crude:
+        adjective:
+            - scratched
+            - pitted
+            - rusted
+            - distressed
+            - chewed
+            - gnarled
+            - bent
+            - scored
+            - burred
+        soft:
             - scratched
             - distressed
             - chewed
             - gnarled
             - scored
-        common:
+    common:
+        noun:
+            - dried blood
+            - dirt
+            - claw marks
+            - scratches
+            - filth
+            - smudges
+        verb:
+            - haphazardly
+            - hastily
+            - inexpertly
+            - adequately
+            - competently
+        adjective:
+            - scratched
+            - burred
+            - burnished
+            - scored
+            - pitted
+            - rusted
+            - distressed
+        soft:
             - scratched
             - burnished
             - scored
             - distressed
-        uncommon:
+    uncommon:
+        noun:
+            - smudges
+            - grit
+            - scratches
+            - soot
+            - residue
+        verb:
+            - adequately
+            - competently
+            - sufficiently
+            - decently
+            - capably
+        adjective:
+            - burnished
+            - distressed
+            - scratched
+            - worn
+            - dull
+            - rough
+        soft:
             - burnished
             - fine
             - satin
-        rare:
+    rare:
+        noun:
+        verb:
+            - skillfully
+            - precisely
+            - diligently
+            - fastidiously
+        adjective:
+            - polished
+            - smooth
+            - elegant
+            - immaculate
+            - spotless
+        soft:
             - fine
             - satin
             - engraved
-        legendary:
+    legendary:
+        noun:
+        verb:
+            - expertly
+            - elegantly
+            - meticulously
+            - masterfully
+            - flawlessly
+        adjective:
+            - ornate
+            - engraved
+            - embossed
+            - gilded
+            - elaborate
+        soft:
             - fine
             - satin
             - engraved
-        mythical:
+    mythical:
+        noun:
+        verb:
+            - meticulously
+            - elegantly
+            - ceremoniously
+            - masterfully
+            - flawlessly
+        adjective:
+            - ornate
+            - engraved
+            - embossed
+            - gilded
+            - elaborate
+        soft:
             - fine
             - satin
             - engraved

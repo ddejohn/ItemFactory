@@ -29,6 +29,8 @@ armor:
         shield:
             - buckler
             - targe shield
+
+
 weapon:
     one-handed:
         blade:
