@@ -18,7 +18,7 @@ class ItemBase:
         with open("ItemFactory/data/items.yml") as item_data:
             item_types = yaml.safe_load(item_data.read())
 
-        # Needs reverse dictionaries, lookup needs to start at 'make'
+        # Needs two-way dictionaries, lookup needs to start at 'make'
         # self.item_type = self.get_data(item_types, item_type)
 
         # item_classes = item_types[item_type]
