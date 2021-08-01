@@ -1,5 +1,5 @@
 import cmd
-import constants
+from data import constants
 
 
 class Help(cmd.Cmd):
