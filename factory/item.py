@@ -16,10 +16,6 @@ class ItemBase:
                           item_make=None):
         with open("ItemFactory/data/items.yml") as item_data:
             item_data = yaml.safe_load(item_data.read())
-            item_types = item_data[""]
-            item_classes = item_data[""]
-            item_subclasses = item_data[""]
-            item_makes = item_data[""]
 
         self.item_type = item_data.get(item_type, choice(("armor", "weapon")))
         self.item_class = item_data.get(self.item_type).get(item_class)
