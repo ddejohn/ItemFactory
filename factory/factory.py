@@ -17,7 +17,7 @@ with open("ItemFactory/data/decorations.yml") as f:
     DECORATIONS = yaml.safe_load(f.read())
 
 
-class ItemData:
+class ItemBase:
     def __init__(self):
         self.category = ""
         self.base = ""
@@ -25,7 +25,7 @@ class ItemData:
         self.make = ""
 
 
-class ItemBase(ItemData):
+class ItemAttributes(ItemBase):
     def __init__(self):
         super().__init__()
         self.rarity = ""
@@ -34,7 +34,7 @@ class ItemBase(ItemData):
         self.constituents = []
 
 
-class Item(ItemBase):
+class Item(ItemAttributes):
     def __init__(self):
         super().__init__()
         self.name = ""

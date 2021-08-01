@@ -1,6 +1,11 @@
 # Generated files
 items.txt
 
+# Plotting
+docs/
+
+# Deprecated
+cli_old.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
