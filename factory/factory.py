@@ -10,17 +10,14 @@ import yaml
 from .item import Item
 
 
-with open("./data/materials.yml") as f:
-    MATERIALS = yaml.safe_load(f.read())
-
-with open("./data/constituents.yml") as f:
-    CONSTITUENTS = yaml.safe_load(f.read())
-
-with open("./data/naming.yml") as f:
-    NAMING = yaml.safe_load(f.read())
-
-with open("./data/decorations.yml") as f:
-    DECORATIONS = yaml.safe_load(f.read())
+with open("ItemFactory/data/materials.yml") as materials_yaml, \
+     open("ItemFactory/data/constituents.yml") as constituents_yaml, \
+     open("ItemFactory/data/naming.yml") as naming_yaml, \
+     open("ItemFactory/data/decorations.yml") as decorations_yaml:
+    MATERIALS = yaml.safe_load(materials_yaml.read())
+    CONSTITUENTS = yaml.safe_load(constituents_yaml.read())
+    NAMING = yaml.safe_load(naming_yaml.read())
+    DECORATIONS = yaml.safe_load(decorations_yaml.read())
 
 
 class AssemblyLine:

@@ -8,9 +8,7 @@ armor:
             - corslet
         hands:
             - gauntlets
-            - gloves
         feet:
-            - boots
             - sabatons
         shield:
             - pavise shield

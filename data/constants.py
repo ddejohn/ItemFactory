@@ -40,14 +40,15 @@ Start the forge
 ---------------
 
 Grammar:
-    build [(type | class) [ , (subclass | make)]]
+    build [type | class | subclass | make | (class, subclass)]
 
 Examples:
     build
     build armor
+    build one-handed
+    build ranged
     build heavy chest
     build recurve bow
-    build one-handed
     build dagger
 """
 

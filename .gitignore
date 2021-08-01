@@ -4,6 +4,9 @@ items.txt
 # Deprecated
 cli_old.py
 
+# Settings
+.vscode/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
