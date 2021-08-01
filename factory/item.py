@@ -19,6 +19,7 @@ class ItemBase:
             item_types = yaml.safe_load(item_data.read())
 
         # Needs two-way dictionaries, lookup needs to start at 'make'
+        # Likely need enumeration
         # self.item_type = self.get_data(item_types, item_type)
 
         # item_classes = item_types[item_type]
