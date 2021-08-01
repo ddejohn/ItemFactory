@@ -1,4 +1,5 @@
 # Standard Library
+from typing import Any
 from random import choice
 
 # Third party
@@ -15,12 +16,22 @@ class ItemBase:
                           item_subclass=None,
                           item_make=None):
         with open("ItemFactory/data/items.yml") as item_data:
-            item_data = yaml.safe_load(item_data.read())
+            item_types = yaml.safe_load(item_data.read())
 
-        self.item_type = item_data.get(item_type, choice(("armor", "weapon")))
-        self.item_class = item_data.get(self.item_type).get(item_class)
-        self.item_subclass = item_subclass
-        self.item_make = item_make
+        # Needs reverse dictionaries, lookup needs to start at 'make'
+        # self.item_type = self.get_data(item_types, item_type)
+
+        # item_classes = item_types[item_type]
+        # self.item_class = self.get_data(item_classes, item_class)
+
+        # item_subclasses = item_classes[self.item_class]
+        # self.item_subclass = self.get_data(item_subclasses, item_subclass)
+
+        # item_makes = item_subclasses[self.item_subclass]
+        # self.item_make = self.get_data(item_makes, item_make)
+
+    def get_data(d: dict, key: Any) -> str:
+        return {None: choice(d.keys())}.get(key, key)
 
 
 class ItemAttributes(ItemBase):
