@@ -60,8 +60,7 @@ details:
     type:               light armor [chest]
     make:               brigandine
     rarity:             rare
-    material:           electrum
-    construction:       scale
+    construction:       scale electrum
 
 stats:
     protection:         39.28
