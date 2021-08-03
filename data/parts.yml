@@ -1,3 +1,5 @@
+HEADER: [class, subclass, parts]
+
 armor:
     shield:
         - face

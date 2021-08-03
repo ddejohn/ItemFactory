@@ -1,4 +1,9 @@
-"""String constants used for the CLI"""
+PATHS = {"items": "ItemFactory/data/items.yml",
+         "materials": "ItemFactory/data/materials.yml",
+         "parts": "ItemFactory/data/parts.yml",
+         "naming": "ItemFactory/data/naming.yml",
+         "decorations": "ItemFactory/data/decorations.yml",
+         "details": "ItemFactory/data/details.yml"}
 
 
 INTRO = r"""
@@ -35,12 +40,12 @@ Examples:
 """
 
 
-HELP_BUILD = """
-Start the forge
+HELP_BUILD = """```
+Build an item with optional arguments
 ---------------
 
 Grammar:
-    build [type | class | subclass | make | (class, subclass)]
+    build [class | subclass | type | subtype | (subclass, type)]
 
 Examples:
     build
@@ -48,9 +53,12 @@ Examples:
     build one-handed
     build ranged
     build heavy chest
-    build recurve bow
+    build 'recurve bow'
     build dagger
-"""
+
+Note:
+    Enclose multi-word args with single quotes, e.g.: 'war hammer'
+```"""
 
 
 HELP_REROLL = """
@@ -79,77 +87,92 @@ Grammar tips:
 """
 
 
-HELP_TYPE = """
-type = 'armor'
-     | 'weapon'
-"""
-
-
 HELP_CLASS = """
-class = 'heavy'
-      | 'light'
-      | 'one-handed'
-      | 'two-handed'
+class = 'armor'
+      | 'weapon'
 """
 
 
 HELP_SUBCLASS = """
-subclass = 'head'
-         | 'chest'
-         | 'hands'
-         | 'feet'
-         | 'shield'
-         | 'blade'
-         | 'blunt'
-         | 'axe'
-         | 'ranged'
+subclass = 'heavy'
+         | 'light'
+         | 'one-handed'
+         | 'two-handed'
 """
 
 
-HELP_MAKE = """
-make = 'dagger'
-     | 'corvo'
-     | 'stiletto'
-     | 'shortsword'
-     | 'seax'
-     | 'xiphos'
-     | 'baselard'
-     | 'gladius'
-     | 'longsword'
-     | 'claymore'
-     | 'broadsword'
-     | 'bastard sword'
-     | 'morning star'
-     | 'mace'
-     | 'club'
-     | 'flail'
-     | 'war hammer'
-     | 'meteor hammer'
-     | 'dire flail'
-     | 'labrys'
-     | 'hatchet'
-     | 'war scythe'
-     | 'battle axe'
-     | 'halberd'
-     | 'glaive'
-     | 'recurve bow'
-     | 'scythian bow'
-     | 'crossbow'
-     | 'longbow'
-     | 'helm'
-     | 'helmet'
-     | 'hood'
-     | 'coif'
-     | 'cuirass'
-     | 'corslet'
-     | 'brigandine'
-     | 'gambeson'
-     | 'gauntlets'
-     | 'gloves'
-     | 'boots'
-     | 'sabatons'
-     | 'pavise shield'
-     | 'kite shield'
-     | 'buckler'
-     | 'targe shield'
+HELP_TYPE = """
+type = 'head'
+     | 'chest'
+     | 'hands'
+     | 'feet'
+     | 'shield'
+     | 'blade'
+     | 'blunt'
+     | 'axe'
+     | 'ranged'
+"""
+
+
+HELP_SUBTYPE = """
+subtype = 'helm'
+        | 'helmet'
+        | 'cuirass'
+        | 'corslet'
+        | 'gauntlets'
+        | 'sabatons'
+        | 'pavise shield'
+        | 'kite shield'
+        | 'hood'
+        | 'coif'
+        | 'brigandine'
+        | 'gambeson'
+        | 'gloves'
+        | 'boots'
+        | 'buckler'
+        | 'targe shield'
+        | 'dagger'
+        | 'haladie dagger'
+        | 'corvo'
+        | 'stiletto'
+        | 'shortsword'
+        | 'falchion'
+        | 'seax'
+        | 'cutlass'
+        | 'rapier'
+        | 'kodachi'
+        | 'hook sword'
+        | 'willow leaf sabre'
+        | 'chokuto'
+        | 'jian'
+        | 'xiphos'
+        | 'baselard'
+        | 'gladius'
+        | 'morning star'
+        | 'mace'
+        | 'club'
+        | 'flail'
+        | 'labrys'
+        | 'hatchet'
+        | 'longsword'
+        | 'claymore'
+        | 'odachi'
+        | 'dadao'
+        | 'estoc'
+        | 'katana'
+        | 'flamberge'
+        | 'zweihander'
+        | 'broadsword'
+        | 'bastard sword'
+        | 'war hammer'
+        | 'meteor hammer'
+        | 'dire flail'
+        | 'war scythe'
+        | 'battle axe'
+        | 'halberd'
+        | 'glaive'
+        | 'recurve bow'
+        | 'scythian bow'
+        | 'crossbow'
+        | 'longbow'
 """

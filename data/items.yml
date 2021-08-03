@@ -1,3 +1,5 @@
+HEADER: [class, subclass, type, subtype]
+
 armor:
     heavy:
         head:

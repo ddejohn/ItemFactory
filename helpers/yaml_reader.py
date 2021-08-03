@@ -7,6 +7,9 @@ from typing import Dict, Iterable, List
 import yaml
 import pandas as pd
 
+# Local
+from helpers.constants import PATHS
+
 
 def load_data(path: str, columns: List[str]) -> pd.DataFrame:
     with open(path, "r") as f:
@@ -25,11 +28,20 @@ def traverse_dict(data, items=tuple()) -> Iterable[tuple]:
 def select(df: pd.DataFrame, *args) -> pd.DataFrame:
     if df.empty or not args:
         return df
-    return select(df[df.isin(args[:1]).any(axis=1)], *args[1:])
+    mask = df.isin(args[:1]).any(axis=1)
+    return select(df[mask].reset_index(drop=True), *args[1:])
 
 
 def generate_selection_dict(df: pd.DataFrame) -> Dict[str, str]:
     return choice(df.to_dict("records"))
+
+
+def load_yamls() -> dict:
+    data = {}
+    for name, path in PATHS.items():
+        with open(path, "r") as f:
+            data[name] = yaml.safe_load(f)
+    return data
 
 
 # d = {"a": {"b": {"c": [0, 1],
