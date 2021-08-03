@@ -28,15 +28,23 @@ armor:
             - buckler
             - targe shield
 
-
 weapon:
     one-handed:
         blade:
             - dagger
+            - haladie dagger
             - corvo
             - stiletto
             - shortsword
+            - falchion
             - seax
+            - cutlass
+            - rapier
+            - kodachi
+            - hook sword
+            - willow leaf sabre
+            - chokuto
+            - jian
             - xiphos
             - baselard
             - gladius
@@ -52,6 +60,12 @@ weapon:
         blade:
             - longsword
             - claymore
+            - odachi
+            - dadao
+            - estoc
+            - katana
+            - flamberge
+            - zweihander
             - broadsword
             - bastard sword
         blunt:

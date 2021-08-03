@@ -56,6 +56,15 @@ gleams with a prismatic shimmer.
 
 ---
 
+Type                                    Rarity          Construction
+Dagger (one-handed weapon [blade])      Mythical        Meteorite and Ebony
+
+
+Helm (heavy armor [head])
+Cuirass (heavy armor [chest])
+
+
+
 details:
     type:               light armor [chest]
     make:               brigandine

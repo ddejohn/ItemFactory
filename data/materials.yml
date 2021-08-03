@@ -26,13 +26,26 @@ armor:
 
 weapon:
     primary:
-        - iron
-        - steel
-        - bone
-        - obsidian
-        - electrum
-        - adamantite
-        - meteorite
+        crude:
+            - bronze
+            - pig iron
+        common:
+            - wrought iron
+            - meteorite iron
+        uncommon:
+            - stainless steel
+            - high carbon steel
+            - crucible steel
+        rare:
+            - high carbon steel
+            - laminated steel
+        legendary:
+            - laminated steel
+            - pattern welded steel
+        mythical:
+            - wootz steel
+            - pattern welded steel
+            - folded steel
     secondary:
         crude:
             - splintered wood
@@ -45,14 +58,14 @@ weapon:
             - hickory
         uncommon:
             - beech
-            - mahogony
+            - mahogany
             - hickory
             - maple
         rare:
             - hickory
-            - mahogony
+            - mahogany
             - walnut
-            - cheery
+            - cherry
         legendary:
             - walnut
             - cherry

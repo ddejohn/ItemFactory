@@ -1,118 +1,140 @@
-abstract:
-    - of blooding
-    - of humiliation
-    - of hubris
-    - of spite
-    - of death
-    - of life
-    - of bones
-    - of regret
-    - of dread
-    - of sorrow
-    - of screams
-    - of lust
-    - of carving
-    - of surprise
-    - of confusion
-    - of frenzy
-    - of breaking
-    - of loathing
-    - of sickness
-    - of poisons
-    - of tragedy
-    - of souls
-    - of rotting
-    - of governing
-    - of ecstasy
-    - of torpor
-    - of truth
-    - of lies
-    - of victory
-    - of ambition
-    - of vengeance
-    - of somnolence
-    - of joy
-    - of corruption
-    - of erosion
-    - of jubilance
-    - of merit
-    - of witching
-    - of burdens
-    - of honor
-    - of repulsion
-    - of reckoning
-    - of mourning
-    - of grieving
-    - of judgement
-    - of battering
-    - of hell
-    - of starlight
-    - of scorching
-    - of smite
-    - of waning
-    - of smiting
-    - of diffusion
-    - of mummification
-    - of crushing
-    - of extraction
-    - of valor
-    - of fear
-    - of firestorms
-    - of icestorms
-    - of ice
-    - of thunder
-    - of lightning
-    - of hatred
-    - of terror
-    - of ruin
-    - of storms
-    - of ruining
-    - of fury
-    - of disgust
-    - of friendship
-    - of calming
-    - of shame
-    - of pity
-    - of envy
-    - of suffering
-    - of tears
-    - of disdain
-    - of putrification
-    - of contempt
-    - of mediocrity
-    - of misery
-    - of thorns
-    - of light
-    - of dark
-    - of darkness
-    - of dawn
-    - of dusk
-    - of herecy
-    - of twilight
-    - of maleficence
-    - of brutality
-    - of savagery
-    - of malice
-    - of quickening
-    - of grace
-    - of disintegration
-    - of disintegrating
-    - of embalming
-    - of destruction
-    - of exsanguination
-    - of the hunt
-    - of the grotesque
-    - of the heretic
-    - of the prophet
-    - of the night
-    - of the stars
-    - of the storm
-    - of the shamed
-    - of the hated
-    - of the dawn
-    - of the dusk
-    - of the morning
+nouns:
+    - blooding
+    - humiliation
+    - hubris
+    - spite
+    - death
+    - life
+    - bones
+    - regret
+    - dread
+    - sorrow
+    - screams
+    - lust
+    - carving
+    - surprise
+    - confusion
+    - frenzy
+    - breaking
+    - loathing
+    - sickness
+    - poisons
+    - tragedy
+    - souls
+    - rotting
+    - governing
+    - ecstasy
+    - torpor
+    - truth
+    - lies
+    - victory
+    - ambition
+    - vengeance
+    - somnolence
+    - joy
+    - corruption
+    - erosion
+    - jubilance
+    - merit
+    - witching
+    - burdens
+    - honor
+    - repulsion
+    - reckoning
+    - mourning
+    - grieving
+    - judgement
+    - battering
+    - hell
+    - starlight
+    - scorching
+    - smite
+    - waning
+    - smiting
+    - diffusion
+    - mummification
+    - crushing
+    - extraction
+    - valor
+    - fear
+    - ice
+    - thunder
+    - lightning
+    - hatred
+    - terror
+    - ruin
+    - storms
+    - ruining
+    - fury
+    - disgust
+    - friendship
+    - calming
+    - shame
+    - pity
+    - envy
+    - suffering
+    - tears
+    - disdain
+    - putrefaction
+    - contempt
+    - mediocrity
+    - misery
+    - thorns
+    - light
+    - dark
+    - darkness
+    - dawn
+    - dusk
+    - heresy
+    - twilight
+    - maleficence
+    - brutality
+    - savagery
+    - malice
+    - quickening
+    - grace
+    - disintegrating
+    - embalming
+    - destruction
+    - exsanguination
+    - the hunt
+    - the grotesque
+    - the heretic
+    - the prophet
+    - the night
+    - the stars
+    - the storm
+    - the shamed
+    - the hated
+    - the dawn
+    - the dusk
+    - the morning
 
+verbs:
+    - ripper
+    - eater
+    - stealer
+    - absorber
+    - shredder
+    - bruiser
+    - seer
+    - destroyer
+    - killer
+    - purger
+    - bearer
+    - corruptor
+    - preacher
+    - defier
+    - husher
+    - defiler
+    - dredger
+    - mutilator
+    - adder
+    - breaker
+    - scorcher
+    - maker
+    - bringer
+    - slayer
 
 adjectives:
     - ghastly
@@ -135,7 +157,6 @@ adjectives:
     - weeping
     - splendiferous
     - loathsome
-    - blunderous
     - magnetic
     - electric
     - burning
@@ -181,7 +202,8 @@ adjectives:
     - opulent
     - lustrous
     - hideous
-    - insideous
+    - viscera
+    - insidious
     - spiteful
     - ugly
     - thorny
@@ -193,8 +215,7 @@ adjectives:
     - grotesque
     - weeping
 
-
-prefixes:
+subjects:
     - wolf
     - troll
     - goliath
@@ -202,14 +223,10 @@ prefixes:
     - dragon
     - crow
     - widow
-    - thorn
     - wraith
-    - skull
-    - spine
     - doom
     - death
     - hate
-    - bone
     - fear
     - soul
     - sky
@@ -217,47 +234,23 @@ prefixes:
     - god
     - star
     - shadow
+    - bane
     - sun
     - moon
     - storm
 
-
-verbs:
-    - ripper
-    - eater
-    - stealer
-    - absorber
-    - shredder
-    - bruiser
-    - seer
-    - destroyer
-    - killer
-    - purger
-    - bearer
-    - corruptor
-    - preacher
-    - defier
-    - husher
-    - defiler
-    - dredger
-    - mutilator
-    - adder
-    - breaker
-    - scorcher
-    - maker
-    - bringer
-    - slayer
-
-
-nouns:
+parts:
     - eye
     - fang
     - claw
-    - bane
     - marrow
+    - spine
     - thorn
     - crown
     - heart
     - blood
     - wail
     - tooth
+    - thorn
+    - bone
+    - skull

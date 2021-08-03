@@ -7,11 +7,12 @@ armor:
     heavy head:
         - visor
         - comb
-        - [gorget, aventail, camail]
+        - gorget
     light head:
         - cowl
         - gaiter
         - closure
+        - camail
     heavy chest:
         - breastplate
         - pauldrons
@@ -26,13 +27,13 @@ armor:
     heavy hands:
         - rerebraces
         - cuffs
-        - [lower cannons, vambraces]
-        - [carpal plates, wrist plates]
+        - lower cannons
+        - carpal plates
     light hands:
         - rerebraces
         - cuffs
-        - [lower cannons, vambraces]
-        - [carpal plates, wrist plates]
+        - vambraces
+        - wrist plates
     heavy feet:
         - cuisses
         - greaves
@@ -41,7 +42,6 @@ armor:
         - cuisses
         - greaves
         - sabatons
-
 
 weapon:
     blade:
