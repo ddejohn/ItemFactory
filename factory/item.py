@@ -6,25 +6,21 @@ class ItemBase:
         self.item_type = item_type
         self.item_subtype = item_subtype
 
-    def embed(self, primary_field: dict, secondary_field: dict) -> dict:
-        class_subclass = f"{self.item_class} ({self.item_subclass})"
+    @property
+    def embed(self) -> dict:
+        head = f"**{self.item_subclass} {self.item_class}** [{self.item_type}]"
         return {"title": self.name,
-                "description": f"*{self.description}*",
+                "description": f"{head}\n\n" + self.description,
                 "color": 0x40444b,
-                "fields": [{"name": "Class (subclass)",
-                            "value": class_subclass,
-                            "inline": True},
-                           {"name": "Type",
-                            "value": self.item_type,
-                            "inline": True},
-                           {"name": "Subtype",
+                "fields": [{"name": "Type",
                             "value": self.item_subtype,
                             "inline": True},
                            {"name": "Rarity",
                             "value": self.rarity,
                             "inline": True},
-                           primary_field,
-                           secondary_field]}
+                           {"name": "Construction",
+                            "value": self.construction.capitalize(),
+                            "inline": True}]}
 
 
 class ItemAttributes(ItemBase):
@@ -51,14 +47,8 @@ class Armor(Item):
         super().__init__(**item_data)
 
     @property
-    def embed(self):
-        primary_field = {"name": "Material",
-                         "value": self.primary,
-                         "inline": True}
-        secondary_field = {"name": "Construction",
-                           "value": self.secondary,
-                           "inline": True}
-        return super().embed(primary_field, secondary_field)
+    def construction(self) -> str:
+        return f"{self.secondary} {self.primary}"
 
 
 class Weapon(Item):
@@ -67,14 +57,8 @@ class Weapon(Item):
         super().__init__(**item_data)
 
     @property
-    def embed(self):
-        primary_field = {"name": "Primary Material",
-                         "value": self.primary,
-                         "inline": True}
-        secondary_field = {"name": "Secondary Material",
-                           "value": self.secondary,
-                           "inline": True}
-        return super().embed(primary_field, secondary_field)
+    def construction(self) -> str:
+        return f"{self.primary} and {self.secondary}"
 
 
 if __name__ == "__main__":

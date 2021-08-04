@@ -5,14 +5,15 @@
 from typing import Union
 
 # Local
-from .item import Weapon, Armor
+from factory.item import Weapon, Armor
 
 
 class Forge:
+    rarities = ("crude", "common", "uncommon",
+                "rare", "legendary", "mythical")
+
     def __init__(self, rarity_weights=(50, 25, 15, 6, 3, 1)):
         self.rarity_weights = rarity_weights
-        self.rarities = ("crude", "common", "uncommon",
-                         "rare", "legendary", "mythical")
 
     def __call__(self, *args: str) -> Union[Weapon, Armor]:
         """
